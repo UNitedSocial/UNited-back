@@ -5,4 +5,4 @@ import { helloRoutes } from './hello.routes'
 const router: Router = express.Router()
 router.use('/api', helloRoutes)
 
-export const applicationRouter: Router = router
+export const applicationRouter = router

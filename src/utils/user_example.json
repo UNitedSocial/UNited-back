@@ -1,0 +1,30 @@
+{
+    "id":1,
+    "name": "Pepito Pérez",
+    "username":"UNitedUser1",
+    "email": "UNitedUser1@user.com",
+    "groups":[
+        {
+            "group_id": 1,
+            "group_name": "UNitedGroup1",
+            "date": "2018-05-24",
+            "is_editor": true
+        }
+    ],
+    "requests": [
+        {
+            "group_id": 1,
+            "group_name": "UNitedGroup1",
+            "date": "2018-05-15",
+            "state": "approved",
+            "app-rej-on":"2018-05-24"
+        },
+        {
+            "group_id": 1,
+            "group_name": "UNitedGroup1",
+            "date": "2018-02-02",
+            "state": "rejected",
+            "app-rej-on":"2018-02-04"
+        }
+    ]
+}
