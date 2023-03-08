@@ -7,7 +7,7 @@
             "mail":"UNitedGroup1@group.com",
             "page":"UNitedGroup1Page.com",
             "cellphone": "3564978256",
-            "social_networks":{
+            "socialNetworks":{
                 "facebook":"facebook.com/UNitedGroup1",
                 "instagram":"instagram.com/UNitedGroup1",
                 "linkedin":"linkedin.com/UNitedGroup1",
@@ -15,23 +15,23 @@
                 "youtube":"youtube.com/UNitedGroup1"
             }
         },
-        "number_of_members": 1,
+        "numberOfMembers": 1,
         "topics":[
             "ingeniería",
             "arduino",
             "señales"
         ],
         "classification":"Académico",
-        "is_recognized": true,
-        "recognized_info": {
+        "isRecognized": true,
+        "recognizedRnfo": {
             "type": "semillero",
             "faculty": "Ingeniería",
             "department": "departamento de ingeniería eléctrica y electrónica",
-            "main_professor": "Augusto Martinez"
+            "mainProfessor": "Augusto Martinez"
         },
-        "fundation_date": "2010-04-03",
-        "creation_date": "2018-04-03",
-        "reference_img": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
+        "fundationDate": "2010-04-03",
+        "creationDate": "2018-04-03",
+        "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
     },
     "members":[
         {
@@ -49,7 +49,7 @@
             "name":"Pepito Perez",
             "date": "2018-05-15",
             "state": "approved",
-            "app-rej-on":"2018-05-24"
+            "approvedRejectedOn":"2018-05-24"
         },
         {
             "userId":1,
@@ -57,7 +57,7 @@
             "name":"Pepito Perez",
             "date": "2018-02-02",
             "state": "rejected",
-            "app-rej-on":"2018-02-04"
+            "approvedRejectedOn":"2018-02-04"
         }
     ],
     "page":[
