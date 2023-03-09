@@ -1,5 +1,7 @@
 // info types
 
+import mongoose from 'mongoose'
+
 export enum RecognizedInfoType {
   hotbed = 'semillero',
   group = 'grupo estudiantil',
@@ -8,33 +10,32 @@ export enum RecognizedInfoType {
 export enum Classification {
   academic = 'Académico',
   cultural = 'Cultural',
-  sports = 'Deportivo',
-  social = 'Social',
-  artistic = 'Artístico',
-  religious = 'Religioso',
+  leisure = 'Ocio',
+  other = 'Otro',
 }
 
-export interface SocialNetworks {
-  facebook: string
-  instagram: string
-  linkedin: string
-  twitter: string
-  youtube: string
+export interface SocialNetworks extends mongoose.Document {
+  facebook?: string
+  instagram?: string
+  linkedin?: string
+  twitter?: string
+  youtube?: string
 }
 
-export interface Contact {
+export interface Contact extends mongoose.Document {
   mail: string
-  page: string
+  page?: string
   cellphone: string
   socialNetworks: SocialNetworks
 }
-export interface RecognizedInfo {
+
+export interface RecognizedInfo extends mongoose.Document {
   type: RecognizedInfoType
-  faculty: string
-  department: string
-  mainProfessor: string
+  faculty?: string
+  department?: string
+  mainProfessor?: string
 }
-export interface GroupInfo {
+export interface GroupInfo extends mongoose.Document {
   name: string
   description: string
   contact: Contact
@@ -42,11 +43,13 @@ export interface GroupInfo {
   topics: string[]
   classification: Classification
   isRecognized: boolean
-  recognizedInfo: RecognizedInfo
-  fundationDate: string
-  creationDate: string
-  referenceImg: string
+  recognizedInfo?: RecognizedInfo
+  fundationDate?: Date
+  creationDate: Date
+  referenceImg: false
 }
+
+// Page types
 
 export enum SectionTypes {
   carousel = 'carousel',
@@ -56,26 +59,24 @@ export enum SectionTypes {
   list = 'list',
 }
 
-// Page types
-
-export interface carouselImage {
+export interface carouselImage extends mongoose.Document {
   img: string
-  description: string
+  description?: string
 }
 
-export interface carousel {
+export interface carousel extends mongoose.Document {
   images: carouselImage[]
 }
 
-export interface title {
+export interface title extends mongoose.Document {
   title: string
 }
 
-export interface subtitle {
+export interface subtitle extends mongoose.Document {
   subtitle: string
 }
 
-export interface paragraphs {
+export interface paragraphs extends mongoose.Document {
   paragraphs: string
 }
 
@@ -84,17 +85,17 @@ export enum StyleList {
   unordered = 'unordered'
 }
 
-export interface listElement {
+export interface listElement extends mongoose.Document {
   position: number
   line: string
 }
 
-export interface listContent {
+export interface listContent extends mongoose.Document {
   style: StyleList
   elements: listElement[]
 }
 
-export interface groupSections {
+export interface groupSections extends mongoose.Document {
   position: number
   type: SectionTypes
   content: carousel | title | subtitle | paragraphs | listContent
@@ -102,7 +103,7 @@ export interface groupSections {
 
 // Group types
 
-export enum Rol {
+export enum Role {
   editor = 'editor',
   member = 'member'
 }
@@ -110,28 +111,28 @@ export enum MemberState {
   active = 'active',
   inactive = 'inactive'
 }
-export interface Members {
-  userId: string
+export interface Members extends mongoose.Document {
+  userId: mongoose.Types.ObjectId
   username: string
   name: string
-  rol: Rol
+  role: Role
   state: MemberState
 }
 export enum RequestState {
   approved = 'approved',
-  rejected = 'rejected'
+  rejected = 'rejected',
+  pending = 'pending'
 }
-export interface Requests {
-  userId: string
+export interface Requests extends mongoose.Document {
+  userId: mongoose.Types.ObjectId
   username: string
   name: string
   date: string
   state: RequestState
-  approvedRejectedOn: string
+  approvedRejectedOn?: string
 }
 
 export interface Group {
-  id: string
   info: GroupInfo
   members: Members[]
   requests: Requests[]
