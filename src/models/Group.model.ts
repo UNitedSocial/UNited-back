@@ -1,11 +1,6 @@
-import mongoose, { Schema, model } from 'mongoose'
-import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, Group } from './group.documents'
+import { Schema, model } from 'mongoose'
+import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, GroupDocument } from './group.documents'
 
-export interface Book extends mongoose.Document {
-  title: string
-  author: string
-  isbn: string
-};
 const SocialNetworks = new Schema({
   facebook: { type: String, required: false },
   instagram: { type: String, required: false },
@@ -40,29 +35,7 @@ const GroupInfoShema = new Schema({
   creationDate: { type: Date, required: true, default: Date.now },
   referenceImg: { type: String, required: false }
 })
-/*
-const CarouselImageShema = new Schema({
-  img: { type: String, required: true },
-  description: { type: String, required: false }
-})
-const TitleShema = new Schema({
-  title: { type: String, required: true }
-})
-const SubtitleShema = new Schema({
-  subtitle: { type: String, required: true }
-})
-const ParagraphsShema = new Schema({
-  paragraphs: { type: String, required: true }
-})
-const ListElementShema = new Schema({
-  position: { type: Number, required: true, default: 0 },
-  element: { type: String, required: true }
-})
-const ListShema = new Schema({
-  style: { type: String, required: true, enum: Object.values(StyleList), default: StyleList.unordered },
-  elements: [ListElementShema]
-})
-*/
+
 const GroupSectionSchema = new Schema({
   position: { type: Number, required: true },
   type: { type: String, required: true, enum: Object.values(SectionTypes), default: SectionTypes.paragraphs },
@@ -86,10 +59,10 @@ const RequestGroupShema = new Schema({
   approvedRejectedOn: { type: Date, required: false }
 })
 const GroupSchema = new Schema({
-  groupInfo: GroupInfoShema,
-  sections: [GroupSectionSchema],
+  info: GroupInfoShema,
+  page: [GroupSectionSchema],
   members: [MembersShema],
   Requests: [RequestGroupShema]
 })
 
-export default model<Group>('Group', GroupSchema)
+export default model<GroupDocument>('Group', GroupSchema)

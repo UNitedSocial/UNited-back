@@ -3,9 +3,9 @@
 import mongoose from 'mongoose'
 
 export enum RecognizedInfoType {
-  hotbed = 'semillero',
-  group = 'grupo estudiantil',
-  project = 'proyecto de investigación',
+  hotbed = 'Semillero',
+  group = 'Grupo estudiantil',
+  project = 'Proyecto estudiantil',
 }
 export enum Classification {
   academic = 'Académico',
@@ -14,7 +14,7 @@ export enum Classification {
   other = 'Otro',
 }
 
-export interface SocialNetworks extends mongoose.Document {
+export interface SocialNetworks {
   facebook?: string
   instagram?: string
   linkedin?: string
@@ -22,20 +22,20 @@ export interface SocialNetworks extends mongoose.Document {
   youtube?: string
 }
 
-export interface Contact extends mongoose.Document {
+export interface Contact {
   mail: string
   page?: string
   cellphone: string
   socialNetworks: SocialNetworks
 }
 
-export interface RecognizedInfo extends mongoose.Document {
+export interface RecognizedInfo {
   type: RecognizedInfoType
   faculty?: string
   department?: string
   mainProfessor?: string
 }
-export interface GroupInfo extends mongoose.Document {
+export interface GroupInfo {
   name: string
   description: string
   contact: Contact
@@ -59,24 +59,24 @@ export enum SectionTypes {
   list = 'list',
 }
 
-export interface carouselImage extends mongoose.Document {
+export interface carouselImage {
   img: string
   description?: string
 }
 
-export interface carousel extends mongoose.Document {
+export interface carousel {
   images: carouselImage[]
 }
 
-export interface title extends mongoose.Document {
+export interface title {
   title: string
 }
 
-export interface subtitle extends mongoose.Document {
+export interface subtitle {
   subtitle: string
 }
 
-export interface paragraphs extends mongoose.Document {
+export interface paragraphs {
   paragraphs: string
 }
 
@@ -85,17 +85,17 @@ export enum StyleList {
   unordered = 'unordered'
 }
 
-export interface listElement extends mongoose.Document {
+export interface listElement {
   position: number
   line: string
 }
 
-export interface listContent extends mongoose.Document {
+export interface listContent {
   style: StyleList
   elements: listElement[]
 }
 
-export interface groupSections extends mongoose.Document {
+export interface groupSections {
   position: number
   type: SectionTypes
   content: carousel | title | subtitle | paragraphs | listContent
@@ -111,7 +111,7 @@ export enum MemberState {
   active = 'active',
   inactive = 'inactive'
 }
-export interface Members extends mongoose.Document {
+export interface Members {
   userId: mongoose.Types.ObjectId
   username: string
   name: string
@@ -123,7 +123,7 @@ export enum RequestState {
   rejected = 'rejected',
   pending = 'pending'
 }
-export interface Requests extends mongoose.Document {
+export interface Requests {
   userId: mongoose.Types.ObjectId
   username: string
   name: string
@@ -138,3 +138,4 @@ export interface Group {
   requests: Requests[]
   page: groupSections[]
 }
+export interface GroupDocument extends mongoose.Document, Group {}

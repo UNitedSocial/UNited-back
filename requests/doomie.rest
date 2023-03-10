@@ -1,0 +1,2 @@
+GET  http://localhost:3002/api/doomie?n=5
+content-type: application/json

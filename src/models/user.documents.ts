@@ -2,7 +2,7 @@ import { RequestState, Role } from './group.documents'
 import mongoose from 'mongoose'
 
 export interface UserGroup extends mongoose.Document {
-  groupId: string
+  groupId: mongoose.Types.ObjectId
   groupName: string
   date: string
   role: Role
