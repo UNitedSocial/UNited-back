@@ -2,10 +2,9 @@
 import express, { Router } from 'express'
 import { helloRoutes } from './hello.routes'
 import { groupsRoutes } from './groups.routes'
-// import { usersRouter } from './users.router'
-
+// get all routes
 const router: Router = express.Router()
-router.use('/api', helloRoutes)
+router.use('/api/ping', helloRoutes)
 router.use('/api', groupsRoutes)
 
 export const applicationRouter = router
