@@ -1,0 +1,108 @@
+POST http://localhost:3002/api/group
+content-type: application/json
+
+{
+  "group":{
+      "info":{
+          "name":"UNitedGroup964hd",
+          "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+          "contact":{
+              "mail":"UNitedGroup1@group.com",
+              "page":"UNitedGroup1Page.com",
+              "cellphone": "3564978256",
+              "socialNetworks":{
+                  "facebook":"facebook.com/UNitedGroup1",
+                  "instagram":"instagram.com/UNitedGroup1",
+                  "linkedin":"linkedin.com/UNitedGroup1",
+                  "twitter":"twitter.com/UNitedGroup1",
+                  "youtube":"youtube.com/UNitedGroup1"
+              }
+          },
+          "numberOfMembers": 1,
+          "topics":[
+              "ingeniería",
+              "arduino",
+              "señales"
+          ],
+          "classification":"Académico",
+          "isRecognized": true,
+          "recognizedInfo": {
+              "type": "Semillero",
+              "faculty": "Ingeniería",
+              "department": "departamento de ingeniería eléctrica y electrónica",
+              "mainProfessor": "Augusto Martinez"
+          },
+          "fundationDate": "2010-04-03",
+          "creationDate": "2018-04-03",
+          "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
+      },
+      "members":[
+      ],
+      "requests":[
+      ],
+      "page":[
+          {
+              "position":1,
+              "type":"carousel",
+              "content":{
+                  "images":[
+                      {
+                          "img":"https://www.eafit.edu.co/estudiantes/grupos-estudiantiles/aiesec-eafit/PublishingImages/AIESEC_MINI.jpg",
+                          "description": "Proident consequat eiusmod labore irure. Officia exercitation tempor in ea enim ea ut ea commodo sit."
+                      },
+                      {
+                          "img":"https://www.eafit.edu.co/bienestar-universitario/desarrollo-estudiantil/SiteAssets/Paginas/grupos-y-representantes-estudiantiles/grupos%20estuantiles.png",
+                          "description": "Proident consequat eiusmod labore irure.asdfasdfadsf Officia exercitation tempor in ea enim ea ut ea commodo sit."
+                      },
+                      {
+                          "img":"https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-creategia.jpg",
+                          "description": "Proident consequat eiusmod labore irure. Officia exercitation tempor in ea enim ea ut ea commodo sit.asdfasdfadsfasd"
+                      }
+                  ]
+              }
+          },
+          {
+              "position":2,
+              "type":"title",
+              "content":{
+                  "title":"Reunion 1"
+              }
+          },
+          {
+              "position":3,
+              "type":"subtitle",
+              "content":{
+                  "subtitle":"¿Que hicimos?"
+              }
+          },
+          {
+              "position":4,
+              "type":"paragraphs",
+              "content":{
+                  "paragraphs":"Anim aliquip proident qui occaecat reprehenderit sit officia voluptate magna aliqua qui sint irure reprehenderit. Nisi est irure reprehenderit fugiat. Ipsum sunt eu reprehenderit ea et sunt reprehenderit aliqua. Laborum nulla aliqua velit ullamco in occaecat deserunt eu pariatur. Quis eiusmod deserunt laboris amet consectetur ex irure aliquip nostrud mollit deserunt consectetur commodo nisi."
+              }
+          },
+          {
+              "position":5,
+              "type":"list",
+              "content":{
+                  "style":"ordered",
+                  "elements":[
+                      {
+                          "position":1,
+                          "line": "Proident consequat eiusmod labore irure. Officia exercitation tempor in ea enim ea ut ea commodo sit."
+                      },
+                      {
+                          "position":2,
+                          "line": "Proident consequat eiusmod labore irure.asdfasdfadsf Officia exercitation tempor in ea enim ea ut ea commodo sit."
+                      },
+                      {
+                          "position":3,
+                          "line": "Proident consequat eiusmod labore irure. Officia exercitation tempor in ea enim ea ut ea commodo sit.asdfasdfadsfasd"
+                      }
+                  ]
+              }
+          }
+      ]
+  }
+}

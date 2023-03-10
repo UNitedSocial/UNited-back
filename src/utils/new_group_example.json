@@ -1,5 +1,4 @@
 {
-    "id":1,
     "info":{
         "name":"UNitedGroup1",
         "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
@@ -23,7 +22,7 @@
         ],
         "classification":"Académico",
         "isRecognized": true,
-        "recognizedRnfo": {
+        "recognizedInfo": {
             "type": "semillero",
             "faculty": "Ingeniería",
             "department": "departamento de ingeniería eléctrica y electrónica",
@@ -35,16 +34,16 @@
     },
     "members":[
         {
-            "userId": 1,
+            "userId": "1",
             "username": "UNitedUser1",
             "name":"Pepito Perez",
-            "rol": "editor",
+            "role": "editor",
             "state": "active"
         }
     ],
     "requests":[
         {
-            "userId":1,
+            "userId":"1",
             "username": "UNitedUser1",
             "name":"Pepito Perez",
             "date": "2018-05-15",
@@ -52,7 +51,7 @@
             "approvedRejectedOn":"2018-05-24"
         },
         {
-            "userId":1,
+            "userId":"1",
             "username": "UNitedUser1",
             "name":"Pepito Perez",
             "date": "2018-02-02",

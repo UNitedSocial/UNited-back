@@ -1,0 +1,6 @@
+POST http://localhost:3002/api/group
+content-type: application/json
+
+{
+    
+}
