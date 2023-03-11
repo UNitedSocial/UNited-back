@@ -60,9 +60,9 @@ const RequestGroupShema = new Schema({
 })
 const GroupSchema = new Schema({
   info: GroupInfoShema,
-  page: [GroupSectionSchema],
   members: [MembersShema],
-  Requests: [RequestGroupShema]
+  requests: [RequestGroupShema],
+  page: [GroupSectionSchema]
 })
 
 export default model<GroupDocument>('Group', GroupSchema)

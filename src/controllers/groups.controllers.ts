@@ -29,14 +29,14 @@ class GroupsController {
       })
     // close connection
     await mongoose.connection.close().catch((err): void => {
-      console.log('Error closing connection', err.message)
+      console.log('Error, closing connection', err.message)
     })
     console.log('Connection closed')
   }
 
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get group from body
-    const { group } = req.body
+    const group = req.body
     // create new group
     const newGroup: GroupDocument = new GroupModel(group as Group)
     let fine = true
@@ -57,7 +57,7 @@ class GroupsController {
     }
     // close connection
     await mongoose.connection.close().catch((err): void => {
-      console.log('Error closing connection', err.message)
+      console.log('Error, closing connection', err.message)
     })
     console.log('Connection closed')
   }
