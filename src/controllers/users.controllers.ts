@@ -14,7 +14,8 @@ class UserController {
           return {
             name: user.name,
             username: user.username,
-            email: user.email
+            email: user.email,
+            groups: user.groups
           }
         })
         res.status(200).json(infoUser)

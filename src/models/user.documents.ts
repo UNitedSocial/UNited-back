@@ -1,14 +1,14 @@
 import { RequestState, Role } from './group.documents'
 import mongoose from 'mongoose'
 
-export interface UserGroup extends mongoose.Document {
+export interface UserGroup {
   groupId: mongoose.Types.ObjectId
   groupName: string
   date: string
   role: Role
 }
 
-export interface requestUser extends mongoose.Document {
+export interface requestUser {
   groupId: mongoose.Types.ObjectId
   groupName: string
   date: string

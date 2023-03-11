@@ -4,7 +4,7 @@ import GroupModel from '../models/Group.model'
 import mongoose from 'mongoose'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 import UserModel from '../models/User.model'
-import { UserDocument } from '../models/user.documents'
+import { UserDocument, UserGroup } from '../models/user.documents'
 
 class GroupsController {
   // main page of the API
@@ -62,7 +62,14 @@ class GroupsController {
     let fine = true
     // save group
     await newGroup.save()
-      .then((): void => {
+      .then((grupo: GroupDocument): void => {
+        const grupParams: UserGroup = {
+          groupId: new mongoose.Types.ObjectId(grupo?._id),
+          groupName: grupo.info.name,
+          role: 'member' as Role,
+          date: '11/03/2023'
+        }
+        user.groups?.push(grupParams)
         console.log('Guardando grupo')
       })
       // if error, send error and stop
@@ -71,6 +78,7 @@ class GroupsController {
         console.log('Error saving group', err.message)
         fine = false
       })
+
     // if all is fine, send ok message
     if (fine) {
       res.status(201)
