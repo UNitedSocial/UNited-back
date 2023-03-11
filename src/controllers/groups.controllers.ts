@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
-import { Group, GroupDocument } from '../models/group.documents'
+import { Group, GroupDocument, MemberState, Role } from '../models/group.documents'
 import GroupModel from '../models/Group.model'
 import mongoose from 'mongoose'
 import { groupsRoutesOptions } from '../config/defaultOptions'
+import UserModel from '../models/User.model'
+import { UserDocument } from '../models/user.documents'
 
 class GroupsController {
   // main page of the API
@@ -35,10 +37,28 @@ class GroupsController {
   }
 
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // get group from body
-    const group = req.body
-    // create new group
-    const newGroup: GroupDocument = new GroupModel(group as Group)
+    // get only the info field
+    const { group, username } = req.body
+    const info = group.info
+    // get user by username
+    const user = await UserModel.findOne({ username }) as UserDocument
+    const members = [
+      {
+        userId: new mongoose.Types.ObjectId(user?._id),
+        username: user?.username,
+        name: user?.name,
+        role: 'editor' as Role,
+        state: 'active' as MemberState
+      }
+    ]
+    // create group object
+    const groupInfo: Group = {
+      info,
+      members,
+      requests: [],
+      page: []
+    }
+    const newGroup: GroupDocument = new GroupModel(groupInfo)
     let fine = true
     // save group
     await newGroup.save()
