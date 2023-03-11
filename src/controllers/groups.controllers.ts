@@ -89,6 +89,24 @@ class GroupsController {
     console.log(n, offset)
     res.status(200).json({ n, offset })
   }
+
+  public async getGroupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupName = req.params.groupName
+    const group = await GroupModel.find({ info: { name: groupName } })
+    console.log(group)
+    const infoGroup = group.map((group: GroupDocument) => {
+      return {
+        Info: group.info
+      }
+    })
+    res.send(infoGroup)
+
+    // close connection
+    await mongoose.connection.close().catch((err): void => {
+      console.log('Error, closing connection', err.message)
+    })
+    console.log('Connection closed')
+  }
 }
 
 export default new GroupsController()

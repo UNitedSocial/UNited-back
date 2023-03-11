@@ -6,6 +6,8 @@ const router = express.Router()
 // groups routes
 router.get('/users', dbconection.connectdb, usersControllers.index)
 router.post('/user', dbconection.connectdb, usersControllers.createUser)
-router.get('/usert', dbconection.connectdb, usersControllers.user)
+router.get('/user/:username', dbconection.connectdb, usersControllers.getUserInfo)
+// Test Route
+router.get('/usert', dbconection.connectdb, usersControllers.getUserInfo)
 
 export const userRoutes: Router = router

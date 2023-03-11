@@ -59,11 +59,22 @@ class UserController {
     res.status(200).json({ n, offset })
   }
 
-  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const key = req.body
-    const p = key.username
-    const user = await UserModel.find({ username: p })
-    res.send(user)
+  public async getUserInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const username = req.params.username
+    const user = await UserModel.findOne({ username })
+    const infoUser = {
+      name: user?.name,
+      username: user?.username,
+      email: user?.email,
+      groups: user?.groups
+    }
+    res.send(infoUser)
+
+    // close connection
+    await mongoose.connection.close().catch((err): void => {
+      console.log('Error, closing connection', err.message)
+    })
+    console.log('Connection closed')
   }
 }
 
