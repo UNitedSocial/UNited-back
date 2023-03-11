@@ -58,6 +58,13 @@ class UserController {
     console.log(n, offset)
     res.status(200).json({ n, offset })
   }
+
+  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const key = req.body
+    const p = key.username
+    const user = await UserModel.find({ username: p })
+    res.send(user)
+  }
 }
 
 export default new UserController()
