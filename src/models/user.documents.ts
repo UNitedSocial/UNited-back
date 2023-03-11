@@ -23,3 +23,4 @@ export interface User {
   groups: UserGroup[]
   requests: requestUser[]
 }
+export interface UserDocument extends mongoose.Document, User {}

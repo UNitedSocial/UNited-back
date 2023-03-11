@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { Role, RequestState } from './group.documents'
-import { User } from './user.documents'
+import { UserDocument } from './user.documents'
 
 const USerGrooupSchema = new Schema({
   groupId: { type: Schema.Types.ObjectId, required: true, ref: 'Group' },
@@ -24,4 +24,4 @@ const UserSchema = new Schema({
   requests: [requestUserSchema]
 })
 
-export default model<User>('User', UserSchema)
+export default model<UserDocument>('User', UserSchema)
