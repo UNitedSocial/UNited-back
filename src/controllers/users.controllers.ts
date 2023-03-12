@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { User, UserDocument } from '../models/user.documents'
 import UserModel from '../models/User.model'
-import mongoose from 'mongoose'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 
 class UserController {
@@ -24,33 +23,21 @@ class UserController {
         res.status(500).json({ err })
         console.log('Error getting users', err.message)
       })
-    await mongoose.connection.close().catch((err): void => {
-      console.log('Error closing connection', err.message)
-    })
-    console.log('Connection closed')
   }
 
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const user = req.body
     const newUser: UserDocument = new UserModel(user as User)
 
-    let fine = true
     await newUser.save()
       .then((): void => {
-        console.log('Guardando usuario')
+        console.log('user saved')
+        res.status(201)
       })
       .catch((err): void => {
         res.status(500).json({ err })
         console.log('Error saving group', err.message)
-        fine = false
       })
-    if (fine) {
-      res.status(201)
-    }
-    await mongoose.connection.close().catch((err): void => {
-      console.log('Error closing connection', err.message)
-    })
-    console.log('Connection closed')
   }
 
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {

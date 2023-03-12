@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 export interface UserGroup {
   groupId: mongoose.Types.ObjectId
   groupName: string
-  date: string
+  date: Date
   role: Role
 }
 

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Router } from 'express'
 import groupsControllers from '../controllers/groups.controllers'
-import dbconection from '../middlewares/dbconection'
+import usersMiddlewares from '../middlewares/usersMiddlewares'
 const router = express.Router()
 // groups routes
-router.get('/groups', dbconection.connectdb, groupsControllers.index)
-router.post('/group', dbconection.connectdb, groupsControllers.createGroup)
+router.get('/groups', groupsControllers.index)
+router.post('/group', usersMiddlewares.checkUserExist, groupsControllers.createGroup)
 // test route
-router.get('/doomie', dbconection.connectdb, groupsControllers.doomie)
+router.get('/doomie', groupsControllers.doomie)
 
 export const groupsRoutes: Router = router

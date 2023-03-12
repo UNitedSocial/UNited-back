@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, GroupDocument } from './group.documents'
-
+// TODO: refactor model to avoid _id unnecessary fields on everywhere
 const SocialNetworks = new Schema({
   facebook: { type: String, required: false },
   instagram: { type: String, required: false },

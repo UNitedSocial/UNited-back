@@ -1,5 +1,5 @@
 // info types
-
+// TODO: some interfaces are in plural
 import mongoose from 'mongoose'
 
 export enum RecognizedInfoType {

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 import { Role, RequestState } from './group.documents'
 import { UserDocument } from './user.documents'
-
+// TODO: refactor model to avoid _id unnecessary fields on everywhere
 const USerGrooupSchema = new Schema({
   groupId: { type: Schema.Types.ObjectId, required: true, ref: 'Group' },
   groupName: { type: String, required: true },

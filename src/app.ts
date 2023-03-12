@@ -2,6 +2,7 @@
 import cors from 'cors'
 import express, { Application } from 'express'
 import { applicationRouter } from './routes/aplication.router'
+import mongoose from 'mongoose'
 
 export class App {
   private readonly _app: Application
@@ -9,6 +10,9 @@ export class App {
   constructor () {
     this._app = express()
     this.initMiddlewares()
+
+    // conect to db
+    this.startConnection()
   }
 
   private initMiddlewares (): void {
@@ -21,5 +25,15 @@ export class App {
 
   public get app (): Application {
     return this._app
+  }
+
+  private startConnection (): void {
+    mongoose.connect(process.env.CONECTIONSTRING as string, {})
+      .then(() => {
+        console.log('Connected to MongoDB')
+      })
+      .catch((err) => {
+        console.log('Error connecting to MongoDB', err.message)
+      })
   }
 }

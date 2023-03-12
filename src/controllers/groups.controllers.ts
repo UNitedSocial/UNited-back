@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { Group, GroupDocument, MemberState, Role } from '../models/group.documents'
+import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
 import GroupModel from '../models/Group.model'
-import mongoose from 'mongoose'
+import mongoose, { now } from 'mongoose'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 import UserModel from '../models/User.model'
 import { UserDocument, UserGroup } from '../models/user.documents'
@@ -29,19 +29,17 @@ class GroupsController {
         res.status(500).json({ err })
         console.log('Error getting groups', err.message)
       })
-    // close connection
-    await mongoose.connection.close().catch((err): void => {
-      console.log('Error, closing connection', err.message)
-    })
-    console.log('Connection closed')
   }
 
+  // TODO: refactor this function (split in smaller functions)[use services folder]
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get only the info field
     const { group, username } = req.body
-    const info = group.info
+    const info: GroupInfo = group.info
     // get user by username
     const user = await UserModel.findOne({ username }) as UserDocument
+    // create user info to save on group
+    info.numberOfMembers = 1
     const members = [
       {
         userId: new mongoose.Types.ObjectId(user?._id),
@@ -58,36 +56,31 @@ class GroupsController {
       requests: [],
       page: []
     }
-    const newGroup: GroupDocument = new GroupModel(groupInfo)
-    let fine = true
     // save group
+    const newGroup: GroupDocument = new GroupModel(groupInfo)
     await newGroup.save()
-      .then((grupo: GroupDocument): void => {
+    // save group info on user
+      .then((savedGrop: GroupDocument): void => {
+        // create user group info with saved group info
         const grupParams: UserGroup = {
-          groupId: new mongoose.Types.ObjectId(grupo?._id),
-          groupName: grupo.info.name,
+          groupId: new mongoose.Types.ObjectId(savedGrop?._id),
+          groupName: savedGrop.info.name,
           role: 'member' as Role,
-          date: '11/03/2023'
+          date: new Date(now())
         }
+        // add to user groups
         user.groups?.push(grupParams)
-        console.log('Guardando grupo')
+        // save user
+        user.save().catch((err): void => {
+          console.log('Error saving user', err.message)
+        })
+        res.status(201)
       })
       // if error, send error and stop
       .catch((err): void => {
         res.status(500).json({ err })
         console.log('Error saving group', err.message)
-        fine = false
       })
-
-    // if all is fine, send ok message
-    if (fine) {
-      res.status(201)
-    }
-    // close connection
-    await mongoose.connection.close().catch((err): void => {
-      console.log('Error, closing connection', err.message)
-    })
-    console.log('Connection closed')
   }
 
   // test route
