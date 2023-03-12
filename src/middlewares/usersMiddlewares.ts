@@ -8,6 +8,7 @@ class UserMiddlewares {
     if (username === undefined) {
       res.status(400).json({ message: 'Missing username' })
       console.log('Missing username')
+      return
     }
     // check if user exist
     await UserModel.findOne({ username })

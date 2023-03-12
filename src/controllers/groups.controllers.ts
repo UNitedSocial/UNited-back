@@ -75,6 +75,7 @@ class GroupsController {
           console.log('Error saving user', err.message)
         })
         res.status(201)
+        console.log('Group saved and user updated')
       })
       // if error, send error and stop
       .catch((err): void => {
