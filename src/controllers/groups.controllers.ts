@@ -86,15 +86,10 @@ class GroupsController {
   }
 
   // Get info of an specific group
-  public async group (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const groupname = req.params.groupname
-    const group = await GroupModel.find({ groupname })
-    const infoGroup = group.map((group: GroupDocument) => {
-      return {
-        Info: group.info
-      }
-    })
-    res.send(infoGroup)
+    const group = await GroupModel.find({ 'info.name': groupname }, 'info')
+    res.send(group)
   }
 
   // Test route

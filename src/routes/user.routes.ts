@@ -5,7 +5,7 @@ const router = express.Router()
 
 // Users routes
 router.get('/users', usersControllers.index)// Ruta de Obtención de Usuarios
-router.get('/seeUser/:username', usersControllers.user) // Ruta de Obtención de información un usuario
+router.get('/seeUser/:username', usersControllers.userInfo) // Ruta de Obtención de información un usuario
 router.post('/user', usersControllers.createUser) // Ruta de Creacion de Usuario
 
 // Test route

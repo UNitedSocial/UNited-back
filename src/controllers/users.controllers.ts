@@ -43,9 +43,9 @@ class UserController {
   }
 
   // Get info of an specific user
-  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const username = req.params.username
-    const user = await UserModel.find({ username })
+    const user = await UserModel.find({ username }, 'name username email groups')
     res.send(user)
   }
 
