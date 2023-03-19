@@ -7,7 +7,7 @@ import UserModel from '../models/User.model'
 import { UserDocument, UserGroup } from '../models/user.documents'
 
 class GroupsController {
-  // main page of the API
+  // Get all groups info
   public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get params or use default values
     const n = req.query.n !== undefined ? Number(req.query.n) : groupsRoutesOptions.index.n
@@ -32,6 +32,7 @@ class GroupsController {
   }
 
   // TODO: refactor this function (split in smaller functions)[use services folder]
+  // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get only the info field
     const { group, username } = req.body
@@ -84,7 +85,19 @@ class GroupsController {
       })
   }
 
-  // test route
+  // Get info of an specific group
+  public async group (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    const group = await GroupModel.find({ groupname })
+    const infoGroup = group.map((group: GroupDocument) => {
+      return {
+        Info: group.info
+      }
+    })
+    res.send(infoGroup)
+  }
+
+  // Test route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n
     const offset = req.query.a
