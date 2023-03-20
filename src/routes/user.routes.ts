@@ -6,5 +6,5 @@ const router = express.Router()
 router.get('/users', usersControllers.index)
 router.post('/user', usersControllers.createUser)
 router.get('/usert', usersControllers.user)
-
+router.delete('/userd', usersControllers.logOutGroup)
 export const userRoutes: Router = router

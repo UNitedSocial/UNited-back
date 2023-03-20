@@ -8,5 +8,4 @@ router.get('/groups', groupsControllers.index)
 router.post('/group', usersMiddlewares.checkUserExist, groupsControllers.createGroup)
 // test route
 router.get('/doomie', groupsControllers.doomie)
-
 export const groupsRoutes: Router = router

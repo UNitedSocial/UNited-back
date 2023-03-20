@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { User, UserDocument } from '../models/user.documents'
 import UserModel from '../models/User.model'
 import { groupsRoutesOptions } from '../config/defaultOptions'
+import { GroupDocument } from '../models/group.documents'
 
 class UserController {
   public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
@@ -38,6 +39,24 @@ class UserController {
         res.status(500).json({ err })
         console.log('Error saving group', err.message)
       })
+  }
+
+  public async logOutGroup (req: Request, _res: Response, _next: NextFunction): Promise<void> {
+    const { name, username } = req.body
+    const user = await UserModel.findOne({ username }) as UserDocument
+    const groupname = await UserModel.findOne({ name }) as GroupDocument
+    console.log(user)
+    console.log(groupname)
+
+    // await newUser.save()
+    //   .then((): void => {
+    //     console.log('user saved')
+    //     res.status(201)
+    //   })
+    //   .catch((err): void => {
+    //     res.status(500).json({ err })
+    //     console.log('Error saving group', err.message)
+    //   })
   }
 
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
