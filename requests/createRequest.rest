@@ -1,0 +1,7 @@
+POST http://localhost:3002/api/request
+content-type: application/json
+
+{
+  "username": "g1",
+  "groupName": "testgroup"
+}
