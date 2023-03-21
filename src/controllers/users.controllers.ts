@@ -4,6 +4,7 @@ import UserModel from '../models/User.model'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 
 class UserController {
+  // Get all users info
   public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n !== undefined ? Number(req.query.n) : groupsRoutesOptions.index.n
     const offset = req.query.a !== undefined ? Number(req.query.a) : groupsRoutesOptions.index.offset
@@ -25,6 +26,7 @@ class UserController {
       })
   }
 
+  // Create new user
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const user = req.body
     const newUser: UserDocument = new UserModel(user as User)
@@ -40,18 +42,19 @@ class UserController {
       })
   }
 
+  // Get info of an specific user
+  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const username = req.params.username
+    const user = await UserModel.find({ username })
+    res.send(user)
+  }
+
+  // Test Route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n
     const offset = req.query.a
     console.log(n, offset)
     res.status(200).json({ n, offset })
-  }
-
-  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const key = req.body
-    const p = key.username
-    const user = await UserModel.find({ username: p })
-    res.send(user)
   }
 }
 
