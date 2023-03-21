@@ -10,7 +10,7 @@ const USerGrooupSchema = new Schema({
 })
 
 const requestUserSchema = new Schema({
-  GroupId: { type: Schema.Types.ObjectId, required: true, ref: 'Group' },
+  groupId: { type: Schema.Types.ObjectId, required: true, ref: 'Group' },
   groupName: { type: String, required: true },
   date: { type: Date, required: true, default: Date.now },
   state: { type: String, required: true, enum: Object.values(RequestState), default: RequestState.pending },
