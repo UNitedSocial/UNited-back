@@ -91,6 +91,9 @@ class GroupsController {
     console.log(n, offset)
     res.status(200).json({ n, offset })
   }
+
+  public async members (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  }
 }
 
 export default new GroupsController()
