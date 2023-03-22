@@ -6,6 +6,7 @@ import { groupsRoutesOptions } from '../config/defaultOptions'
 import { GroupDocument } from '../models/group.documents'
 
 class UserController {
+  // Get all users info
   public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n !== undefined ? Number(req.query.n) : groupsRoutesOptions.index.n
     const offset = req.query.a !== undefined ? Number(req.query.a) : groupsRoutesOptions.index.offset
@@ -27,6 +28,7 @@ class UserController {
       })
   }
 
+  // Create new user
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const user = req.body
     const newUser: UserDocument = new UserModel(user as User)
@@ -42,25 +44,51 @@ class UserController {
       })
   }
 
-  public async logOutGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  //Quit  group
+  public async logOutGroup (req: Request, _res: Response, _next: NextFunction): Promise<void> {
     const { name, username } = req.body
-    const user = await UserModel.findOne({ username }) as UserDocument
-    const groupname = await GroupModel.findOne({ 'info.name': name }) as GroupDocument
-
+    await UserModel.findOne({ username }) as UserDocument
+      .then((user): void => {
+        if (user.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        console.log('user found')
+        res.status(200)
+      })
+      .catch((err): void => {
+        res.status(500).json({ err })
+        console.log('Error finding user', err.message)
+      })
+      
+    await UserModel.findOne({ name }) as GroupDocument
+      .then((groupname): void => {
+        if (groupname.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        console.log('group found')
+        res.status(200)
+      })
+      .catch((err): void => {
+        res.status(500).json({ err })
+        console.log('Error finding group', err.message)
+      })
+    
     for (let i = 0; i < user.groups.length; i++) {
       const nombregrupo = user.groups[i]
       if (nombregrupo.groupName === name) {
         user.groups.splice(i, 1)
       }
     }
-    console.log(groupname.members)
+    
     for (let i = 0; i < groupname.members.length; i++) {
       const usuarios = groupname.members[i]
       if (usuarios.username === username) {
         groupname.members.splice(i, 1)
       }
     }
-    console.log(groupname.members)
+
     await user.save(); groupname.save()
       .then((): void => {
         console.log('Deleted Group')
@@ -72,18 +100,31 @@ class UserController {
       })
   }
 
+  // Get info of an specific user
+  public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const username = req.params.username
+    await UserModel.find({ username }, 'name username email groups')
+      .then((infoUser) => {
+        if (infoUser.length === 0) {
+          res.status(404).send({ err: 'User not found' })
+          return
+        }
+        res.status(200)
+        res.send(infoUser)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding user', err.message)
+      })
+  }
+
+ 
+  // Test Route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n
     const offset = req.query.a
     console.log(n, offset)
     res.status(200).json({ n, offset })
-  }
-
-  public async user (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const key = req.body
-    const p = key.username
-    const user = await UserModel.find({ username: p })
-    res.send(user)
   }
 }
 
