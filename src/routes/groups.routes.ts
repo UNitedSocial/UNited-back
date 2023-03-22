@@ -11,5 +11,4 @@ router.post('/group', usersMiddlewares.checkUserExist, groupsControllers.createG
 
 // Test route
 router.get('/doomie', groupsControllers.doomie)
-
 export const groupsRoutes: Router = router
