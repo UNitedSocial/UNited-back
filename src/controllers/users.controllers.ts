@@ -3,7 +3,6 @@ import { User, UserDocument } from '../models/user.documents'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { groupsRoutesOptions } from '../config/defaultOptions'
-import { GroupDocument } from '../models/group.documents'
 
 class UserController {
   // Get all users info
@@ -32,71 +31,81 @@ class UserController {
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const user = req.body
     const newUser: UserDocument = new UserModel(user as User)
-
     await newUser.save()
       .then((): void => {
-        console.log('user saved')
+        console.log('User created successfully')
         res.status(201)
+        res.send(newUser)
       })
       .catch((err): void => {
         res.status(500).json({ err })
-        console.log('Error saving group', err.message)
+        console.log('Error creating user', err.message)
       })
   }
 
-  //Quit  group
-  public async logOutGroup (req: Request, _res: Response, _next: NextFunction): Promise<void> {
+  // Quit  group
+  public async logOutGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { name, username } = req.body
-    await UserModel.findOne({ username }) as UserDocument
+    // Find user and delete group from groups
+    await UserModel.findOne({ username })
       .then((user): void => {
-        if (user.length === 0) {
-          res.status(404).send({ err: 'Group not found' })
+        if (user === null) {
+          res.status(404).send({ err: 'User not found' })
           return
         }
         console.log('user found')
-        res.status(200)
+
+        for (let i = 0; i < user.groups.length; i++) {
+          const nombregrupo = user.groups[i]
+          if (nombregrupo.groupName === name) {
+            user.groups.splice(i, 1)
+          }
+        }
+
+        /* await */user.save()
+          .then((): void => {
+            console.log('Deleted User')
+            res.status(201)
+          })
+          .catch((err): void => {
+            res.status(500).json({ err })
+            console.log('Error deleting user', err.message)
+          })
       })
       .catch((err): void => {
         res.status(500).json({ err })
         console.log('Error finding user', err.message)
       })
-      
-    await UserModel.findOne({ name }) as GroupDocument
+
+    // Find group and delete user from members
+    await GroupModel.findOne({ name })
       .then((groupname): void => {
-        if (groupname.length === 0) {
+        if (groupname === null) {
           res.status(404).send({ err: 'Group not found' })
           return
         }
         console.log('group found')
-        res.status(200)
+
+        for (let i = 0; i < groupname.members.length; i++) {
+          const usuarios = groupname.members[i]
+          if (usuarios.username === username) {
+            groupname.members.splice(i, 1)
+          }
+        }
+
+        /* await */ groupname.save()
+          .then((): void => {
+            console.log('Deleted Group')
+            res.status(201)
+          })
+          .catch((err): void => {
+            res.status(500).json({ err })
+            console.log('Error deleting group', err.message)
+          })
       })
       .catch((err): void => {
         res.status(500).json({ err })
         console.log('Error finding group', err.message)
-      })
-    
-    for (let i = 0; i < user.groups.length; i++) {
-      const nombregrupo = user.groups[i]
-      if (nombregrupo.groupName === name) {
-        user.groups.splice(i, 1)
-      }
-    }
-    
-    for (let i = 0; i < groupname.members.length; i++) {
-      const usuarios = groupname.members[i]
-      if (usuarios.username === username) {
-        groupname.members.splice(i, 1)
-      }
-    }
-
-    await user.save(); groupname.save()
-      .then((): void => {
-        console.log('Deleted Group')
-        res.status(201)
-      })
-      .catch((err): void => {
-        res.status(500).json({ err })
-        console.log('Error deleteing group', err.message)
       })
   }
 
@@ -118,7 +127,6 @@ class UserController {
       })
   }
 
- 
   // Test Route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n

@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/groups', groupsControllers.index) // Ruta de Obtención de Grupos
 router.get('/seeGroup/:groupname', groupsControllers.groupInfo) // Ruta de Obtención de información un grupo
 router.post('/group', usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Ruta de Creacion de Grupo
-router.get('/members', groupsControllers.members) //Ruta para obtener los miembros de un grupo
+router.get('/members', groupsControllers.members) // Ruta para obtener los miembros de un grupo
 
 // Test route
 router.get('/doomie', groupsControllers.doomie)

@@ -111,7 +111,7 @@ class GroupsController {
     res.status(200).json({ n, offset })
   }
 
-  public async members (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async members (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
   }
 }
 
