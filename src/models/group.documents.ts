@@ -127,7 +127,7 @@ export interface Requests {
   userId: mongoose.Types.ObjectId
   username: string
   name: string
-  date: string
+  date: Date
   state: RequestState
   approvedRejectedOn?: string
 }

@@ -11,7 +11,7 @@ export interface UserGroup {
 export interface requestUser {
   groupId: mongoose.Types.ObjectId
   groupName: string
-  date: string
+  date: Date
   state: RequestState
   approvedRejectedOn?: string
 }
