@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { User, UserDocument } from '../models/user.documents'
 import UserModel from '../models/User.model'
+import GroupModel from '../models/Group.model'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 import { GroupDocument } from '../models/group.documents'
 
@@ -42,7 +43,7 @@ class UserController {
         console.log('Error saving group', err.message)
       })
   }
-  
+
   //Quit  group
   public async logOutGroup (req: Request, _res: Response, _next: NextFunction): Promise<void> {
     const { name, username } = req.body
@@ -73,8 +74,32 @@ class UserController {
         res.status(500).json({ err })
         console.log('Error finding group', err.message)
       })
+    
+    for (let i = 0; i < user.groups.length; i++) {
+      const nombregrupo = user.groups[i]
+      if (nombregrupo.groupName === name) {
+        user.groups.splice(i, 1)
+      }
+    }
+    
+    for (let i = 0; i < groupname.members.length; i++) {
+      const usuarios = groupname.members[i]
+      if (usuarios.username === username) {
+        groupname.members.splice(i, 1)
+      }
+    }
+
+    await user.save(); groupname.save()
+      .then((): void => {
+        console.log('Deleted Group')
+        res.status(201)
+      })
+      .catch((err): void => {
+        res.status(500).json({ err })
+        console.log('Error deleteing group', err.message)
+      })
   }
-  
+
   // Get info of an specific user
   public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const username = req.params.username
