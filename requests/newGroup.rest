@@ -2,10 +2,10 @@ POST http://localhost:3002/api/group
 content-type: application/json
 
 {
-    "username":"g1",
+    "username":"h1",
   "group":{
       "info":{
-          "name":"g6",
+          "name":"h6",
           "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
           "contact":{
               "mail":"UNitedGroup1@group.com",
