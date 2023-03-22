@@ -3,6 +3,6 @@ content-type: application/json
 
 {
   "name": "Pepito Pérez",
-  "username":"h1",
+  "username":"i2",
   "email": "UNitedUser1@user.com"
 }
