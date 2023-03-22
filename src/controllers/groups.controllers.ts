@@ -7,7 +7,7 @@ import UserModel from '../models/User.model'
 import { UserDocument, UserGroup } from '../models/user.documents'
 
 class GroupsController {
-  // main page of the API
+  // Get all groups info
   public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get params or use default values
     const n = req.query.n !== undefined ? Number(req.query.n) : groupsRoutesOptions.index.n
@@ -32,6 +32,7 @@ class GroupsController {
   }
 
   // TODO: refactor this function (split in smaller functions)[use services folder]
+  // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get only the info field
     const { group, username } = req.body
@@ -84,7 +85,25 @@ class GroupsController {
       })
   }
 
-  // test route
+  // Get info of an specific group
+  public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    await GroupModel.find({ 'info.name': groupname }, 'info')
+      .then((infoGroup) => {
+        if (infoGroup.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        res.status(200)
+        res.send(infoGroup)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding group', err.message)
+      })
+  }
+
+  // Test route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n
     const offset = req.query.a
