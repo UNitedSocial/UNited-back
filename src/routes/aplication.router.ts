@@ -8,8 +8,8 @@ const router: Router = express.Router()
 
 // Get all routes
 router.use('/api', helloRoutes)
-router.use('/api', groupsRoutes)
-router.use('/api', userRoutes)
+router.use('/groups', groupsRoutes)
+router.use('/users', userRoutes)
 router.use('/api', requestRoutes)
 
 export const applicationRouter = router

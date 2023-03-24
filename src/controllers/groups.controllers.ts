@@ -8,25 +8,23 @@ import { UserDocument, UserGroup } from '../models/user.documents'
 
 class GroupsController {
   // Get all groups info
-  public async index (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // get params or use default values
-    const n = req.query.n !== undefined ? Number(req.query.n) : groupsRoutesOptions.index.n
-    const offset = req.query.a !== undefined ? Number(req.query.a) : groupsRoutesOptions.index.offset
-    // get groups
-    await GroupModel.find({}, null, { skip: offset, limit: n })
+  public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.index.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.index.offset
+    // Get groups
+    await GroupModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
       .then((groups: GroupDocument[]) => {
-        // select only the info field
-        const infoGroups = groups.map((group: GroupDocument) => {
-          return {
-            info: group.info
-          }
-        })
-        // send the query result
-        res.status(200).json(infoGroups)
+        // Check if there are groups to show
+        if (groups.length === 0) {
+          res.status(404).send({ err: 'There are no groups to show' })
+          return
+        }
+        res.status(200).json(groups)
       })
-      // if error, send error and stop
+      // If error, send error and stop
       .catch((err): void => {
-        res.status(500).json({ err })
+        res.status(500).send(err)
         console.log('Error getting groups', err.message)
       })
   }
@@ -88,19 +86,23 @@ class GroupsController {
   // Get info of an specific group
   public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const groupname = req.params.groupname
-    await GroupModel.find({ 'info.name': groupname }, 'info')
-      .then((infoGroup) => {
-        if (infoGroup.length === 0) {
+    await GroupModel.find({ 'info.name': groupname }, { _id: 0, __v: 0 })
+      .then((group: GroupDocument[]) => {
+        if (group.length === 0) {
           res.status(404).send({ err: 'Group not found' })
           return
         }
         res.status(200)
-        res.send(infoGroup)
+        res.send(group)
       })
       .catch((err): void => {
         res.status(500).send({ err })
         console.log('Error finding group', err.message)
       })
+  }
+
+  public async members (_req: Request, res: Response, _next: NextFunction): Promise<void> {
+    res.send('members')
   }
 
   // Test route
@@ -109,9 +111,6 @@ class GroupsController {
     const offset = req.query.a
     console.log(n, offset)
     res.status(200).json({ n, offset })
-  }
-
-  public async members (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
   }
 }
 
