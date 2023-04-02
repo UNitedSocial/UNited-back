@@ -10,8 +10,6 @@ class GroupsController {
   // Get all groups info
   public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
-    const { user } = req.body
-    console.log(user)
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.index.n
     const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.index.offset
     // Get groups

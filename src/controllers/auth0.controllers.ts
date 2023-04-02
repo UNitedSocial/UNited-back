@@ -28,6 +28,8 @@ class Auth0Controller {
       void response.json()?.then((data) => {
         req.body.user = data
         next()
+      }).catch((err) => {
+        res.status(500).json({ message: err.message })
       })
     }).catch((err) => {
       res.status(500).json({ message: err.message })

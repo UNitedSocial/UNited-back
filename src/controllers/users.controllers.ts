@@ -50,6 +50,8 @@ class UserController {
 
   // Quit  group
   public async quitGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // in the future implement verification of finding group and user before modifying the database.
+
     const { name, user } = req.body
     const username = user?.nickname
     // Find user and delete group from groups
