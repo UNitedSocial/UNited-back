@@ -1,0 +1,8 @@
+
+GET http://localhost:3002/api/members
+
+{
+      "name": "a1"
+  
+  
+}
