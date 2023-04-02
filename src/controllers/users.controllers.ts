@@ -28,11 +28,18 @@ class UserController {
 
   // Create new user
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const user = req.body
-    const newUser: UserDocument = new UserModel(user as User)
+    const { user } = req.body
+    const middleUser: User = {
+      username: user?.nickname,
+      name: user?.name,
+      email: user?.email,
+      groups: [],
+      requests: []
+    }
+    const newUser: UserDocument = new UserModel(middleUser)
     await newUser.save()
       .then((): void => {
-        res.status(201)
+        res.status(201).send({ message: 'User created successfully' })
         console.log('User created successfully')
       })
       .catch((err): void => {
@@ -43,7 +50,8 @@ class UserController {
 
   // Quit  group
   public async quitGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const { name, username } = req.body
+    const { name, user } = req.body
+    const username = user?.nickname
     // Find user and delete group from groups
     await UserModel.findOne({ username })
       .then((user): void => {
@@ -63,7 +71,6 @@ class UserController {
         /* await */user.save()
           .then((): void => {
             console.log('Deleted User')
-            res.status(201)
           })
           .catch((err): void => {
             res.status(500).json({ err })
@@ -74,27 +81,26 @@ class UserController {
         res.status(500).json({ err })
         console.log('Error finding user', err.message)
       })
-
     // Find group and delete user from members
-    await GroupModel.findOne({ name })
-      .then((groupname): void => {
-        if (groupname === null) {
+    await GroupModel.findOne({ 'info.name': name })
+      .then((group): void => {
+        if (group === null) {
           res.status(404).send({ err: 'Group not found' })
           return
         }
         console.log('group found')
 
-        for (let i = 0; i < groupname.members.length; i++) {
-          const usuarios = groupname.members[i]
+        for (let i = 0; i < group.members.length; i++) {
+          const usuarios = group.members[i]
           if (usuarios.username === username) {
-            groupname.members.splice(i, 1)
+            group.members.splice(i, 1)
           }
         }
 
-        /* await */ groupname.save()
+        /* await */ group.save()
           .then((): void => {
             console.log('Deleted Group')
-            res.status(201)
+            res.status(201).send({ message: 'User quit group successfully' })
           })
           .catch((err): void => {
             res.status(500).json({ err })

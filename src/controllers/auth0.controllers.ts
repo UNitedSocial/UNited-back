@@ -14,7 +14,10 @@ class Auth0Controller {
   })
 
   public async getUserData (req: Request, res: Response, next: NextFunction): Promise<void> {
-    console.log(req.headers.authorization)
+    if (req.headers.authorization === undefined) {
+      res.status(401).json({ message: 'Unauthorized' })
+      return
+    }
     const accessToken = req.headers.authorization?.split(' ')[1]
 
     fetch('https://dev-nj72nakbgyv4edeo.us.auth0.com/userinfo', {
@@ -23,7 +26,6 @@ class Auth0Controller {
       }
     }).then(async (response) => {
       void response.json()?.then((data) => {
-        console.log('dataaaa', data)
         req.body.user = data
         next()
       })

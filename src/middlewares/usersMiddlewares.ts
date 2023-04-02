@@ -4,7 +4,8 @@ import UserModel from '../models/User.model'
 class UserMiddlewares {
   public async checkUserExist (req: Request, res: Response, next: NextFunction): Promise<void> {
     // get and check username is given
-    const { username } = req.body
+    const { user } = req.body
+    const username = user?.nickname
     if (username === undefined) {
       res.status(400).json({ message: 'Missing username' })
       console.log('Missing username')
