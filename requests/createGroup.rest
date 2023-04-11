@@ -2,7 +2,6 @@ POST http://localhost:3002/groups/createGroup
 content-type: application/json
 
 {
-    "username":"i1",
   "group":{
       "info":{
           "name":"i1",

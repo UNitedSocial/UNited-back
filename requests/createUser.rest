@@ -1,8 +1,2 @@
 POST http://localhost:3002/users/createUser
 content-type: application/json
-
-{
-  "name": "Pepito Pérez",
-  "username":"i2",
-  "email": "UNitedUser1@user.com"
-}

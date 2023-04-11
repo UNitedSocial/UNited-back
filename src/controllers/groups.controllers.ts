@@ -33,17 +33,18 @@ class GroupsController {
   // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // get only the info field
-    const { group, username } = req.body
+    const { group, user } = req.body
+    const username = user?.nickname
     const info: GroupInfo = group.info
     // get user by username
-    const user = await UserModel.findOne({ username }) as UserDocument
+    const userModel = await UserModel.findOne({ username }) as UserDocument
     // create user info to save on group
     info.numberOfMembers = 1
     const members = [
       {
-        userId: new mongoose.Types.ObjectId(user?._id),
-        username: user?.username,
-        name: user?.name,
+        userId: new mongoose.Types.ObjectId(userModel?._id),
+        username: userModel?.username,
+        name: userModel?.name,
         role: 'editor' as Role,
         state: 'active' as MemberState
       }
@@ -68,12 +69,12 @@ class GroupsController {
           date: new Date(now())
         }
         // add to user groups
-        user.groups?.push(grupParams)
+        userModel.groups?.push(grupParams)
         // save user
-        user.save().catch((err): void => {
+        userModel.save().catch((err): void => {
           console.log('Error saving user', err.message)
         })
-        res.status(201)
+        res.status(201).send({ message: 'Group created succesfully' })
         console.log('Group saved and user updated')
       })
       // if error, send error and stop
