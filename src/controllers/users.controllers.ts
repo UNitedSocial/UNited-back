@@ -136,6 +136,7 @@ class UserController {
 
   // Get info of an specific user
   public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    console.log('entering user info')
     const username = req.params.username
     await UserModel.find({ username }, { _id: 0, __v: 0 })
       .then((user) => {
@@ -150,6 +151,32 @@ class UserController {
         res.status(500).send({ err })
         console.log('Error finding user', err.message)
       })
+  }
+
+  public async userStateGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const { username, groupName } = req.body
+    if (username === undefined || groupName === undefined) {
+      res.status(400).send({ err: 'Bad request' })
+      return
+    }
+    const userDocument: UserDocument | null = await UserModel.findOne({ username })
+    if (userDocument === null) {
+      res.status(404).send({ err: 'User not found' })
+      return
+    }
+    let state = 'notBelongs'
+    userDocument.requests.forEach(element => {
+      if (element.groupName === groupName && element.state === 'pending') {
+        state = 'pending'
+      }
+    })
+    userDocument.groups.forEach(element => {
+      if (element.groupName === groupName) {
+        state = 'belongs'
+      }
+    })
+    console.log(username, 'state in group', groupName, ' is: "', state, '"')
+    res.status(200).send({ state })
   }
 
   // Test Route
