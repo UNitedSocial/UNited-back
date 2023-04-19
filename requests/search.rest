@@ -1,0 +1,6 @@
+GET  http://localhost:3002/users/quitGroup
+content-type: application/json
+
+{
+  "query": "h6",
+}
