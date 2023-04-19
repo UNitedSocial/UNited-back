@@ -7,6 +7,6 @@ const router = express.Router()
 router.get('/:query', searchControllers.getQuery) // Ruta de Obtención de Grupos
 
 // Test route
-router.get('/doomie', searchControllers.doomie)
+router.get('/test/doomie', searchControllers.doomie)
 
 export const searchRoutes: Router = router
