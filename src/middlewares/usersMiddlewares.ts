@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import UserModel from '../models/User.model'
+import userService from '../services/user.service'
 
 class UserMiddlewares {
   public async checkUserExist (req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -12,22 +12,13 @@ class UserMiddlewares {
       return
     }
     // check if user exist
-    await UserModel.findOne({ username })
-      .then((user) => {
-        if (user !== null) {
-          // user exist
-          next()
-          console.log(`user exist ${username as string}`)
-        } else {
-          // user not found
-          res.status(404).json({ message: 'User not found' })
-          console.log(`user not found ${username as string}`)
-        }
-      })
-      // can't connect to db
-      .catch((e) => {
-        res.status(500).json({ message: e.message })
-      })
+    const userExists = await userService.userExists(username)
+    if (userExists) {
+      next()
+    } else {
+      res.status(400).json({ message: 'User do not exists' })
+      console.log('User do not exists')
+    }
   }
 }
 export default new UserMiddlewares()
