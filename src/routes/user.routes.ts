@@ -2,6 +2,7 @@
 import express, { Router } from 'express'
 import usersControllers from '../controllers/users.controllers'
 import auth0Controllers from '../controllers/auth0.controllers'
+import testControllers from '../controllers/test.controllers'
 const router = express.Router()
 
 // Users routes
@@ -11,6 +12,6 @@ router.post('/createUser', auth0Controllers.getUserData, usersControllers.create
 router.delete('/quitGroup', auth0Controllers.getUserData, usersControllers.quitGroup) // Ruta de Salir de un grupo
 
 // Test route
-router.get('/doomie', usersControllers.doomie)
+router.get('/test/doomie', testControllers.doomie)
 
 export const userRoutes: Router = router

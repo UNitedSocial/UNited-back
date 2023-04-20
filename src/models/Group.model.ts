@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, GroupDocument, RequestDocument } from './group.documents'
+import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, GroupDocument } from './group.documents'
 // TODO: refactor model to avoid _id unnecessary fields on everywhere
 const SocialNetworks = new Schema({
   facebook: { type: String, required: false },
@@ -65,4 +65,4 @@ const GroupSchema = new Schema({
   page: [GroupSectionSchema]
 })
 
-export default model<GroupDocument>('Group', GroupSchema); model<RequestDocument>('Request', RequestGroupShema)
+export default model<GroupDocument>('Group', GroupSchema)
