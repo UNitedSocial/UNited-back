@@ -4,8 +4,9 @@ import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { UserDocument } from '../models/user.documents'
 import requestsServices from '../services/requests.services'
+
 class RequestController {
-  // create a request
+  // Create a request
   public async createRequest (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { user, groupName } = req.body
     const username = user?.nickname
@@ -36,6 +37,20 @@ class RequestController {
       console.log('error saving user or group', err.message)
       res.status(500).json({ message: 'error saving user or group', err })
     }
+  }
+
+  // Get requests
+  public async getRequests (_req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // const requests = await requestsServices.getRequests()
+    res.status(200).json({ message: 'Here goes requests' })
+  }
+
+  // Test route
+  public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const n = req.query.n
+    const offset = req.query.a
+    console.log('Test completed sucessfully')
+    res.status(200).json({ n, offset, message: 'Test completed successfully' })
   }
 }
 

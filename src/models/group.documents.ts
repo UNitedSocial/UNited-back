@@ -139,3 +139,4 @@ export interface Group {
   page: groupSections[]
 }
 export interface GroupDocument extends mongoose.Document, Group {}
+export interface RequestDocument extends mongoose.Document, Requests {}
