@@ -10,6 +10,7 @@ router.get('/', groupsControllers.getGroups) // Ruta de Obtención de Grupos
 router.get('/seeGroup/:groupname', groupsControllers.groupInfo) // Ruta de Obtención de información un grupo
 router.post('/createGroup', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Ruta de Creacion de Grupo
 router.get('/seeGroup/:groupname/members', groupsControllers.members) // Ruta para obtener los miembros de un grupo
+router.get('/seeGroup/:groupname/related', groupsControllers.related) // Ruta para obtener las solicitudes de un grupo
 
 // Test route
 router.get('/doomie', groupsControllers.doomie)
