@@ -20,6 +20,7 @@ class GroupsController {
           res.status(404).send({ err: 'There are no groups to show' })
           return
         }
+        console.log('Groups found successfully')
         res.status(200).json(groups)
       })
       // If error, send error and stop
