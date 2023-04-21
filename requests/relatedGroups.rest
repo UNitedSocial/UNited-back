@@ -1,0 +1,2 @@
+GET  http://localhost:3002/groups/seeGroup/i1/related
+content-type: application/json

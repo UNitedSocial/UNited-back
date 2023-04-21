@@ -10,6 +10,7 @@ router.get('/', usersControllers.getUsers)// Ruta de Obtención de Usuarios
 router.get('/seeUser/:username', usersControllers.userInfo) // Ruta de Obtención de información un usuario
 router.post('/createUser', auth0Controllers.getUserData, usersControllers.createUser) // Ruta de Creacion de Usuario
 router.delete('/quitGroup', auth0Controllers.getUserData, usersControllers.quitGroup) // Ruta de Salir de un grupo
+router.get('/userStateGroup', usersControllers.userStateGroup) // Ruta de Obtención de estado de un usuario en un grupo
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)
