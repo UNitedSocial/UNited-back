@@ -154,7 +154,8 @@ class UserController {
   }
 
   public async userStateGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const { username, groupName } = req.body
+    const username = (req.query.username !== undefined) ? req.query.username : ''
+    const groupName = (req.query.groupname !== undefined) ? req.query.groupname : ''
     if (username === undefined || groupName === undefined) {
       res.status(400).send({ err: 'Bad request' })
       return

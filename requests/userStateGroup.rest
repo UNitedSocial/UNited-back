@@ -1,7 +1,2 @@
-GET http://localhost:3002/Users/userStateGroup
+GET http://localhost:3002/Users/userStateGroup/?username=salvarezri&groupname=salv1
 content-type: application/json
-
-{
-  "username":"salvarezri",
-  "groupName":"group1"
-}
