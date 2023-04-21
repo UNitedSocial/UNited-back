@@ -88,7 +88,7 @@ class GroupsController {
   // Get info of an specific group
   public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const groupname = req.params.groupname
-    await GroupModel.find({ 'info.name': groupname }, { _id: 0, __v: 0 })
+    await GroupModel.find({ 'info.name': groupname }, 'info page', { __v: 0 })
       .then((group: GroupDocument[]) => {
         if (group.length === 0) {
           res.status(404).send({ err: 'Group not found' })
@@ -103,8 +103,22 @@ class GroupsController {
       })
   }
 
-  public async members (_req: Request, res: Response, _next: NextFunction): Promise<void> {
-    res.send('members')
+  // Get members of an specific group
+  public async members (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    await GroupModel.find({ 'info.name': groupname }, 'members', { _id: 0 })
+      .then((group: GroupDocument[]) => {
+        if (group.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        res.status(200)
+        res.send(group)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding group', err.message)
+      })
   }
 
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {

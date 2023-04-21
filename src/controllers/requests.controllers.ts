@@ -38,18 +38,22 @@ class RequestController {
     }
   }
 
-  // Get requests
-  public async getRequests (_req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // const requests = await requestsServices.getRequests()
-    res.status(200).json({ message: 'Here goes requests' })
-  }
-
-  // Test route
-  public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const n = req.query.n
-    const offset = req.query.a
-    console.log('Test completed sucessfully')
-    res.status(200).json({ n, offset, message: 'Test completed successfully' })
+  // Get requests of an specific group
+  public async getRequests (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    await GroupModel.find({ 'info.name': groupname }, 'requests', { _id: 0 })
+      .then((group: GroupDocument[]) => {
+        if (group.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        res.status(200)
+        res.send(group)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding group', err.message)
+      })
   }
 }
 
