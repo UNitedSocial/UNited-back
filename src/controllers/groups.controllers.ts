@@ -106,6 +106,11 @@ class GroupsController {
     res.send('members')
   }
 
+  public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    res.send('related to ' + groupname)
+  }
+
   // Test route
   public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const n = req.query.n
