@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import groupsService from '../services/groups.service'
+import { Role } from '../models/group.documents'
 class GroupMiddlewares {
   public async checkGroupExist (req: Request, res: Response, next: NextFunction): Promise<void> {
     // get and check username is given
@@ -29,12 +30,18 @@ class GroupMiddlewares {
       console.log('Missing group name or username')
       return
     }
-    const role = await groupsService.getGroupRole(groupName, username)
-    if (role === 'admin') {
+    const role: null | String = await groupsService.getGroupRole(groupName, username)
+    if (role === Role.editor) {
       next()
-    } else {
+    } else if (role === Role.member) {
       res.status(400).json({ message: 'User is not an admin' })
       console.log('User is not an admin')
+    } else if (role === 'not belongs') {
+      res.status(400).json({ message: 'User not belongs' })
+      console.log('User not belongs')
+    } else {
+      res.status(500).json({ message: 'error' })
+      console.log('error')
     }
   }
 }

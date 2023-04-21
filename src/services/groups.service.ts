@@ -1,5 +1,5 @@
 import GroupModel from '../models/Group.model'
-
+import { Members } from '../models/group.documents'
 class GroupService {
   public async groupExists (groupName: string): Promise<boolean> {
     // check if group exist
@@ -16,8 +16,32 @@ class GroupService {
     }
   }
 
-  public async getGroupRole (_groupName: string, _username: string): Promise<string> {
-    return 'admin'
+  public async getGroupRole (groupName: string, _username: string): Promise<string | null> {
+    let role: String | null = null
+    const groupMembers: Members[] | null | String = await GroupModel.findOne({ 'info.name': groupName }, 'members')
+      .then((group) => {
+        if (group != null) {
+          return group.members
+        } else {
+          return null
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        return role
+      })
+    if (groupMembers === null || typeof groupMembers === 'string' || groupMembers instanceof String) {
+      return role
+    }
+    groupMembers?.forEach((member) => {
+      if (member.username === _username) {
+        role = member.role
+      }
+    })
+    if (role === null) {
+      return 'not belongs'
+    }
+    return role
   }
 }
 
