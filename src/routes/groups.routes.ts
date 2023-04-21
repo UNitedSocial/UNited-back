@@ -17,6 +17,7 @@ router.get('/seeGroup/:groupname/related', groupsControllers.related) // Ruta pa
 // Requests routes
 router.get('/seeGroup/:groupname/requests', requestsControllers.getRequests) // Ruta para obtener todas las solicitudes
 router.post('/seeGroup/:groupname/sendRequest', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest)// Ruta para crear una solicitud
+router.put('/seeGroup/:groupname/confirmRequest', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.confirmRequest)// Ruta para aceptar una solicitud
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

@@ -55,6 +55,9 @@ class RequestController {
         console.log('Error finding group', err.message)
       })
   }
+
+  public async confirmRequest (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
+  }
 }
 
 export default new RequestController()
