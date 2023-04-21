@@ -5,6 +5,7 @@ import mongoose, { now } from 'mongoose'
 import { groupsRoutesOptions } from '../config/defaultOptions'
 import UserModel from '../models/User.model'
 import { UserDocument, UserGroup } from '../models/user.documents'
+import relatedService from '../services/related.service'
 
 class GroupsController {
   // Get all groups info
@@ -75,7 +76,7 @@ class GroupsController {
           console.log('Error saving user', err.message)
         })
         res.status(201).send({ message: 'Group created succesfully' })
-        console.log('Group saved and user updated')
+        console.log('Group "' + savedGrop.info.name + '" saved and user "' + userModel.username + '" updated')
       })
       // if error, send error and stop
       .catch((err): void => {
@@ -107,8 +108,24 @@ class GroupsController {
   }
 
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.related.offset
     const groupname = req.params.groupname
-    res.send('related to ' + groupname)
+    // Get group topics
+    const group = await GroupModel.findOne({ 'info.name': groupname }, 'info.topics', { _id: 0, __v: 0 })
+    const topics = group?.info.topics
+    if (topics === undefined) {
+      res.status(404).send({ err: 'Group not found' })
+      return
+    }
+    // Get related groups
+    const related = await relatedService.getBestRelatedGroups(topics, groupname, n, offset).catch((err): void => {
+      console.log('Error getting related groups', err.message)
+      res.status(500).send({ err })
+    })
+    // Send response
+    res.status(200).send(related)
   }
 
   // Test route
