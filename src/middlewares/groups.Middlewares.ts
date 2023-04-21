@@ -19,5 +19,23 @@ class GroupMiddlewares {
       console.log('Group do not exists')
     }
   }
+
+  public async checkGroupRole (req: Request, res: Response, next: NextFunction): Promise<void> {
+    const groupName = req.params.groupname
+    const { user } = req.body
+    const username = user?.nickname
+    if (groupName === undefined || username === undefined) {
+      res.status(400).json({ message: 'Missing group name or username' })
+      console.log('Missing group name or username')
+      return
+    }
+    const role = await groupsService.getGroupRole(groupName, username)
+    if (role === 'admin') {
+      next()
+    } else {
+      res.status(400).json({ message: 'User is not an admin' })
+      console.log('User is not an admin')
+    }
+  }
 }
 export default new GroupMiddlewares()

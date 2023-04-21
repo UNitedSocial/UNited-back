@@ -15,6 +15,10 @@ class GroupService {
       return false
     }
   }
+
+  public async getGroupRole (_groupName: string, _username: string): Promise<string> {
+    return 'admin'
+  }
 }
 
 export default new GroupService()

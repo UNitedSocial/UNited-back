@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
-import { UserDocument } from '../models/user.docum
+import { UserDocument } from '../models/user.documents'
 import requestsServices from '../services/requests.service'
 class RequestController {
   // Create a request
