@@ -27,7 +27,7 @@ const GroupInfoShema = new Schema({
   description: { type: String, required: true },
   contact: ContactShema,
   numberOfMembers: { type: Number, required: true, default: 1 },
-  topics: [{ type: [String], required: true }],
+  topics: [{ type: String, required: true }],
   clasification: { type: String, required: true, enum: Object.values(Classification), default: Classification.other },
   isRecognized: { type: Boolean, required: true },
   recognizedInfo: { type: RecognizedInfoShema, required: false },
