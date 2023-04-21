@@ -6,6 +6,10 @@ import auth0Controllers from '../controllers/auth0.controllers'
 const router = express.Router()
 
 // Requests routes
-router.post('/request', auth0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest)// Ruta para crear una solicitud
+router.get('/', requestsControllers.getRequests) // Ruta para obtener todas las solicitudes
+router.post('/', auth0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest)// Ruta para crear una solicitud
+
+// Test route
+router.get('/test/doomie', requestsControllers.doomie)
 
 export const requestRoutes: Router = router

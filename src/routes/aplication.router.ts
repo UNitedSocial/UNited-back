@@ -12,6 +12,6 @@ router.use('/api', helloRoutes)
 router.use('/groups', groupsRoutes)
 router.use('/users', userRoutes)
 router.use('/search', searchRoutes)
-router.use('/api', requestRoutes)
+router.use('/requests', requestRoutes)
 
 export const applicationRouter = router

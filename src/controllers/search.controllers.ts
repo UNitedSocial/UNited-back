@@ -46,7 +46,7 @@ class SearchController {
     const n = req.query.n
     const offset = req.query.a
     console.log('Test completed sucessfully')
-    res.status(200).json({ n, offset, message: 'Hola mundo' })
+    res.status(200).json({ n, offset, message: 'Test completed successfully' })
   }
 }
 
