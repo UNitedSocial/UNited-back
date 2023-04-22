@@ -122,7 +122,27 @@ class GroupsController {
       })
   }
 
-  public async new (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
+  public async new (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const ind = req.query.ind
+
+    if (typeof ind === 'string') {
+      const ind2: number = parseInt(ind)
+      await GroupModel.find().sort([['info.creationDate', -1]]).limit(ind2)
+        .then((group: GroupDocument[]) => {
+          if (group.length === 0) {
+            res.status(404).send({ err: 'Group not found' })
+            return
+          }
+          res.status(200)
+          res.send(group)
+        })
+        .catch((err): void => {
+          res.status(500).send({ err })
+          console.log('Error finding group', err.message)
+        })
+    } else {
+      res.status(400).send({ err: 'Invalid ind parameter' })
+    }
   }
 
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
