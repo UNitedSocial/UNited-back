@@ -13,7 +13,7 @@ router.get('/seeGroup/:groupname', groupsControllers.groupInfo) // Ruta de Obten
 router.get('/seeGroup/:groupname/members', groupsControllers.members) // Ruta para obtener los miembros de un grupo
 router.post('/createGroup', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Ruta de Creacion de Grupo
 router.get('/seeGroup/:groupname/related', groupsControllers.related) // Ruta para obtener las solicitudes de un grupo
-
+router.get('/new', groupsControllers.new)// Ruta de obtener los n grupos mas nuevos
 // Requests routes
 router.get('/seeGroup/:groupname/requests', requestsControllers.getRequests) // Ruta para obtener todas las solicitudes
 router.post('/seeGroup/:groupname/sendRequest', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest)// Ruta para crear una solicitud

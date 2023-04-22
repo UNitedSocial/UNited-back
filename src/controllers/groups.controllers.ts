@@ -122,6 +122,9 @@ class GroupsController {
       })
   }
 
+  public async new (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
+  }
+
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
@@ -134,6 +137,7 @@ class GroupsController {
       res.status(404).send({ err: 'Group not found' })
       return
     }
+
     // Get related groups
     const related = await relatedService.getBestRelatedGroups(topics, groupname, n, offset).catch((err): void => {
       console.log('Error getting related groups', err.message)
