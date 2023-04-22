@@ -122,6 +122,11 @@ class GroupsController {
       })
   }
 
+  public async popular (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+
+  }
+
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
