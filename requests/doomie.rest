@@ -1,6 +1,8 @@
-GET  http://localhost:3002/api/doomie?
+GET  http://localhost:3002/api/CheckGroup/salv1
 content-type: application/json
 
 {
-  "pass":"asdf"
-}
+  "user": {
+    "nickname": "salvarezri"
+  }
+} 
