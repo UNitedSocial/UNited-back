@@ -1,4 +1,4 @@
-import { groupsRoutesOptions } from '../config/defaultOptions'
+import { displayOptions } from '../config/defaultOptions.config'
 import { NextFunction, Request, Response } from 'express'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
@@ -8,8 +8,8 @@ class UserController {
   // Get all users info
   public async getUsers (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for users display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.index.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.index.offset
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
     // Get users
     await UserModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
       .then((users: UserDocument[]) => {

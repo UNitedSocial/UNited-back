@@ -26,7 +26,7 @@ class SearchController {
         order = 'info.name'
         break
     }
-    
+
     let dec = req.body.dec
     switch (dec) {
       case 'topics':
@@ -79,5 +79,6 @@ class SearchController {
         })
     }
   }
+}
 
 export default new SearchController()

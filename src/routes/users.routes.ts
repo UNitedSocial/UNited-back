@@ -3,7 +3,6 @@ import express, { Router } from 'express'
 import testControllers from '../controllers/test.controllers'
 import auth0Controllers from '../controllers/auth0.controllers'
 import usersControllers from '../controllers/users.controllers'
-
 const router = express.Router()
 
 // Users routes
@@ -16,4 +15,4 @@ router.get('/userStateGroup', usersControllers.userStateGroup) // Rout for get s
 // Test route
 router.get('/test/doomie', testControllers.doomie)
 
-export const userRoutes: Router = router
+export const usersRoutes: Router = router

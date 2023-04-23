@@ -2,8 +2,8 @@
 import express, { Router } from 'express'
 import testControllers from '../controllers/test.controllers'
 import aut0Controllers from '../controllers/auth0.controllers'
-import usersMiddlewares from '../middlewares/usersMiddlewares'
-import groupsMiddlewares from '../middlewares/groups.Middlewares'
+import usersMiddlewares from '../middlewares/users.middlewares'
+import groupsMiddlewares from '../middlewares/groups.middlewares'
 import groupsControllers from '../controllers/groups.controllers'
 import requestsControllers from '../controllers/requests.controllers'
 const router = express.Router()

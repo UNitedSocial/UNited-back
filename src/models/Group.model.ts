@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
 import { Classification, RecognizedInfoType, SectionTypes, MemberState, Role, RequestState, GroupDocument } from './group.documents'
-// TODO: refactor model to avoid _id unnecessary fields on everywhere
 
 const SocialNetworks = new Schema({
   facebook: { type: String, required: false },
@@ -9,6 +8,7 @@ const SocialNetworks = new Schema({
   twitter: { type: String, required: false },
   youtube: { type: String, required: false }
 })
+
 const ContactShema = new Schema({
   mail: { type: String, required: true },
   page: { type: String, required: false },
@@ -59,6 +59,7 @@ const RequestGroupShema = new Schema({
   state: { type: String, required: true, enum: Object.values(RequestState), default: RequestState.pending },
   approvedRejectedOn: { type: Date, required: false }
 })
+
 const GroupSchema = new Schema({
   info: GroupInfoShema,
   members: [MembersShema],

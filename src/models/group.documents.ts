@@ -1,6 +1,6 @@
-// info types
 import mongoose from 'mongoose'
 
+// Info of types
 export enum RecognizedInfoType {
   hotbed = 'Semillero',
   group = 'Grupo estudiantil',
@@ -34,6 +34,7 @@ export interface RecognizedInfo {
   department?: string
   mainProfessor?: string
 }
+
 export interface GroupInfo {
   name: string
   description: string
@@ -49,7 +50,6 @@ export interface GroupInfo {
 }
 
 // Page types
-
 export enum SectionTypes {
   carousel = 'carousel',
   title = 'title',
@@ -101,15 +101,16 @@ export interface groupSections {
 }
 
 // Group types
-
 export enum Role {
   editor = 'editor',
   member = 'member'
 }
+
 export enum MemberState {
   active = 'active',
   inactive = 'inactive'
 }
+
 export interface Members {
   userId: mongoose.Types.ObjectId
   username: string
@@ -117,11 +118,13 @@ export interface Members {
   role: Role
   state: MemberState
 }
+
 export enum RequestState {
   approved = 'approved',
   rejected = 'rejected',
   pending = 'pending'
 }
+
 export interface Requests {
   userId: mongoose.Types.ObjectId
   username: string
@@ -137,4 +140,5 @@ export interface Group {
   requests: Requests[]
   page: groupSections[]
 }
+
 export interface GroupDocument extends mongoose.Document, Group {}

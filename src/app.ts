@@ -1,4 +1,3 @@
-
 import cors from 'cors'
 import mongoose from 'mongoose'
 import express, { Application } from 'express'
@@ -13,8 +12,8 @@ export class App {
     this.startConnection() // Call DB
   }
 
+  // Initial middlewares
   private initMiddlewares (): void {
-    // Initial middlewares
     this._app.use(cors())
     this._app.use(express.json())
     this._app.use(express.urlencoded({ extended: true }))

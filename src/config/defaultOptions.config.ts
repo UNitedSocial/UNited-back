@@ -1,5 +1,5 @@
 // Configurations for the default options of Groups
-export const groupsRoutesOptions = {
+export const displayOptions = {
   index: {
     n: 5,
     offset: 0
