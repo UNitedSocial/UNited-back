@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
-import { GroupDocument } from '../models/group.documents'
+import { GroupDocument, Role } from '../models/group.documents'
 import { UserDocument } from '../models/user.documents'
 import requestsServices from '../services/requests.service'
+import userService from '../services/user.service'
+import groupsService from '../services/groups.service'
 class RequestController {
   // Create a request
   public async createRequest (req: Request, res: Response, _next: NextFunction): Promise<void> {
@@ -54,6 +56,35 @@ class RequestController {
         res.status(500).send({ err })
         console.log('Error finding group', err.message)
       })
+  }
+
+  public async changeRole (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const groupname = req.params.groupname
+    const userRequest = req.body.userRequest
+    const adminUser = req.body.user.nickname
+    const role = req.body.role
+    if (groupname === undefined || userRequest === undefined || adminUser === undefined || role === undefined) {
+      res.status(400).send({ message: 'Bad request' })
+      return
+    }
+    const userExists = await userService.userExists(userRequest as string)
+    const groupExists = await groupsService.groupExists(groupname)
+    if (!userExists || !groupExists) {
+      res.status(404).send({ message: 'User or group not found' })
+      return
+    }
+    // aprrove request or reject according to aproove value
+    const works = await requestsServices.changeRole(userRequest as string, groupname, role as Role)
+      .catch((err): boolean => {
+        console.log('Error changing role', err.message)
+        return false
+      })
+    // send response
+    if (works) {
+      res.status(200).send({ message: 'change role to '.concat(role).concat(' successfully') })
+    } else {
+      res.status(500).send({ message: 'Error when changing role to '.concat(role) })
+    }
   }
 }
 
