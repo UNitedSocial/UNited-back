@@ -3,7 +3,7 @@ content-type: application/json
 
 {
     "userRequest": "carrilloacerojuanpablo",
-    user:{
+    "user":{
         "nickname": "salvarezri"
     },
     "role":"editor"

@@ -24,7 +24,7 @@ export class App {
     return this._app
   }
 
-  // Conection to DB
+  // Connection to DB
   private startConnection (): void {
     mongoose.connect(process.env.CONECTIONSTRING as string, {})
       .then(() => {

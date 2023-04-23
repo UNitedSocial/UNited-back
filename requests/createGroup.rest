@@ -36,8 +36,5 @@ content-type: application/json
           "creationDate": "2018-04-03",
           "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
       }
-  },
-  "user":{
-    "nickname": "salvarezri"
   }
 }
