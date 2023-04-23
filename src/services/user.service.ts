@@ -1,4 +1,5 @@
 import UserModel from '../models/User.model'
+
 class USerService {
   public async userExists (username: string): Promise<boolean> {
     // check if user exist

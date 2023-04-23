@@ -1,8 +1,8 @@
 
 import cors from 'cors'
+import mongoose from 'mongoose'
 import express, { Application } from 'express'
 import { applicationRouter } from './routes/aplication.router'
-import mongoose from 'mongoose'
 
 export class App {
   private readonly _app: Application
@@ -10,23 +10,22 @@ export class App {
   constructor () {
     this._app = express()
     this.initMiddlewares()
-
-    // conect to db
-    this.startConnection()
+    this.startConnection() // Call DB
   }
 
   private initMiddlewares (): void {
+    // Initial middlewares
     this._app.use(cors())
     this._app.use(express.json())
     this._app.use(express.urlencoded({ extended: true }))
-    // use routes
-    this._app.use(applicationRouter)
+    this._app.use(applicationRouter) // Call router
   }
 
   public get app (): Application {
     return this._app
   }
 
+  // Conection to DB
   private startConnection (): void {
     mongoose.connect(process.env.CONECTIONSTRING as string, {})
       .then(() => {

@@ -80,4 +80,5 @@ class RelatedService {
     return groups === undefined ? null : groups
   }
 }
+
 export default new RelatedService()
