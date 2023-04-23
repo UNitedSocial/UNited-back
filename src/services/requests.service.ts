@@ -1,9 +1,9 @@
-
-import { GroupDocument, RequestState, Requests, Role } from '../models/group.documents'
 import mongoose, { now } from 'mongoose'
-import { UserDocument, requestUser, UserGroup } from '../models/user.documents'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
+import { UserDocument, requestUser, UserGroup } from '../models/user.documents'
+import { GroupDocument, RequestState, Requests, Role } from '../models/group.documents'
+
 class RequestService {
   private static userIsInGroup (user: UserDocument, group: GroupDocument): boolean {
     // check if the user is in the group

@@ -21,4 +21,5 @@ class UserMiddlewares {
     }
   }
 }
+
 export default new UserMiddlewares()

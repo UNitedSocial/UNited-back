@@ -26,7 +26,7 @@ class SearchController {
     }
 
     // Get Groups
-    await GroupModel.find({ 'info.name': { $regex: reg } }, { _id: 0, __v: 0 }).sort([[order, 1]])
+    await GroupModel.find({ 'info.name': { $regex: reg } }, 'info', { _id: 0, __v: 0 }).sort([[order, 1]])
       .then((group: GroupDocument[]) => {
         if (group.length === 0) {
           res.status(404).send({ err: 'Group not found' })

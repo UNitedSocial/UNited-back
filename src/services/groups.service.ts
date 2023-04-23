@@ -1,5 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { Members } from '../models/group.documents'
+
 class GroupService {
   public async groupExists (groupName: string): Promise<boolean> {
     // check if group exist

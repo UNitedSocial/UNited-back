@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import groupsService from '../services/groups.service'
 import { Role } from '../models/group.documents'
+
 class GroupMiddlewares {
   public async checkGroupExist (req: Request, res: Response, next: NextFunction): Promise<void> {
     // get and check username is given
@@ -45,4 +46,5 @@ class GroupMiddlewares {
     }
   }
 }
+
 export default new GroupMiddlewares()

@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express'
-import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
-import GroupModel from '../models/Group.model'
 import mongoose, { now } from 'mongoose'
+import { NextFunction, Request, Response } from 'express'
 import { groupsRoutesOptions } from '../config/defaultOptions'
+import GroupModel from '../models/Group.model'
 import UserModel from '../models/User.model'
+import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
 import relatedService from '../services/related.service'
 
@@ -122,7 +122,7 @@ class GroupsController {
       })
   }
 
-  //Function for getting new groups
+  // Function for getting new groups
   public async new (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const ind = req.query.ind
 
@@ -145,8 +145,8 @@ class GroupsController {
       res.status(400).send({ err: 'Invalid ind parameter' })
     }
   }
-  
-  //Function for getting most popular groups
+
+  // Function for getting most popular groups
   public async popular (_req: Request, res: Response, _next: NextFunction): Promise<void> {
     await GroupModel.find().sort([['info.numberOfMembers', -1]]).limit(5)
       .then((group: GroupDocument[]) => {
@@ -162,8 +162,8 @@ class GroupsController {
         console.log('Error finding group', err.message)
       })
   }
-  
-  //Function for getting related groups
+
+  // Function for getting related groups
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
@@ -184,14 +184,6 @@ class GroupsController {
     })
     // Send response
     res.status(200).send(related)
-  }
-
-  // Test route
-  public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const n = req.query.n
-    const offset = req.query.a
-    console.log(n, offset)
-    res.status(200).json({ n, offset })
   }
 }
 
