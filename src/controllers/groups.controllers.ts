@@ -122,9 +122,26 @@ class GroupsController {
       })
   }
 
+  //Function for getting new groups
   public async new (_req: Request, _res: Response, _next: NextFunction): Promise<void> {
   }
-
+  public async popular (_req: Request, res: Response, _next: NextFunction): Promise<void> {
+    await GroupModel.find().sort([['info.numberOfMembers', -1]]).limit(5)
+      .then((group: GroupDocument[]) => {
+        if (group.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        res.status(200)
+        res.send(group)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding group', err.message)
+      })
+  }
+  
+  //Function for getting related groups
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
