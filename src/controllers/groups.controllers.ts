@@ -1,6 +1,6 @@
 import mongoose, { now } from 'mongoose'
 import { NextFunction, Request, Response } from 'express'
-import { groupsRoutesOptions } from '../config/defaultOptions'
+import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
 import UserModel from '../models/User.model'
 import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
@@ -11,8 +11,8 @@ class GroupsController {
   // Get all groups info
   public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.index.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.index.offset
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
     // Get groups
     await GroupModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
       .then((groups: GroupDocument[]) => {
@@ -166,8 +166,8 @@ class GroupsController {
   // Function for getting related groups
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : groupsRoutesOptions.related.offset
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.related.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.related.offset
     const groupname = req.params.groupname
     // Get group topics
     const group = await GroupModel.findOne({ 'info.name': groupname }, 'info.topics', { _id: 0, __v: 0 })
