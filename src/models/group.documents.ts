@@ -1,5 +1,4 @@
 // info types
-// TODO: some interfaces are in plural
 import mongoose from 'mongoose'
 
 export enum RecognizedInfoType {
@@ -129,7 +128,7 @@ export interface Requests {
   name: string
   date: Date
   state: RequestState
-  approvedRejectedOn?: string
+  approvedRejectedOn?: Date
 }
 
 export interface Group {

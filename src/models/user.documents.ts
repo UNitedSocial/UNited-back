@@ -13,7 +13,7 @@ export interface requestUser {
   groupName: string
   date: Date
   state: RequestState
-  approvedRejectedOn?: string
+  approvedRejectedOn?: Date
 }
 
 export interface User {

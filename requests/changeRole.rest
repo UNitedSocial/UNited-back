@@ -2,6 +2,9 @@ PUT http://localhost:3002/groups/seeGroup/salv14/changeRole
 content-type: application/json
 
 {
-    "userRequest": "salvarezri",
+    "userRequest": "carrilloacerojuanpablo",
+    user:{
+        "nickname": "salvarezri"
+    },
     "role":"editor"
 }

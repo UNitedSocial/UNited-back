@@ -21,7 +21,8 @@ router.get('/popular', groupsControllers.popular) // Route to get most popular g
 
 // Requests routes
 router.get('/seeGroup/:groupname/requests', requestsControllers.getRequests) // Route to get all join requests of a group
-router.post('/seeGroup/:groupname/sendRequest', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest) // Route to create a request to join a group
+router.put('/seeGroup/:groupname/requests', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.answerRequest) // Route to answer a join request
+router.post('/seeGroup/:groupname/requests', aut0Controllers.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest) // Route to create a request to join a group
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

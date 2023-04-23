@@ -117,7 +117,6 @@ class UserController {
 
   // Get info of an specific user
   public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    console.log('entering user info')
     const username = req.params.username
     await UserModel.find({ username }, { _id: 0, __v: 0 })
       .then((user) => {
