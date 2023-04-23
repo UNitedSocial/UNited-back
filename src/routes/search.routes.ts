@@ -4,8 +4,8 @@ import searchControllers from '../controllers/search.controllers'
 import testControllers from '../controllers/test.controllers'
 const router = express.Router()
 
-// Seach routes
-router.get('/:query', searchControllers.getQuery) // Ruta de Obtención de Grupos
+// Search routes
+router.get('/:query', searchControllers.getQuery) // Route to get groups using search engine
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

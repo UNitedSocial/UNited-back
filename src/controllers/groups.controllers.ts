@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express'
-import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
-import GroupModel from '../models/Group.model'
 import mongoose, { now } from 'mongoose'
+import { NextFunction, Request, Response } from 'express'
 import { groupsRoutesOptions } from '../config/defaultOptions'
+import GroupModel from '../models/Group.model'
 import UserModel from '../models/User.model'
+import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
 import relatedService from '../services/related.service'
 
@@ -122,6 +122,48 @@ class GroupsController {
       })
   }
 
+  // Function for getting new groups
+  public async new (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const ind = req.query.ind
+
+    if (typeof ind === 'string') {
+      const ind2: number = parseInt(ind)
+      await GroupModel.find().sort([['info.creationDate', -1]]).limit(ind2)
+        .then((group: GroupDocument[]) => {
+          if (group.length === 0) {
+            res.status(404).send({ err: 'Group not found' })
+            return
+          }
+          res.status(200)
+          res.send(group)
+        })
+        .catch((err): void => {
+          res.status(500).send({ err })
+          console.log('Error finding group', err.message)
+        })
+    } else {
+      res.status(400).send({ err: 'Invalid ind parameter' })
+    }
+  }
+
+  // Function for getting most popular groups
+  public async popular (_req: Request, res: Response, _next: NextFunction): Promise<void> {
+    await GroupModel.find().sort([['info.numberOfMembers', -1]]).limit(5)
+      .then((group: GroupDocument[]) => {
+        if (group.length === 0) {
+          res.status(404).send({ err: 'Group not found' })
+          return
+        }
+        res.status(200)
+        res.send(group)
+      })
+      .catch((err): void => {
+        res.status(500).send({ err })
+        console.log('Error finding group', err.message)
+      })
+  }
+
+  // Function for getting related groups
   public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : groupsRoutesOptions.related.n
@@ -134,6 +176,7 @@ class GroupsController {
       res.status(404).send({ err: 'Group not found' })
       return
     }
+
     // Get related groups
     const related = await relatedService.getBestRelatedGroups(topics, groupname, n, offset).catch((err): void => {
       console.log('Error getting related groups', err.message)
@@ -141,14 +184,6 @@ class GroupsController {
     })
     // Send response
     res.status(200).send(related)
-  }
-
-  // Test route
-  public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const n = req.query.n
-    const offset = req.query.a
-    console.log(n, offset)
-    res.status(200).json({ n, offset })
   }
 }
 

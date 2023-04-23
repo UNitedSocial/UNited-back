@@ -1,8 +1,8 @@
+import { groupsRoutesOptions } from '../config/defaultOptions'
 import { NextFunction, Request, Response } from 'express'
-import { User, UserDocument } from '../models/user.documents'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
-import { groupsRoutesOptions } from '../config/defaultOptions'
+import { User, UserDocument } from '../models/user.documents'
 
 class UserController {
   // Get all users info
@@ -113,30 +113,10 @@ class UserController {
         res.status(500).json({ err })
         console.log('Error finding group', err.message)
       })
-
-    // PARTE EXPERIMENTAL JUANDA
-    // Find group and delete user from members
-    // const { group, username } = req.body
-    // await GroupModel.find({ 'info.name': groupname }, { members: 1, _id: 0 })
-    //   .then((members: Object[]): void => {
-    //     // Findgroup
-    //     if (members.length === 0) {
-    //       res.status(404).send({ err: 'Group not found' })
-    //       return
-    //     }
-    //     members.find((member) => {
-    //       return member.username === username
-    //     }
-    //     // var nickname = members.filter(function(member) {
-    //     //   return member.username === username;
-    //     // }
-    //     res.send(members)
-    //   })
   }
 
   // Get info of an specific user
   public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    console.log('entering user info')
     const username = req.params.username
     await UserModel.find({ username }, { _id: 0, __v: 0 })
       .then((user) => {
@@ -178,14 +158,6 @@ class UserController {
     })
     console.log(username, 'state in group', groupName, ' is: "', state, '"')
     res.status(200).send({ state })
-  }
-
-  // Test Route
-  public async doomie (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const n = req.query.n
-    const offset = req.query.a
-    console.log(n, offset)
-    res.status(200).json({ n, offset })
   }
 }
 

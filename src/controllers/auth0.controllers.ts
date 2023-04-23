@@ -5,7 +5,6 @@ class Auth0Controller {
   public async doom (_req: Request, res: Response, _next: NextFunction): Promise<void> {
     res.status(200).json({ message: 'Doomed' })
   }
-  // this feature will be implemented in the future
 
   public verifyJwt = auth({
     audience: process.env.AUTH0AUDIENCE,
