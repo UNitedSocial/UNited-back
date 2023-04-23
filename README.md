@@ -8,6 +8,6 @@ Our goal is to develop a centralized platform that allows the creation of digita
 
 # Developed by:
 
-* 
-* 
-* 
+* **[dmojicam](https://github.com/dmojicam)**
+* **[salvarezri](https://github.com/salvarezri)**
+* **[jubarretog](https://github.com/jubarretog)**
