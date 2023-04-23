@@ -82,7 +82,6 @@ class RequestController {
       res.status(404).json({ message: 'user or group not found' })
       return
     }
-    console.log(answer)
     if (!['approve', 'reject'].includes(answer)) {
       res.status(400).json({ message: 'answer not allowed' })
       return
@@ -110,20 +109,16 @@ class RequestController {
     // Aproove request or reject according to aproove value
     groupModel.requests.forEach(request => {
       if (userModel.username === request.username && request.state === RequestState.pending) {
-        console.log('member after', request)
         request.state = requestState
         request.approvedRejectedOn = newdate
-        console.log('member before', request)
         coincidence = true
       }
     })
 
     userModel.requests.forEach(request => {
       if (groupModel.info.name === request.groupName && request.state === RequestState.pending) {
-        console.log('member after', request)
         request.state = requestState
         request.approvedRejectedOn = newdate
-        console.log('member before', request)
         coincidence = true
       }
     })
