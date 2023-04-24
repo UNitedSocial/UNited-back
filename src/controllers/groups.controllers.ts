@@ -1,10 +1,7 @@
-import mongoose, { now } from 'mongoose'
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
-import UserModel from '../models/User.model'
-import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
-import { UserDocument, UserGroup } from '../models/user.documents'
+import { GroupDocument, GroupInfo } from '../models/group.documents'
 import relatedService from '../services/related.service'
 import groupsService from '../services/groups.service'
 
@@ -39,60 +36,11 @@ class GroupsController {
     const username = user?.nickname
     // Get only the info field
     const info: GroupInfo = group.info
-
-    // Check if group name is already taken
-    const exist = await groupsService.groupExists(info.name)
-    if (exist) {
-      res.status(400).send({ err: 'Group name already taken' })
-      return
-    }
-    // get user by username
-    const userModel = await UserModel.findOne({ username }) as UserDocument
-    // create user info to save on group
-    info.numberOfMembers = 1
-    info.numberOfPublications = 0
-    const members = [
-      {
-        userId: new mongoose.Types.ObjectId(userModel?._id),
-        username: userModel?.username,
-        name: userModel?.name,
-        role: 'editor' as Role,
-        state: 'active' as MemberState
-      }
-    ]
-    // create group object
-    const groupInfo: Group = {
-      info,
-      members,
-      requests: [],
-      page: []
-    }
-    // save group
-    const newGroup: GroupDocument = new GroupModel(groupInfo)
-    await newGroup.save()
-    // save group info on user
-      .then((savedGrop: GroupDocument): void => {
-        // create user group info with saved group info
-        const grupParams: UserGroup = {
-          groupId: new mongoose.Types.ObjectId(savedGrop?._id),
-          groupName: savedGrop.info.name,
-          role: 'member' as Role,
-          date: new Date(now())
-        }
-        // add to user groups
-        userModel.groups?.push(grupParams)
-        // save user
-        userModel.save().catch((err): void => {
-          console.log('Error saving user', err.message)
-        })
-        res.status(201).send({ message: 'Group created succesfully' })
-        console.log('Group "' + savedGrop.info.name + '" saved and user "' + userModel.username + '" updated')
-      })
-      // if error, send error and stop
-      .catch((err): void => {
-        res.status(500).json({ err })
-        console.log('Error saving group', err.message)
-      })
+    const response = await groupsService.createGroup(info, username)
+    res.status(response.status).send({
+      err: response.err,
+      message: response.message
+    })
   }
 
   // Get info of an specific group
