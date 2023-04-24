@@ -1,5 +1,5 @@
 import GroupModel from '../models/Group.model'
-import { Members } from '../models/group.documents'
+import { Member } from '../models/group.documents'
 
 class GroupService {
   public async groupExists (groupName: string): Promise<boolean> {
@@ -19,7 +19,7 @@ class GroupService {
 
   public async getGroupRole (groupName: string, _username: string): Promise<string | null> {
     let role: String | null = null
-    const groupMembers: Members[] | null | String = await GroupModel.findOne({ 'info.name': groupName }, 'members')
+    const groupMembers: Member[] | null | String = await GroupModel.findOne({ 'info.name': groupName }, 'members')
       .then((group) => {
         if (group != null) {
           return group.members

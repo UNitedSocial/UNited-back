@@ -6,6 +6,7 @@ import UserModel from '../models/User.model'
 import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
 import relatedService from '../services/related.service'
+import groupsService from '../services/groups.service'
 
 class GroupsController {
   // Get all groups info
@@ -34,14 +35,22 @@ class GroupsController {
   // TODO: refactor this function (split in smaller functions)[use services folder]
   // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // get only the info field
     const { group, user } = req.body
     const username = user?.nickname
+    // Get only the info field
     const info: GroupInfo = group.info
+
+    // Check if group name is already taken
+    const exist = await groupsService.groupExists(info.name)
+    if (exist) {
+      res.status(400).send({ err: 'Group name already taken' })
+      return
+    }
     // get user by username
     const userModel = await UserModel.findOne({ username }) as UserDocument
     // create user info to save on group
     info.numberOfMembers = 1
+    info.numberOfPublications = 0
     const members = [
       {
         userId: new mongoose.Types.ObjectId(userModel?._id),

@@ -1,2 +1,2 @@
-GET  http://localhost:3002/search/salv
+GET  http://localhost:3002/search/sal
 content-type: application/json

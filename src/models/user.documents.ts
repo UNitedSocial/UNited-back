@@ -8,7 +8,7 @@ export interface UserGroup {
   role: Role
 }
 
-export interface requestUser {
+export interface RequestUser {
   groupId: mongoose.Types.ObjectId
   groupName: string
   date: Date
@@ -21,7 +21,7 @@ export interface User {
   username: string
   email: string
   groups: UserGroup[]
-  requests: requestUser[]
+  requests: RequestUser[]
 }
 
 export interface UserDocument extends mongoose.Document, User {}

@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { User, UserDocument } from '../models/user.documents'
+import userService from '../services/user.service'
 
 class UserController {
   // Get all users info
@@ -29,6 +30,14 @@ class UserController {
   // Create new user
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { user } = req.body
+    // Check if username is already taken
+    const exist = await userService.userExists(user?.nickname)
+    if (exist) {
+      res.status(400).send({ err: 'Username already taken' })
+      return
+    }
+
+    // Create user
     const middleUser: User = {
       username: user?.nickname,
       name: user?.name,

@@ -3,8 +3,5 @@ content-type: application/json
 
 {
     "userRequest": "carrilloacerojuanpablo",
-    "user":{
-        "nickname": "salvarezri"
-    },
-    "role":"editor"
+    "role":"member"
 }

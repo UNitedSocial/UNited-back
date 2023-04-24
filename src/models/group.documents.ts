@@ -6,6 +6,7 @@ export enum RecognizedInfoType {
   group = 'Grupo estudiantil',
   project = 'Proyecto estudiantil',
 }
+
 export enum Classification {
   academic = 'Académico',
   cultural = 'Cultural',
@@ -40,6 +41,7 @@ export interface GroupInfo {
   description: string
   contact: Contact
   numberOfMembers: number
+  numberOfPublications: number
   topics: string[]
   classification: Classification
   isRecognized: boolean
@@ -75,8 +77,8 @@ export interface subtitle {
   subtitle: string
 }
 
-export interface paragraphs {
-  paragraphs: string
+export interface paragraph {
+  paragraph: string
 }
 
 export enum StyleList {
@@ -97,7 +99,7 @@ export interface listContent {
 export interface groupSections {
   position: number
   type: SectionTypes
-  content: carousel | title | subtitle | paragraphs | listContent
+  content: carousel | title | subtitle | paragraph | listContent
 }
 
 // Group types
@@ -111,7 +113,7 @@ export enum MemberState {
   inactive = 'inactive'
 }
 
-export interface Members {
+export interface Member {
   userId: mongoose.Types.ObjectId
   username: string
   name: string
@@ -136,7 +138,7 @@ export interface Requests {
 
 export interface Group {
   info: GroupInfo
-  members: Members[]
+  members: Member[]
   requests: Requests[]
   page: groupSections[]
 }

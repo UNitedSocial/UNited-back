@@ -28,6 +28,7 @@ const GroupInfoShema = new Schema({
   description: { type: String, required: true },
   contact: ContactShema,
   numberOfMembers: { type: Number, required: true, default: 1 },
+  numberOfPublications: { type: Number, required: true, default: 0 },
   topics: [{ type: String, required: true }],
   clasification: { type: String, required: true, enum: Object.values(Classification), default: Classification.other },
   isRecognized: { type: Boolean, required: true },
@@ -43,7 +44,7 @@ const GroupSectionSchema = new Schema({
   content: { type: [Schema.Types.Mixed], required: true }
 })
 
-const MembersShema = new Schema({
+const MemberShema = new Schema({
   userId: { type: Schema.Types.ObjectId, required: true, ref: 'Users' },
   name: { type: String, required: true },
   username: { type: String, required: true },
@@ -62,7 +63,7 @@ const RequestGroupShema = new Schema({
 
 const GroupSchema = new Schema({
   info: GroupInfoShema,
-  members: [MembersShema],
+  members: [MemberShema],
   requests: [RequestGroupShema],
   page: [GroupSectionSchema]
 })

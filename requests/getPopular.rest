@@ -1,0 +1,2 @@
+GET http://localhost:3002/groups/popular
+content-type: application/json

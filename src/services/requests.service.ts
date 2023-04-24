@@ -1,7 +1,7 @@
 import mongoose, { now } from 'mongoose'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
-import { UserDocument, requestUser, UserGroup } from '../models/user.documents'
+import { UserDocument, RequestUser, UserGroup } from '../models/user.documents'
 import { GroupDocument, RequestState, Requests, Role } from '../models/group.documents'
 
 class RequestService {
@@ -27,10 +27,10 @@ class RequestService {
     return activeRequest
   }
 
-  public createRequestObjects (user: UserDocument, group: GroupDocument): { requestUser: requestUser, requestGroup: Requests } {
+  public createRequestObjects (user: UserDocument, group: GroupDocument): { requestUser: RequestUser, requestGroup: Requests } {
     // create request object for user and for group
     const date: Date = new Date(now())
-    const requestUser: requestUser = {
+    const requestUser: RequestUser = {
       groupId: new mongoose.Types.ObjectId(group._id),
       groupName: group.info.name,
       date,

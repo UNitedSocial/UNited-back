@@ -1,2 +1,0 @@
-GET  http://localhost:3002/groups/seeGroup/salv13/related?n=5&a=0
-content-type: application/json
