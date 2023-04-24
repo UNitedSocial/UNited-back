@@ -7,7 +7,7 @@ Our goal is to develop a centralized platform that allows the creation of digita
 3. Assign credentials in ***.env*** for database and auth0 connection as shown in the ***.env.example*** file
 4. Execute ***npm run dev*** to run server and connect to database
 
-# Developed by:
+# ***Developed by:***
 * **[dmojicam](https://github.com/dmojicam)**
 * **[salvarezri](https://github.com/salvarezri)**
 * **[jubarretog](https://github.com/jubarretog)**
