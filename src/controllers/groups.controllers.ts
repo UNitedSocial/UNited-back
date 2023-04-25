@@ -3,7 +3,7 @@ import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
 import { GroupDocument, GroupInfo } from '../models/group.documents'
 import relatedService from '../services/related.service'
-import groupsService from '../services/groups.service'
+import createGroupService from '../services/createGroup.service'
 
 class GroupsController {
   // Get all groups info
@@ -36,7 +36,7 @@ class GroupsController {
     const username = user?.nickname
     // Get only the info field
     const info: GroupInfo = group.info
-    const response = await groupsService.createGroup(info, username)
+    const response = await createGroupService.createGroup(info, username)
     res.status(response.status).send({
       err: response.err,
       message: response.message
