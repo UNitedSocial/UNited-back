@@ -2,34 +2,23 @@ import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
 import { GroupDocument, GroupInfo } from '../models/group.documents'
+
 import relatedService from '../services/related.service'
 import createGroupService from '../services/createGroup.service'
+import getGroupsService from '../services/getGroups.service'
 
 class GroupsController {
-  // Get all groups info
+  // Get all groups
   public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
     const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
-    // Get groups
-    await GroupModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
-      .then((groups: GroupDocument[]) => {
-        // Check if there are groups to show
-        if (groups.length === 0) {
-          res.status(404).send({ err: 'There are no groups to show' })
-          return
-        }
-        console.log('Groups found successfully')
-        res.status(200).json(groups)
-      })
-      // If error, send error and stop
-      .catch((err): void => {
-        res.status(500).send(err)
-        console.log('Error getting groups', err.message)
-      })
+    // Get only the info field
+    const response = await getGroupsService.getGroups(n, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
-  // TODO: refactor this function (split in smaller functions)[use services folder]
   // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { group, user } = req.body
@@ -37,12 +26,17 @@ class GroupsController {
     // Get only the info field
     const info: GroupInfo = group.info
     const response = await createGroupService.createGroup(info, username)
-    res.status(response.status).send({
-      err: response.err,
-      message: response.message
-    })
+    if (response.status === 200) {
+      res.status(response.status).send(group)
+    } else {
+      res.status(response.status).send({
+        err: response.err,
+        message: response.message
+      })
+    }
   }
 
+  // Refactor pending
   // Get info of an specific group
   public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const groupname = req.params.groupname
