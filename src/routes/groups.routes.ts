@@ -10,8 +10,8 @@ const router = express.Router()
 
 // Groups routes
 router.get('/', groupsControllers.getGroups) // Route to get info of all groups
-router.get('/seeGroup/:groupname', groupsControllers.groupInfo) // Route to get info of a group
-router.post('/createGroup', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Route for create a group
+router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of a group
+router.post('/', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Route for create a group
 router.get('/seeGroup/:groupname/members', groupsControllers.members) // Route to get the members of a group
 router.put('/seeGroup/:groupname/changeRole', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.changeRole) // Route to change role of a member
 

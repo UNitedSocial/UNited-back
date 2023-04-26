@@ -16,31 +16,31 @@ interface ResponseService {
 }
 
 class GetGroups {
-  public async getGroups (n: number, offset: number): Promise<ResponseService> {
+  public async seeGroup (groupname: string): Promise<ResponseService> {
     let response: ResponseService
-    let groups: GroupDocument[] = []
+    let group: GroupDocument[] = []
     // Get groups
     try {
-      groups = await GroupModel.find({}, { info: 1, _id: 0 }, { skip: offset, limit: n })
+      group = await GroupModel.find({ 'info.name': groupname }, { _id: 0, __v: 0 })
     } catch {
       response = {
-        answer: groups,
+        answer: group,
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding groups'
+        message: 'Error finding group'
       }
     }
 
     // Check if there are groups
-    if (groups.length === 0) {
+    if (group.length === 0) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'There are no groups to show'
+        message: 'The Group doesn\'t exist'
       }
     }
     response = {
-      answer: groups,
+      answer: group,
       status: ResponseStatus.OK,
-      message: 'Groups found successfully'
+      message: 'Group found successfully'
     }
 
     return response
