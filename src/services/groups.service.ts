@@ -1,7 +1,7 @@
 import GroupModel from '../models/Group.model'
 import { Member } from '../models/group.documents'
 
-class GroupService {
+export class GroupService {
   public async groupExists (groupName: string): Promise<boolean> {
     // check if group exist
     const group = await GroupModel.findOne({ 'info.name': groupName })
