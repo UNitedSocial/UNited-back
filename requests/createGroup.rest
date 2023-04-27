@@ -1,0 +1,40 @@
+POST http://localhost:3002/groups/createGroup
+content-type: application/json
+
+{
+  "group":{
+      "info":{
+          "name":"salv32",
+          "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+          "contact":{
+              "mail":"UNitedGroup1@group.com",
+              "page":"UNitedGroup1Page.com",
+              "cellphone": "3564978256",
+              "socialNetworks":{
+                  "facebook":"facebook.com/UNitedGroup1",
+                  "instagram":"instagram.com/UNitedGroup1",
+                  "linkedin":"linkedin.com/UNitedGroup1",
+                  "twitter":"twitter.com/UNitedGroup1",
+                  "youtube":"youtube.com/UNitedGroup1"
+              }
+          },
+          "numberOfMembers": 1,
+          "topics":[
+              "futbol",
+              "cocina",
+              "Carreras"
+          ],
+          "classification":"Académico",
+          "isRecognized": true,
+          "recognizedInfo": {
+              "type": "Semillero",
+              "faculty": "Ingeniería",
+              "department": "departamento de ingeniería eléctrica y electrónica",
+              "mainProfessor": "Augusto Martinez"
+          },
+          "fundationDate": "2010-04-03",
+          "creationDate": "2018-04-03",
+          "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
+      }
+  }
+}

@@ -1,0 +1,2 @@
+GET http://localhost:3002/users/userStateGroup/?username=salvarezri&groupname=salv14
+content-type: application/json

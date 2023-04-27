@@ -1,0 +1,6 @@
+PUT  http://localhost:3002/users/quitGroup
+content-type: application/json
+
+{
+  "name": "salv11",
+}

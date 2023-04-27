@@ -1,0 +1,7 @@
+PUT http://localhost:3002/seeGroup/salv14/requests
+content-type: application/json
+
+{
+  "username":"carrilloacerojuanpablo",
+  "answer": "approve"
+}
