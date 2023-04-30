@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
-import { GroupInfo } from '../models/group.documents'
+import { GroupInfo, groupSections } from '../models/group.documents'
 
 import createGroupService from '../services/createGroup.service'
 import getGroupsService from '../services/getGroups.service'
@@ -11,6 +11,9 @@ import changeRoleServices from '../services/changeRole.service'
 import getNewService from '../services/getNew.service'
 import getPopularService from '../services/getPopular.service'
 import getRelatedService from '../services/getRelated.service'
+import createSectionService from '../services/createSection.service'
+import deleteSectionService from '../services/deleteSection.service'
+import editSectionService from '../services/editSection.service'
 
 class GroupsController {
   // Get all groups
@@ -73,6 +76,39 @@ class GroupsController {
     const groupname = req.params.groupname
     // Call service
     const response = await changeRoleServices.changeRole(username, groupname, role)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Create a section
+  public async createSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const section: groupSections = req.body.section
+    // Call service
+    const response = await createSectionService.createSection(groupname, section)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Delete a section
+  public async deleteSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const { username } = req.body
+    const groupname = req.params.groupname
+    // Call service
+    const response = await deleteSectionService.deleteSection(username, groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Edit a section
+  public async editSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const { username/* , role */ } = req.body
+    const groupname = req.params.groupname
+    // Call service
+    const response = await editSectionService.editSection(username, groupname)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
