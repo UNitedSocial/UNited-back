@@ -94,10 +94,10 @@ class GroupsController {
   // Delete a section
   public async deleteSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
-    const { username } = req.body
+    const position = Number(req.body.position)
     const groupname = req.params.groupname
     // Call service
-    const response = await deleteSectionService.deleteSection(username, groupname)
+    const response = await deleteSectionService.deleteSection(groupname, position)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
