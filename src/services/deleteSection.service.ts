@@ -1,64 +1,68 @@
-import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
-import { UserDocument } from '../models/user.documents'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
-import requestsService from './requests.service'
-
 class DeleteSection {
-  public async deleteSection (username: string, groupname: string): Promise<Responses> {
+  public async deleteSection (groupname: string, position: number): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
-    let userDoc: UserDocument | null
 
-    // Get group and user data
+    // Get group data
     try {
       groupDoc = await GroupModel.findOne({ 'info.name': groupname })
-      userDoc = await UserModel.findOne({ username })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error getting user or group'
+        message: 'Error getting group'
       }
       return response
     }
 
-    // Check if group and user exist
-    if (groupDoc == null || userDoc == null) {
+    // Check if group exist
+    if (groupDoc == null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'User or group doesn\'t exist'
+        message: 'Group doesn\'t exist'
       }
       return response
     }
 
-    // Validate if user is in the group or has an active request
-    if (!requestsService.validateUserRequest(userDoc, groupDoc)) {
+    // Check if position is valid
+    if (position == null || isNaN(position) || position < 1 || position > groupDoc.page.length) {
       response = {
         status: ResponseStatus.BAD_REQUEST,
-        message: 'The user has an active request or is already in the group'
+        message: 'Invalid position or missing position'
       }
       return response
     }
 
-    // Create request objects and save them
-    const { requestUser, requestGroup } = requestsService.createRequestObjects(userDoc, groupDoc)
-    userDoc.requests.push(requestUser)
-    groupDoc.requests.push(requestGroup)
+    // Delete section
+    groupDoc.page.forEach((section) => {
+      if (section.position === position) {
+        groupDoc?.page.splice(position - 1, 1)
+      }
+    })
+
+    // // Update positions
+    groupDoc.page.forEach((section) => {
+      if (section.position > position) {
+        section.position -= 1
+      }
+    })
+
+    // Save changes
     try {
-      await userDoc.save()
       await groupDoc.save()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error saving user or group'
+        message: 'Error saving group'
       }
     }
 
     response = {
       status: ResponseStatus.CREATED,
-      message: 'Request created succesfully'
+      message: 'Section deleted successfully'
     }
 
     return response
