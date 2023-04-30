@@ -25,6 +25,11 @@ router.get('/:groupname/requests', requestsControllers.getRequests) // Route to 
 router.post('/:groupname/requests', /* aut0Controllers.getUserData,  usersMiddlewares.checkUserExist, */ requestsControllers.createRequest) // Route to create a request to join a group
 router.put('/:groupname/requests', /* aut0Controllers.getUserData,  usersMiddlewares.checkUserExist,  groupsMiddlewares.checkGroupRole,  */ requestsControllers.answerRequest) // Route to answer a join request
 
+// Sections routes
+router.post('/:groupname/sections', /* aut0Controllers.getUserData,  usersMiddlewares.checkUserExist,  groupsMiddlewares.checkGroupRole, */ groupsControllers.createSection) // Route to change role of a member
+router.delete('/:groupname/sections', /* aut0Controllers.getUserData,  usersMiddlewares.checkUserExist,  groupsMiddlewares.checkGroupRole, */ groupsControllers.deleteSection) // Route to change role of a member
+router.put('/:groupname/sections', /* aut0Controllers.getUserData,  usersMiddlewares.checkUserExist,  groupsMiddlewares.checkGroupRole, */ groupsControllers.editSection) // Route to change role of a member
+
 // Test route
 router.get('/test/doomie', testControllers.doomie)
 
