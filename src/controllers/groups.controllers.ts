@@ -14,6 +14,7 @@ import getRelatedService from '../services/getRelated.service'
 import createSectionService from '../services/createSection.service'
 import deleteSectionService from '../services/deleteSection.service'
 import editSectionService from '../services/editSection.service'
+import editGroupService from '../services/editGroup.service'
 
 class GroupsController {
   // Get all groups
@@ -54,6 +55,17 @@ class GroupsController {
     const offset = (req.params.page !== undefined) ? Number(req.params.page) : displayOptions.index.offset
     // Call service
     const response = await getNewService.getNew(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get most recent created groups
+  public async editGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const group = req.body.group
+    const groupname = req.params.groupname
+    // Call service
+    const response = await editGroupService.editGroup(group, groupname)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
