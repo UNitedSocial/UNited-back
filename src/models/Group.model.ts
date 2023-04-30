@@ -41,7 +41,7 @@ const GroupInfoShema = new Schema({
 const GroupSectionSchema = new Schema({
   position: { type: Number, required: true },
   type: { type: String, required: true, enum: Object.values(SectionTypes), default: SectionTypes.paragraphs },
-  content: { type: [Schema.Types.Mixed], required: true }
+  content: { type: Schema.Types.Mixed, required: true }
 })
 
 const MemberShema = new Schema({

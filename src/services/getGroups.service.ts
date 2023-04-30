@@ -6,6 +6,7 @@ class GetGroups {
   public async getGroups (index: number, offset: number): Promise<Responses> {
     let response: Responses
     let groups: GroupDocument[] = []
+
     // Get groups
     try {
       groups = await GroupModel.find({}, { info: 1, _id: 0 }, { skip: offset, limit: index })

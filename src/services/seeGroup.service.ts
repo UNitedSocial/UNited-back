@@ -6,6 +6,7 @@ class SeeGroup {
   public async seeGroup (groupname: string): Promise<Responses> {
     let response: Responses
     let group: GroupDocument[] = []
+
     // Get groups
     try {
       group = await GroupModel.find({ 'info.name': groupname }, { _id: 0, __v: 0 })

@@ -105,10 +105,11 @@ class GroupsController {
   // Edit a section
   public async editSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
-    const { username/* , role */ } = req.body
+    const position = Number(req.body.position)
+    const section = req.body.section
     const groupname = req.params.groupname
     // Call service
-    const response = await editSectionService.editSection(username, groupname)
+    const response = await editSectionService.editSection(groupname, position, section)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
