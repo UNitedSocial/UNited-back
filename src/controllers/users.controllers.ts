@@ -2,59 +2,42 @@ import { displayOptions } from '../config/defaultOptions.config'
 import { NextFunction, Request, Response } from 'express'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
-import { User, UserDocument } from '../models/user.documents'
-import userService from '../services/user.service'
+import { UserDocument } from '../models/user.documents'
+
+import getUsersService from '../services/getUsers.service'
+import seeUserService from '../services/seeUser.service'
+import createUserService from '../services/createUser.service'
 
 class UserController {
-  // Get all users info
+  // Get all users
   public async getUsers (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for users display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
-    // Get users
-    await UserModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
-      .then((users: UserDocument[]) => {
-        // Check if there are groups to show
-        if (users.length === 0) {
-          res.status(404).send({ err: 'There are no users to show' })
-          return
-        }
-        res.status(200).json(users)
-      })
-      .catch((err): void => {
-        res.status(500).json({ err })
-        console.log('Error getting users', err.message)
-      })
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.o !== undefined) ? Number(req.query.o) : displayOptions.index.offset
+    // Call service
+    const response = await getUsersService.getUsers(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get info of an specific user
+  public async seeUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username
+    const username = req.params.username
+    // Call service
+    const response = await seeUserService.seeUser(username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
   // Create new user
   public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get userdata
     const { user } = req.body
-    // Check if username is already taken
-    const exist = await userService.userExists(user?.nickname)
-    if (exist) {
-      res.status(400).send({ err: 'Username already taken' })
-      return
-    }
-
-    // Create user
-    const middleUser: User = {
-      username: user?.nickname,
-      name: user?.name,
-      email: user?.email,
-      groups: [],
-      requests: []
-    }
-    const newUser: UserDocument = new UserModel(middleUser)
-    await newUser.save()
-      .then((): void => {
-        res.status(201).send({ message: 'User created successfully' })
-        console.log('User created successfully')
-      })
-      .catch((err): void => {
-        res.status(500).json({ err })
-        console.log('Error creating user', err.message)
-      })
+    // Call service
+    const response = await createUserService.createUser(user)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
   // Quit  group
@@ -149,24 +132,7 @@ class UserController {
       })
   }
 
-  // Get info of an specific user
-  public async userInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const username = req.params.username
-    await UserModel.find({ username }, { _id: 0, __v: 0 })
-      .then((user) => {
-        if (user.length === 0) {
-          res.status(404).send({ err: 'User not found' })
-          return
-        }
-        res.status(200)
-        res.send(user)
-      })
-      .catch((err): void => {
-        res.status(500).send({ err })
-        console.log('Error finding user', err.message)
-      })
-  }
-
+  // Get user state in group
   public async userStateGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const username = (req.query.username !== undefined) ? req.query.username : ''
     const groupName = (req.query.groupname !== undefined) ? req.query.groupname : ''

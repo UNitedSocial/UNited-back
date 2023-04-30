@@ -1,5 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument, GroupInfo } from '../models/group.documents'
+// import { Responses, ResponseStatus } from '../models/response.documents'
 
 interface RelatedGroup {
   // object with the group info, the topics that are related to it and the number of coincidences
@@ -8,8 +9,8 @@ interface RelatedGroup {
   count: number
 }
 
-class RelatedService {
-  public async getBestRelatedGroups (topics: String[], groupName: string = '', n: number = 5, offset: number = 0): Promise<RelatedGroup[] | undefined> {
+class GetRelated {
+  public async getRelated (topics: String[], groupName: string = '', n: number = 5, offset: number = 0): Promise<RelatedGroup[] | undefined> {
     // get all related groups
     const allRelated = await this.obtainAllRelatedGroups(topics, groupName)
       .catch((err): null => {
@@ -81,4 +82,4 @@ class RelatedService {
   }
 }
 
-export default new RelatedService()
+export default new GetRelated()

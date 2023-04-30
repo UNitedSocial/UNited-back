@@ -2,31 +2,31 @@ import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
-class GetGroups {
-  public async getGroups (index: number, offset: number): Promise<Responses> {
+class GetPopular {
+  public async getPopular (index: number, offset: number): Promise<Responses> {
     let response: Responses
-    let groups: GroupDocument[] = []
+    let popularGroups: GroupDocument[] = []
     // Get groups
     try {
-      groups = await GroupModel.find({}, { info: 1, _id: 0 }, { skip: offset, limit: index })
+      popularGroups = await GroupModel.find({}, { info: 1, _id: 0 }, { limit: index, skip: offset }).sort([['info.numberOfMembers', -1]])
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding groups'
+        message: 'Error finding popular groups'
       }
     }
 
     // Check if there are groups
-    if (groups.length === 0) {
+    if (popularGroups.length === 0) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'There are no groups to show'
+        message: 'There is any popular group to show'
       }
     } else {
       response = {
-        answer: groups,
+        answer: popularGroups,
         status: ResponseStatus.OK,
-        message: 'Groups found successfully'
+        message: 'Popular groups found successfully'
       }
     }
 
@@ -34,4 +34,4 @@ class GetGroups {
   }
 }
 
-export default new GetGroups()
+export default new GetPopular()

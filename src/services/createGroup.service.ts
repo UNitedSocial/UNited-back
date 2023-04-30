@@ -1,27 +1,15 @@
 import mongoose, { now } from 'mongoose'
 import GroupService from './groups.service'
 import GroupModel from '../models/Group.model'
-import { GroupInfo, GroupDocument, Role, MemberState, Group } from '../models/group.documents'
 import UserModel from '../models/User.model'
+import { GroupInfo, GroupDocument, Role, MemberState, Group } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
-
-enum ResponseStatus {
-  OK = 200,
-  BAD_REQUEST = 400,
-  NOT_FOUND = 404,
-  INTERNAL_SERVER_ERROR = 500
-}
-
-interface ResponseService {
-  status: ResponseStatus
-  err?: string
-  message?: string
-}
+import { Responses, ResponseStatus } from '../models/response.documents'
 
 class CreateGroup {
-  public async createGroup (info: GroupInfo, username: string): Promise<ResponseService> {
+  public async createGroup (info: GroupInfo, username: string): Promise<Responses> {
     const exist = await GroupService.groupExists(info.name)
-    let response: ResponseService
+    let response: Responses
     if (exist) {
       response = {
         status: ResponseStatus.BAD_REQUEST,

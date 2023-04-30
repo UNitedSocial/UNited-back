@@ -1,23 +1,10 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
+import { Responses, ResponseStatus } from '../models/response.documents'
 
-enum ResponseStatus {
-  OK = 200,
-  BAD_REQUEST = 400,
-  NOT_FOUND = 404,
-  INTERNAL_SERVER_ERROR = 500
-}
-
-interface ResponseService {
-  status: ResponseStatus
-  answer?: GroupDocument[]
-  err?: string
-  message?: string
-}
-
-class GetGroups {
-  public async seeGroup (groupname: string): Promise<ResponseService> {
-    let response: ResponseService
+class SeeGroup {
+  public async seeGroup (groupname: string): Promise<Responses> {
+    let response: Responses
     let group: GroupDocument[] = []
     // Get groups
     try {
@@ -36,15 +23,16 @@ class GetGroups {
         status: ResponseStatus.NOT_FOUND,
         message: 'The Group doesn\'t exist'
       }
-    }
-    response = {
-      answer: group,
-      status: ResponseStatus.OK,
-      message: 'Group found successfully'
+    } else {
+      response = {
+        answer: group,
+        status: ResponseStatus.OK,
+        message: 'Group found successfully'
+      }
     }
 
     return response
   }
 }
 
-export default new GetGroups()
+export default new SeeGroup()

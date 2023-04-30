@@ -2,31 +2,31 @@ import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
-class GetGroups {
-  public async getGroups (index: number, offset: number): Promise<Responses> {
+class GetNew {
+  public async getNew (index: number, offset: number): Promise<Responses> {
     let response: Responses
-    let groups: GroupDocument[] = []
+    let newGroups: GroupDocument[] = []
     // Get groups
     try {
-      groups = await GroupModel.find({}, { info: 1, _id: 0 }, { skip: offset, limit: index })
+      newGroups = await GroupModel.find({}, { info: 1, _id: 0 }, { limit: index, skip: offset }).sort([['info.creationDate', -1]])
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding groups'
+        message: 'Error finding new groups'
       }
     }
 
     // Check if there are groups
-    if (groups.length === 0) {
+    if (newGroups.length === 0) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'There are no groups to show'
+        message: 'There is any new group to show'
       }
     } else {
       response = {
-        answer: groups,
+        answer: newGroups,
         status: ResponseStatus.OK,
-        message: 'Groups found successfully'
+        message: 'New groups found successfully'
       }
     }
 
@@ -34,4 +34,4 @@ class GetGroups {
   }
 }
 
-export default new GetGroups()
+export default new GetNew()

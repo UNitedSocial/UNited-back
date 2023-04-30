@@ -2,31 +2,31 @@ import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
-class GetGroups {
-  public async getGroups (index: number, offset: number): Promise<Responses> {
+class GetMembers {
+  public async getMembers (groupname: string): Promise<Responses> {
     let response: Responses
-    let groups: GroupDocument[] = []
+    let members: GroupDocument[] = []
     // Get groups
     try {
-      groups = await GroupModel.find({}, { info: 1, _id: 0 }, { skip: offset, limit: index })
+      members = await GroupModel.find({ 'info.name': groupname }, { members: 1, _id: 0 })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding groups'
+        message: 'Error finding group'
       }
     }
 
     // Check if there are groups
-    if (groups.length === 0) {
+    if (members.length === 0) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'There are no groups to show'
+        message: 'The Group doesn\'t exist'
       }
     } else {
       response = {
-        answer: groups,
+        answer: members,
         status: ResponseStatus.OK,
-        message: 'Groups found successfully'
+        message: 'Group found successfully'
       }
     }
 
@@ -34,4 +34,4 @@ class GetGroups {
   }
 }
 
-export default new GetGroups()
+export default new GetMembers()
