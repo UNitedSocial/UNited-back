@@ -59,7 +59,7 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
-  // Get most recent created groups
+  // Modify a group
   public async editGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const group = req.body.group

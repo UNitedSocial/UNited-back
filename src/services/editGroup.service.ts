@@ -4,7 +4,7 @@ import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
 class EditGroup {
-  public async editGroup (_group: GroupDocument, groupname: string): Promise<Responses> {
+  public async editGroup (group: GroupDocument, groupname: string): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
 
@@ -14,7 +14,7 @@ class EditGroup {
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error getting user or group'
+        message: 'Error getting group'
       }
       return response
     }
@@ -27,10 +27,20 @@ class EditGroup {
       }
       return response
     }
+    try {
+      groupDoc.info = group.info
+      await groupDoc.save()
+    } catch {
+      response = {
+        status: ResponseStatus.INTERNAL_SERVER_ERROR,
+        message: 'Error updating groups'
+      }
+      return response
+    }
 
     response = {
-      status: ResponseStatus.CREATED,
-      message: 'Request created succesfully'
+      status: ResponseStatus.OK,
+      message: 'Group updated succesfully'
     }
 
     return response
