@@ -45,7 +45,7 @@ class CreateSection {
       return response
     }
 
-    // Update group sections
+    // Assign position
     section.position = groupDoc.page.length + 1
     groupDoc.page.push(section)
 
