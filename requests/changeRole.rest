@@ -1,7 +1,7 @@
-PUT http://localhost:3002/groups/seeGroup/salv14/changeRole
+PUT http://localhost:3002/groups/los efraines/changeRole
 content-type: application/json
 
 {
-    "userRequest": "carrilloacerojuanpablo",
-    "role":"member"
+    "username": "El Efra",
+    "role":"editor"
 }

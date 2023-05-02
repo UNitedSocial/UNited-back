@@ -1,10 +1,10 @@
-POST http://localhost:3002/groups/createGroup
+POST http://localhost:3002/groups
 content-type: application/json
 
 {
   "group":{
       "info":{
-          "name":"salv32",
+          "name":"Grupo de lanzamiento de bala",
           "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
           "contact":{
               "mail":"UNitedGroup1@group.com",
@@ -18,7 +18,7 @@ content-type: application/json
                   "youtube":"youtube.com/UNitedGroup1"
               }
           },
-          "numberOfMembers": 1,
+          "numberOfMembers": 5,
           "topics":[
               "futbol",
               "cocina",
@@ -33,7 +33,7 @@ content-type: application/json
               "mainProfessor": "Augusto Martinez"
           },
           "fundationDate": "2010-04-03",
-          "creationDate": "2018-04-03",
+          "creationDate": "2084-04-03",
           "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
       }
   }

@@ -5,7 +5,7 @@ import { GroupDocument, Role } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
 class ChangeRole {
-  public async changeRole (username: string, groupname: string, role: string): Promise<Responses> {
+  public async changeRole (groupname: string, username: string, role: string): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null

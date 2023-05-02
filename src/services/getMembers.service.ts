@@ -26,7 +26,7 @@ class GetMembers {
       response = {
         answer: members,
         status: ResponseStatus.OK,
-        message: 'Group found successfully'
+        message: 'Members found successfully'
       }
     }
 

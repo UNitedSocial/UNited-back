@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Router } from 'express'
-import searchControllers from '../controllers/search.controllers'
 import testControllers from '../controllers/test.controllers'
+import searchControllers from '../controllers/search.controllers'
 const router = express.Router()
 
 // Search routes

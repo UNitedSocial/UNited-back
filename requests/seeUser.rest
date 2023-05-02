@@ -1,2 +1,2 @@
-GET http://localhost:3002/users/seeUser/salvarezri
+GET http://localhost:3002/users/El Efra
 content-type: application/json

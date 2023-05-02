@@ -6,7 +6,7 @@ import { GroupDocument, RequestState, Role, MemberState } from '../models/group.
 import { Responses, ResponseStatus } from '../models/response.documents'
 
 class AnswerRequest {
-  public async answerRequest (username: string, groupname: string, answer: string): Promise<Responses> {
+  public async answerRequest (groupname: string, username: string, answer: string): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null

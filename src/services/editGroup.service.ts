@@ -4,11 +4,11 @@ import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
 
 class EditGroup {
-  public async editGroup (group: GroupDocument, groupname: string): Promise<Responses> {
+  public async editGroup (groupname: string, group: GroupDocument): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
 
-    // Get group and user data
+    // Get group data
     try {
       groupDoc = await GroupModel.findOne({ 'info.name': groupname })
     } catch {
@@ -19,7 +19,7 @@ class EditGroup {
       return response
     }
 
-    // Check if group and user exist
+    // Check if group exist
     if (groupDoc == null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
@@ -27,13 +27,17 @@ class EditGroup {
       }
       return response
     }
+
+    // Edit group
+    groupDoc.info = group.info
+
+    // Save changes
     try {
-      groupDoc.info = group.info
       await groupDoc.save()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error updating groups'
+        message: 'Error saving group'
       }
       return response
     }

@@ -1,2 +1,6 @@
-GET  http://localhost:3002/search/sal
+GET  http://localhost:3002/search/Grup
 content-type: application/json
+
+{
+  "ord":"date"
+}

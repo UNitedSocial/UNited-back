@@ -1,14 +1,24 @@
-import { displayOptions } from '../config/defaultOptions.config'
 import { NextFunction, Request, Response } from 'express'
+import { displayOptions } from '../config/defaultOptions.config'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { UserDocument } from '../models/user.documents'
 
+import createUserService from '../services/createUser.service'
 import getUsersService from '../services/getUsers.service'
 import seeUserService from '../services/seeUser.service'
-import createUserService from '../services/createUser.service'
 
 class UserController {
+  // Create new user
+  public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get user data
+    const { user } = req.body
+    // Call service
+    const response = await createUserService.createUser(user)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Get all users
   public async getUsers (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for users display
@@ -30,20 +40,11 @@ class UserController {
     res.status(response.status).send(response.answer)
   }
 
-  // Create new user
-  public async createUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // Get userdata
-    const { user } = req.body
-    // Call service
-    const response = await createUserService.createUser(user)
-    console.log(response.message)
-    res.status(response.status).send(response.answer)
-  }
-
+  // Refactor pending
   // Quit  group
   public async quitGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const { name, user } = req.body
-    const username = user?.nickname
+    const { user, name } = req.body
+    const username = user?.username
     // Find user and delete group from groups
     let works = true
     await UserModel.findOne({ username })

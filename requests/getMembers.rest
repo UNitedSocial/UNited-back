@@ -1,2 +1,2 @@
-GET http://localhost:3002/groups/seeGroup/salv14/members
+GET http://localhost:3002/groups/los efraines/members
 content-type: application/json

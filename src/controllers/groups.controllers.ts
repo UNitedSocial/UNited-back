@@ -1,20 +1,20 @@
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
-import { GroupInfo, groupSections } from '../models/group.documents'
+import { GroupInfo } from '../models/group.documents'
 
 import createGroupService from '../services/createGroup.service'
 import getGroupsService from '../services/getGroups.service'
 import seeGroupService from '../services/seeGroup.service'
+import editGroupService from '../services/editGroup.service'
 import getMembersService from '../services/getMembers.service'
 import changeRoleServices from '../services/changeRole.service'
+import getRelatedService from '../services/getRelated.service'
 import getNewService from '../services/getNew.service'
 import getPopularService from '../services/getPopular.service'
-import getRelatedService from '../services/getRelated.service'
 import createSectionService from '../services/createSection.service'
 import deleteSectionService from '../services/deleteSection.service'
 import editSectionService from '../services/editSection.service'
-import editGroupService from '../services/editGroup.service'
 
 class GroupsController {
   // Get all groups
@@ -38,12 +38,34 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
+  // Edit info of an specific group
+  public async editGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname and group data
+    const groupname = req.params.groupname
+    const group = req.body.group
+    // Call service
+    const response = await editGroupService.editGroup(groupname, group)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Get members of an specific group
   public async getMembers (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get groupname
     const groupname = req.params.groupname
     // Call service
     const response = await getMembersService.getMembers(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Change role of a user in a group
+  public async changeRole (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const { username, role } = req.body
+    // Call service
+    const response = await changeRoleServices.changeRole(groupname, username, role)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
@@ -59,17 +81,6 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
-  // Modify a group
-  public async editGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // Get params or use default values for groups display
-    const group = req.body.group
-    const groupname = req.params.groupname
-    // Call service
-    const response = await editGroupService.editGroup(group, groupname)
-    console.log(response.message)
-    res.status(response.status).send(response.answer)
-  }
-
   // Get most popular groups
   public async getPopular (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
@@ -81,22 +92,11 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
-  // Change role of a user in a group
-  public async changeRole (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // Get group and user data
-    const { username, role } = req.body
-    const groupname = req.params.groupname
-    // Call service
-    const response = await changeRoleServices.changeRole(username, groupname, role)
-    console.log(response.message)
-    res.status(response.status).send(response.answer)
-  }
-
   // Create a section
   public async createSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
     const groupname = req.params.groupname
-    const section: groupSections = req.body.section
+    const section = req.body.section
     // Call service
     const response = await createSectionService.createSection(groupname, section)
     console.log(response.message)
@@ -106,8 +106,8 @@ class GroupsController {
   // Delete a section
   public async deleteSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
-    const position = Number(req.body.position)
     const groupname = req.params.groupname
+    const position = Number(req.body.position)
     // Call service
     const response = await deleteSectionService.deleteSection(groupname, position)
     console.log(response.message)
@@ -117,9 +117,9 @@ class GroupsController {
   // Edit a section
   public async editSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
+    const groupname = req.params.groupname
     const position = Number(req.body.position)
     const section = req.body.section
-    const groupname = req.params.groupname
     // Call service
     const response = await editSectionService.editSection(groupname, position, section)
     console.log(response.message)
@@ -130,7 +130,7 @@ class GroupsController {
   // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { group, user } = req.body
-    const username = user?.nickname
+    const username = user?.username
     // Get only the info field
     const info: GroupInfo = group.info
     const response = await createGroupService.createGroup(info, username)
@@ -147,8 +147,8 @@ class GroupsController {
   // Function for getting related groups
   public async getRelated (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.related.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.related.offset
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
     const groupname = req.params.groupname
     // Get group topics
     const group = await GroupModel.findOne({ 'info.name': groupname }, 'info.topics', { _id: 0, __v: 0 })

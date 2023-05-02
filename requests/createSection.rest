@@ -1,0 +1,11 @@
+POST http://localhost:3002/groups/los%20efraines/sections
+content-type: application/json
+
+{
+  "section":{
+    "type": "title",
+    "content": {
+      "title": "new Section"
+    }
+  }
+}

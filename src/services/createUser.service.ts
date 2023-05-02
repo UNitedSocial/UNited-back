@@ -5,8 +5,18 @@ import userService from '../services/user.service'
 
 class CreateUser {
   public async createUser (user: UserDocument): Promise<Responses> {
-    // Check if username is already taken
     let response: Responses
+
+    // Check if all info is provided
+    if (user.username === undefined || user.name === undefined || user.email === undefined) {
+      response = {
+        status: ResponseStatus.BAD_REQUEST,
+        message: 'Missing user info'
+      }
+      return response
+    }
+
+    // Check if username is already taken
     const exist = await userService.userExists(user.username)
     if (exist) {
       response = {
@@ -17,16 +27,16 @@ class CreateUser {
     }
 
     // Create user and save it
-    let newUser: UserDocument = new UserModel(user)
+    const newUser: UserDocument = new UserModel(user)
     try {
-      newUser = await newUser.save()
+      await newUser.save()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error creating user'
       }
     }
-    console.log(newUser)
+
     response = {
       status: ResponseStatus.CREATED,
       message: 'User created succesfully'

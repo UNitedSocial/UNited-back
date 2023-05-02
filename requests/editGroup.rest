@@ -2,11 +2,10 @@ PUT http://localhost:3002/groups/los efraines
 content-type: application/json
 
 {
-{
   "group":{
       "info":{
-          "name":"nuevo nombre",
-          "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+          "name":"Grupo de lanzamiento de bala",
+          "description": "Edited description",
           "contact":{
               "mail":"UNitedGroup1@group.com",
               "page":"UNitedGroup1Page.com",
@@ -37,9 +36,5 @@ content-type: application/json
           "creationDate": "2084-04-03",
           "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
       }
-  },
-  "user":{
-    "nickname":"betty"
   }
-}
 }

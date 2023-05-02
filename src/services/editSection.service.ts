@@ -43,7 +43,7 @@ class EditSection {
       }
     })
 
-    // // Save changes
+    // Save changes
     try {
       await groupDoc.save()
     } catch {
@@ -51,11 +51,12 @@ class EditSection {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group'
       }
+      return response
     }
 
     response = {
-      status: ResponseStatus.CREATED,
-      message: 'Section edited successfully'
+      status: ResponseStatus.OK,
+      message: 'Section updated successfully'
     }
 
     return response

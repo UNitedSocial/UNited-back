@@ -1,7 +1,10 @@
-PUT http://localhost:3002/seeGroup/salv14/requests
+PUT http://localhost:3002/groups/los efraines/requests
 content-type: application/json
 
 {
-  "username":"carrilloacerojuanpablo",
-  "answer": "approve"
+  "user":{
+    "username" : "Santigod"
+  },
+  "username":"El Efra",
+  "answer": "approved"
 }

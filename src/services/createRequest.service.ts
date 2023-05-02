@@ -7,7 +7,7 @@ import { Responses, ResponseStatus } from '../models/response.documents'
 import requestsService from './requests.service'
 
 class CreateRequest {
-  public async createRequest (username: string, groupname: string): Promise<Responses> {
+  public async createRequest (groupname: string, username: string): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null

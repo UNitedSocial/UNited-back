@@ -25,7 +25,7 @@ class GroupMiddlewares {
   public async checkGroupRole (req: Request, res: Response, next: NextFunction): Promise<void> {
     const groupName = req.params.groupname
     const { user } = req.body
-    const username = user?.nickname
+    const username = user?.username
     if (groupName === undefined || username === undefined) {
       res.status(400).json({ message: 'Missing group name or username' })
       console.log('Missing group name or username')
@@ -35,11 +35,11 @@ class GroupMiddlewares {
     if (role === Role.editor) {
       next()
     } else if (role === Role.member) {
-      res.status(400).json({ message: 'User is not an admin' })
-      console.log('User is not an admin')
+      res.status(400).json({ message: 'User isn\'t an editor' })
+      console.log('User isn\'t an editor')
     } else if (role === 'not belongs') {
-      res.status(400).json({ message: 'User not belongs' })
-      console.log('User not belongs')
+      res.status(400).json({ message: 'User doesn\'t belong to group' })
+      console.log('User doesn\'t belong to group')
     } else {
       res.status(500).json({ message: 'error' })
       console.log('error')

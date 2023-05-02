@@ -1,2 +1,0 @@
-GET http://localhost:3002/groups/new?ind=6
-content-type: application/json
