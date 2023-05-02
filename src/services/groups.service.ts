@@ -9,7 +9,6 @@ export class GroupService {
         console.log(err)
         return false
       })
-    console.log(group)
     if (group != null) {
       return true
     } else {

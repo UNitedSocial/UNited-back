@@ -1,84 +1,93 @@
 import mongoose, { now } from 'mongoose'
-import GroupService from './groups.service'
 import GroupModel from '../models/Group.model'
 import UserModel from '../models/User.model'
-import { GroupInfo, GroupDocument, Role, MemberState, Group } from '../models/group.documents'
+import { GroupDocument, Role, MemberState, Member } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
 import { Responses, ResponseStatus } from '../models/response.documents'
+import GroupService from './groups.service'
 
 class CreateGroup {
-  public async createGroup (info: GroupInfo, username: string): Promise<Responses> {
-    const exist = await GroupService.groupExists(info.name)
+  public async createGroup (group: GroupDocument, username: string): Promise<Responses> {
     let response: Responses
-    if (exist) {
+    let userDoc: UserDocument | null = null
+
+    // // Check if all info is provided
+    if (group === undefined || group.info === undefined) {
       response = {
         status: ResponseStatus.BAD_REQUEST,
-        err: 'Group name already taken'
+        message: 'Missing group info'
       }
       return response
     }
-    const userModel = await UserModel.findOne({ username }) as UserDocument
-    const group = this.createGroupModel(userModel, info)
-    this.updateUserWhenCreateGroup(userModel, group)
-    const works = await this.saveGroupAndUser(group, userModel)
-    if (works) {
+
+    // Check is group name is already taken
+    const exist = await GroupService.groupExists(group.info.name)
+    if (exist) {
       response = {
-        status: ResponseStatus.OK,
-        message: 'Group created succesfully'
+        status: ResponseStatus.BAD_REQUEST,
+        message: 'Group name already taken'
       }
-    } else {
+      return response
+    }
+
+    // Get user info
+    try {
+      userDoc = await UserModel.findOne({ username })
+    } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        err: 'Error saving group'
+        message: 'Error getting user'
       }
     }
-    return response
-  }
 
-  private async saveGroupAndUser (group: GroupDocument, user: UserDocument): Promise<boolean> {
-    let works = true
-    try {
-      await group.save()
-      await user.save()
-    } catch (err) {
-      console.log(err)
-      works = false
+    // Check if user exists
+    if (userDoc == null) {
+      response = {
+        status: ResponseStatus.NOT_FOUND,
+        message: 'User doesn\'t exist'
+      }
+      return response
     }
-    return works
-  }
 
-  private updateUserWhenCreateGroup (user: UserDocument, group: GroupDocument): void {
-    const grupParams: UserGroup = {
+    // Create group and update members
+    const newGroup: GroupDocument = new GroupModel(group)
+    newGroup.info.numberOfMembers = 1
+    newGroup.info.numberOfPublications = 0
+    const member: Member = {
+      userId: new mongoose.Types.ObjectId(userDoc?._id),
+      username: userDoc?.username,
+      name: userDoc?.name,
+      role: 'editor' as Role,
+      state: 'active' as MemberState
+    }
+    newGroup?.members.push(member)
+
+    // Update groups in user model
+    const userGroup: UserGroup = {
       groupId: new mongoose.Types.ObjectId(group?._id),
       groupName: group.info.name,
       role: 'member' as Role,
       date: new Date(now())
     }
-    // add to user groups
-    user.groups?.push(grupParams)
-  }
+    userDoc?.groups.push(userGroup)
 
-  private createGroupModel (user: UserDocument, info: GroupInfo): GroupDocument {
-    info.numberOfMembers = 1
-    info.numberOfPublications = 0
-    const members = [
-      {
-        userId: new mongoose.Types.ObjectId(user?._id),
-        username: user?.username,
-        name: user?.name,
-        role: 'editor' as Role,
-        state: 'active' as MemberState
+    // Save Group and user data
+    try {
+      await newGroup.save()
+      await userDoc.save()
+    } catch {
+      response = {
+        status: ResponseStatus.INTERNAL_SERVER_ERROR,
+        message: 'Error creating group'
       }
-    ]
-    // create group object
-    const groupInfo: Group = {
-      info,
-      members,
-      requests: [],
-      page: []
     }
-    // save group
-    return new GroupModel(groupInfo)
+
+    response = {
+      status: ResponseStatus.CREATED,
+      message: 'Group created successfully'
+    }
+
+    return response
   }
 }
 

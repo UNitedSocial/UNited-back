@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
-import { GroupInfo } from '../models/group.documents'
 
 import createGroupService from '../services/createGroup.service'
 import getGroupsService from '../services/getGroups.service'
@@ -18,6 +17,16 @@ import deleteSectionService from '../services/deleteSection.service'
 import editSectionService from '../services/editSection.service'
 
 class GroupsController {
+  // Create new group
+  public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const { group, user } = req.body
+    // Call service
+    const response = await createGroupService.createGroup(group, user.username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Get all groups
   public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
@@ -139,23 +148,6 @@ class GroupsController {
   }
 
   // Refactor pending
-  // Create new group
-  public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const { group, user } = req.body
-    const username = user?.username
-    // Get only the info field
-    const info: GroupInfo = group.info
-    const response = await createGroupService.createGroup(info, username)
-    if (response.status === 200) {
-      res.status(response.status).send(group)
-    } else {
-      res.status(response.status).send({
-        err: response.err,
-        message: response.message
-      })
-    }
-  }
-
   // Function for getting related groups
   public async getRelated (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
