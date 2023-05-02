@@ -3,18 +3,18 @@ import { UserDocument, RequestUser } from '../models/user.documents'
 import { GroupDocument, RequestState, Requests } from '../models/group.documents'
 
 class RequestService {
-  private static userIsInGroup (user: UserDocument, group: GroupDocument): boolean {
+  public userIsInGroup (user: UserDocument, group: GroupDocument): boolean {
     // check if the user is in the group
     let userInGroup: boolean = false
     group?.members.forEach(member => {
-      if (member.username === user?.username) {
+      if (member.username === user.username) {
         userInGroup = true
       }
     })
     return userInGroup
   }
 
-  private static userHasActiveRequest (user: UserDocument, group: GroupDocument): boolean {
+  public userHasActiveRequest (user: UserDocument, group: GroupDocument): boolean {
     // check if the user has an active request
     let activeRequest: boolean = false
     group?.requests.forEach(request => {
@@ -46,11 +46,11 @@ class RequestService {
 
   public validateUserRequest (user: UserDocument, group: GroupDocument): boolean {
     // check if the user is in the group
-    if (RequestService.userIsInGroup(user, group)) {
+    if (this.userIsInGroup(user, group)) {
       return false
     }
     // check if the user has an active request
-    if (RequestService.userHasActiveRequest(user, group)) {
+    if (this.userHasActiveRequest(user, group)) {
       return false
     }
     return true

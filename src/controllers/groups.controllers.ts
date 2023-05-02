@@ -9,6 +9,7 @@ import seeGroupService from '../services/seeGroup.service'
 import editGroupService from '../services/editGroup.service'
 import getMembersService from '../services/getMembers.service'
 import changeRoleServices from '../services/changeRole.service'
+import quitGroupService from '../services/quitGroup.service'
 import getRelatedService from '../services/getRelated.service'
 import getNewService from '../services/getNew.service'
 import getPopularService from '../services/getPopular.service'
@@ -66,6 +67,17 @@ class GroupsController {
     const { username, role } = req.body
     // Call service
     const response = await changeRoleServices.changeRole(groupname, username, role)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Quit a group
+  public async quitGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username
+    const groupname = req.params.groupname
+    const { user } = req.body
+    // Call service
+    const response = await quitGroupService.quitGroup(groupname, user.username)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
