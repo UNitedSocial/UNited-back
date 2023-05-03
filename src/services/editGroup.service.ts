@@ -1,7 +1,7 @@
 
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class EditGroup {
   public async editGroup (groupname: string, group: GroupDocument): Promise<Responses> {

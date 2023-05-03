@@ -3,7 +3,7 @@ import GroupModel from '../models/Group.model'
 import UserModel from '../models/User.model'
 import { GroupDocument, Role, MemberState, Member } from '../models/group.documents'
 import { UserDocument, UserGroup } from '../models/user.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 import GroupService from './groups.service'
 
 class CreateGroup {

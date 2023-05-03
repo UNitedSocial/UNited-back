@@ -1,0 +1,8 @@
+GET http://localhost:3002/groups/los efraines/userState
+content-type: application/json
+
+{
+  "user":{
+    "username": "Santigod"
+  }
+}

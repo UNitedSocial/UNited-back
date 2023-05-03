@@ -3,7 +3,7 @@ import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { UserDocument } from '../models/user.documents'
 import { GroupDocument, RequestState, Role, MemberState } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class AnswerRequest {
   public async answerRequest (groupname: string, username: string, answer: string): Promise<Responses> {

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import { GroupDocument, Requests } from './group.documents'
-import { UserDocument } from './user.documents'
+import { GroupDocument, Requests } from '../models/group.documents'
+import { UserDocument } from '../models/user.documents'
 
 export enum ResponseStatus {
   OK = 200,
@@ -12,9 +12,8 @@ export enum ResponseStatus {
 
 export interface Responses {
   status: ResponseStatus
-  answer?: UserDocument | GroupDocument | UserDocument[] | GroupDocument[] | Requests | Requests[]
+  answer?: UserDocument | GroupDocument | UserDocument[] | GroupDocument[] | Requests | Requests[] | string
   message?: string
-  err?: string
 }
 
 export interface ResponseDocument extends mongoose.Document, Responses {}

@@ -1,6 +1,6 @@
 import UserModel from '../models/User.model'
 import { UserDocument } from '../models/user.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class GetUsers {
   public async getUsers (index: number, offset: number): Promise<Responses> {

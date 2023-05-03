@@ -7,8 +7,10 @@ import getGroupsService from '../services/getGroups.service'
 import seeGroupService from '../services/seeGroup.service'
 import editGroupService from '../services/editGroup.service'
 import getMembersService from '../services/getMembers.service'
+import getTopicsService from '../services/getTopics.service'
 import changeRoleServices from '../services/changeRole.service'
 import quitGroupService from '../services/quitGroup.service'
+import userStateService from '../services/userState.service'
 import getRelatedService from '../services/getRelated.service'
 import getNewService from '../services/getNew.service'
 import getPopularService from '../services/getPopular.service'
@@ -69,6 +71,16 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
+  // Get topics members of an specific group
+  public async getTopics (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname
+    const groupname = req.params.groupname
+    // Call service
+    const response = await getTopicsService.getTopics(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Change role of a user in a group
   public async changeRole (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
@@ -87,6 +99,17 @@ class GroupsController {
     const { user } = req.body
     // Call service
     const response = await quitGroupService.quitGroup(groupname, user.username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get user state in group
+  public async userState (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username and groupname
+    const groupname = req.params.groupname
+    const { user } = req.body
+    // Call service
+    const response = await userStateService.userState(groupname, user.username)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }

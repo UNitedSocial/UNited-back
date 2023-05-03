@@ -1,6 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class SeeGroup {
   public async seeGroup (groupname: string): Promise<Responses> {

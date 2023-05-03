@@ -2,7 +2,7 @@ import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { UserDocument } from '../models/user.documents'
 import { GroupDocument } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 import requestsService from './requests.service'
 

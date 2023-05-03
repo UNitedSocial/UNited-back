@@ -2,5 +2,7 @@ GET  http://localhost:3002/search/Grup
 content-type: application/json
 
 {
-  "ord":"date"
+  "ord": "date"
+  "dec": "topics"
+  "valor": "deportes"
 }

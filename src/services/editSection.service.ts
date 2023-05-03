@@ -1,6 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument, groupSections } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class EditSection {
   public async editSection (groupname: string, position: number, section: groupSections): Promise<Responses> {

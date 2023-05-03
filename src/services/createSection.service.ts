@@ -1,6 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument, groupSections, SectionTypes } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class CreateSection {
   public async createSection (groupname: string, section: groupSections): Promise<Responses> {

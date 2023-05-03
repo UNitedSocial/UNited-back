@@ -1,6 +1,6 @@
 import UserModel from '../models/User.model'
 import { UserDocument } from '../models/user.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class SeeUser {
   public async seeUser (username: string): Promise<Responses> {

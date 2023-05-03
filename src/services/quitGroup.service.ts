@@ -2,7 +2,7 @@ import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import UserModel from '../models/User.model'
 import { UserDocument } from '../models/user.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 import requestsServices from '../services/requests.service'
 
 class QuitGroup {

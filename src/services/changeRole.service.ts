@@ -2,7 +2,7 @@ import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { UserDocument } from '../models/user.documents'
 import { GroupDocument, Role } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class ChangeRole {
   public async changeRole (groupname: string, username: string, role: string): Promise<Responses> {

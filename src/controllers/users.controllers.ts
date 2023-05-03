@@ -1,8 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
-import UserModel from '../models/User.model'
-import { UserDocument } from '../models/user.documents'
-
 import createUserService from '../services/createUser.service'
 import getUsersService from '../services/getUsers.service'
 import seeUserService from '../services/seeUser.service'
@@ -37,35 +34,6 @@ class UserController {
     const response = await seeUserService.seeUser(username)
     console.log(response.message)
     res.status(response.status).send(response.answer)
-  }
-
-  // Refactor pending
-  // Get user state in group
-  public async userStateGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const username = (req.query.username !== undefined) ? req.query.username : ''
-    const groupName = (req.query.groupname !== undefined) ? req.query.groupname : ''
-    if (username === '' || groupName === '') {
-      res.status(400).send({ err: 'Bad request, missing username or/and groupname' })
-      return
-    }
-    const userDocument: UserDocument | null = await UserModel.findOne({ username })
-    if (userDocument === null) {
-      res.status(404).send({ err: 'User not found' })
-      return
-    }
-    let state = 'notBelongs'
-    userDocument.requests.forEach(element => {
-      if (element.groupName === groupName && element.state === 'pending') {
-        state = 'pending'
-      }
-    })
-    userDocument.groups.forEach(element => {
-      if (element.groupName === groupName) {
-        state = 'belongs'
-      }
-    })
-    console.log(username, 'state in group', groupName, ' is: "', state, '"')
-    res.status(200).send({ state })
   }
 }
 

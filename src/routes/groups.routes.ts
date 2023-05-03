@@ -14,8 +14,10 @@ router.get('/', groupsControllers.getGroups) // Route to get info of all groups
 router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of an specific group
 router.put('/:groupname', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group
 router.get('/:groupname/members', groupsControllers.getMembers) // Route to get the members of an specific group
+router.get('/:groupname/topics', groupsControllers.getTopics) // Route to get the members of an specific group
 router.put('/:groupname/changeRole', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.changeRole) // Route to change role of a member
 router.put('/:groupname/quitGroup', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsControllers.quitGroup) // Route to change role of a member
+router.get('/:groupname/userState', groupsControllers.userState) // Rout for get state of a user in a group
 
 // Related, new and popular groups routes
 router.get('/:groupname/related', groupsControllers.getRelated) // Route to get groups related to an specific group

@@ -1,6 +1,6 @@
 import GroupModel from '../models/Group.model'
 import { GroupDocument, Requests, RequestState } from '../models/group.documents'
-import { Responses, ResponseStatus } from '../models/response.documents'
+import { Responses, ResponseStatus } from '../types/response.types'
 
 class GetRequests {
   public async getRequests (groupname: string): Promise<Responses> {
