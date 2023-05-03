@@ -12,6 +12,7 @@ import changeRoleServices from '../services/changeRole.service'
 import quitGroupService from '../services/quitGroup.service'
 import userStateService from '../services/userState.service'
 import getRelatedService from '../services/getRelated.service'
+import getRelated2Service from '../services/getRelated2.service'
 import getNewService from '../services/getNew.service'
 import getPopularService from '../services/getPopular.service'
 import createSectionService from '../services/createSection.service'
@@ -107,9 +108,9 @@ class GroupsController {
   public async userState (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get username and groupname
     const groupname = req.params.groupname
-    const { user } = req.body
+    const username = req.params.username
     // Call service
-    const response = await userStateService.userState(groupname, user.username)
+    const response = await userStateService.userState(groupname, username)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
@@ -170,7 +171,18 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
-  // Refactor pending
+  // Get related groups to a group
+  public async getRelated2 (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.params.page !== undefined) ? Number(req.params.page) : displayOptions.index.offset
+    const groupname = req.params.groupname
+    // Call service
+    const response = await getRelated2Service.getRelated(groupname, index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Function for getting related groups
   public async getRelated (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display

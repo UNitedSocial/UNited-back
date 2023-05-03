@@ -1,8 +1,19 @@
 import { NextFunction, Request, Response } from 'express'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
+import searchGroupsService from '../services/searchGroups.service'
 
 class SearchController {
+  // Search groups
+  public async search (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const query = req.query.q as string
+    // Call service
+    const response = await searchGroupsService.searchGroups(query)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
   // Get groups info based in a query
   public async getQuery (req: Request, res: Response, _next: NextFunction): Promise<void> {
     let valor = req.body.valor
