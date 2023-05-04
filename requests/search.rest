@@ -1,8 +1,2 @@
-GET  http://localhost:3002/search/Grup
+GET  http://localhost:3002/search/g?ord=name&des=yes&fil=topics&val=ajedrez-futbol
 content-type: application/json
-
-{
-  "ord": "date"
-  "dec": "topics"
-  "valor": "deportes"
-}

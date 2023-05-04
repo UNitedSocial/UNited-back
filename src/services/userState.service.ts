@@ -53,7 +53,11 @@ class UserState {
     // Check if user belongs to group
     groupDoc.members.forEach(member => {
       if (member.username === username) {
-        state = 'belongs'
+        if (member.role === 'editor') {
+          state = 'editor'
+        } else {
+          state = 'member'
+        }
         response = {
           answer: state,
           status: ResponseStatus.OK,
