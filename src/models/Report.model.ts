@@ -2,9 +2,9 @@ import { Schema, model } from 'mongoose'
 import { ReportDocument, ReportState, ReportType, ReportUserType } from './report.document'
 
 const ReportingUserSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, required: true, ref: 'Users' },
+  userId: { type: Schema.Types.ObjectId, required: false, ref: 'Users' },
   name: { type: String, required: true },
-  username: { type: String, required: true },
+  username: { type: String, required: false },
   email: { type: String, required: true }
 })
 

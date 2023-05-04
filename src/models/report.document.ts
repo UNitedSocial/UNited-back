@@ -12,7 +12,8 @@ export enum ReportState {
 }
 export enum ReportUserType {
   registered = 'registered',
-  anonymous = 'anonymous'
+  anonymous = 'anonymous',
+  notRegistered = 'notRegistered'
 }
 export enum ReportReasons {
   spam = 'spam',
@@ -54,13 +55,13 @@ export interface Feedback {
 }
 
 export interface ReportingUser {
-  userId: mongoose.Types.ObjectId
+  userId?: mongoose.Types.ObjectId
   name: string
-  username: string
+  username?: string
   email: string
 }
 
-export interface Report {
+export interface ReportInterface {
   reportType: ReportType
   report: ReportUser | ReportGroup | ReportError | Feedback
   userType: ReportUserType
@@ -71,4 +72,4 @@ export interface Report {
   masterComment?: string
 }
 
-export interface ReportDocument extends mongoose.Document, Report {}
+export interface ReportDocument extends mongoose.Document, ReportInterface {}
