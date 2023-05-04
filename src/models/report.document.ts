@@ -11,9 +11,8 @@ export enum ReportState {
   approved = 'closed'
 }
 export enum ReportUserType {
-  registered = 'registered',
   anonymous = 'anonymous',
-  notRegistered = 'notRegistered'
+  registered = 'registered'
 }
 export enum ReportReasons {
   spam = 'spam',
@@ -55,9 +54,9 @@ export interface Feedback {
 }
 
 export interface ReportingUser {
-  userId?: mongoose.Types.ObjectId
+  userId: mongoose.Types.ObjectId
   name: string
-  username?: string
+  username: string
   email: string
 }
 

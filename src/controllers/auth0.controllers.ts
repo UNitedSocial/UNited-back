@@ -25,6 +25,7 @@ class Auth0Controller {
       }
     }).then(async (response) => {
       void response.json()?.then((data) => {
+        data.username = data.nickname
         req.body.user = data
         next()
       }).catch((err) => {
