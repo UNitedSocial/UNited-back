@@ -4,7 +4,7 @@ import searchGroupsService from '../services/searchGroups.service'
 
 class SearchController {
   // Search groups
-  public async search (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async searchGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
     const query = req.params.query
     const order = (req.query.ord !== undefined) ? req.query.ord as string : displayOptions.search.ord

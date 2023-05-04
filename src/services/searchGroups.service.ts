@@ -9,8 +9,7 @@ class SearchGroups {
     let groups: GroupDocument[] = []
 
     // Convert query to RegExp
-    const reg = new RegExp('^' + query + '', 'i')
-    console.log(reg)
+    const reg = new RegExp(query, 'i')
     // Order groups
     switch (order) {
       case 'date':
@@ -80,7 +79,7 @@ class SearchGroups {
     } else {
       const newValue: string[] = value.split('-')
       try {
-        groups = await GroupModel.find({ [filter]: { $in: newValue } }, { info: 1, _id: 0 }).sort([[order, des]])
+        groups = await GroupModel.find({ $and: [{ 'info.name': { $regex: reg } }, { [filter]: { $in: newValue } }] }, { info: 1, _id: 0 }).sort([[order, des]])
       } catch {
         response = {
           status: ResponseStatus.INTERNAL_SERVER_ERROR,
