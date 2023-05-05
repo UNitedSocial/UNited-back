@@ -22,7 +22,8 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   groups: [USerGrooupSchema],
-  requests: [RequestUserSchema]
+  requests: [RequestUserSchema],
+  isMaster: { type: Boolean, required: false, default: false }
 })
 
 export default model<UserDocument>('User', UserSchema)
