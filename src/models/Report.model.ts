@@ -10,7 +10,7 @@ const ReportingUserSchema = new Schema({
 
 const ReportSchema = new Schema({
   reportType: { type: String, required: true },
-  report: { type: Schema.Types.Mixed, required: true },
+  reportInfo: { type: Schema.Types.Mixed, required: true },
   userType: { type: String, required: true },
   reportingUser: { type: ReportingUserSchema, required: false }, // exists if the user is not anonymous
   date: { type: Date, required: true, default: Date.now },

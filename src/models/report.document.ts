@@ -6,14 +6,17 @@ export enum ReportType {
   reportError = 'reportError',
   feedback = 'feedback'
 }
+
 export enum ReportState {
   pending = 'pending',
   approved = 'closed'
 }
+
 export enum ReportUserType {
   anonymous = 'anonymous',
   registered = 'registered'
 }
+
 export enum ReportReasons {
   spam = 'spam',
   unauthorizedSales = 'unauthorizedSales',
@@ -24,6 +27,7 @@ export enum ReportReasons {
   identityTheft = 'identityTheft',
   nudity = 'nudity'
 }
+
 export interface ReportUser {
   user: {
     userId: mongoose.Types.ObjectId
@@ -62,9 +66,9 @@ export interface ReportingUser {
 
 export interface ReportInterface {
   reportType: ReportType
-  report: ReportUser | ReportGroup | ReportError | Feedback
+  reportInfo: ReportUser | ReportGroup | ReportError | Feedback
   userType: ReportUserType
-  reportingUser?: ReportingUser // exists if the user is not anonymous
+  reportingUser?: ReportingUser // Exists if the user is not anonymous
   date: Date
   closedDate?: Date
   state: ReportState

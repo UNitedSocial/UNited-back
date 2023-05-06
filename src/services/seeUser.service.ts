@@ -5,20 +5,19 @@ import { Responses, ResponseStatus } from '../types/response.types'
 class SeeUser {
   public async seeUser (username: string): Promise<Responses> {
     let response: Responses
-    let user: UserDocument[] = []
-    // Get groups
+    let user: UserDocument | null = null
+    // Get user
     try {
-      user = await UserModel.find({ username }, { _id: 0, __v: 0 })
+      user = await UserModel.findOne({ username }, { _id: 0, __v: 0 })
     } catch {
       response = {
-        answer: user,
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error finding user'
       }
     }
 
-    // Check if there are groups
-    if (user.length === 0) {
+    // Check if user exists
+    if (user === null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
         message: 'The User doesn\'t exist'
