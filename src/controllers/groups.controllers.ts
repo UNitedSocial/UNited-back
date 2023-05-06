@@ -18,6 +18,7 @@ import getPopularService from '../services/getPopular.service'
 import createSectionService from '../services/createSection.service'
 import deleteSectionService from '../services/deleteSection.service'
 import editSectionService from '../services/editSection.service'
+import deleteGroupService from '../services/deleteGroup.service'
 
 class GroupsController {
   // Create new group
@@ -47,6 +48,15 @@ class GroupsController {
     const groupname = req.params.groupname
     // Call service
     const response = await seeGroupService.seeGroup(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  public async deleteGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname
+    const groupname = req.params.groupname
+    // Call service
+    const response = await deleteGroupService.deleteGroup(groupname)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
