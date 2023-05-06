@@ -8,9 +8,5 @@ content-type: application/json
     "reason": "asdfasdf",
     "description": "zxcvzxcv"
   }, 
-  "userTdyfpe": "registered",
-  "user": {
-    "nickname": "qweqwe",
-    "password": "cvbncvb"
-  }
+  "userTdyfpe": "registered"
 }

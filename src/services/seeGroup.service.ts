@@ -5,21 +5,20 @@ import { Responses, ResponseStatus } from '../types/response.types'
 class SeeGroup {
   public async seeGroup (groupname: string): Promise<Responses> {
     let response: Responses
-    let group: GroupDocument[] = []
+    let group: GroupDocument | null = null
 
     // Get groups
     try {
-      group = await GroupModel.find({ 'info.name': groupname }, { _id: 0, __v: 0 })
+      group = await GroupModel.findOne({ 'info.name': groupname }, { _id: 0, __v: 0 })
     } catch {
       response = {
-        answer: group,
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error finding group'
       }
     }
 
     // Check if there are groups
-    if (group.length === 0) {
+    if (group === null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
         message: 'The Group doesn\'t exist'

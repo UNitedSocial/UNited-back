@@ -9,5 +9,8 @@ export const displayOptions = {
     fil: 'true-false',
     des: 'no',
     val: '0'
+  },
+  report: {
+    anonymous: 'anonymous'
   }
 }
