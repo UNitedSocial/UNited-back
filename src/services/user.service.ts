@@ -1,4 +1,5 @@
 import UserModel from '../models/User.model'
+import { UserDocument } from '../models/user.documents'
 
 class USerService {
   public async userExists (username: string): Promise<boolean> {
@@ -14,6 +15,17 @@ class USerService {
     } else {
       return false
     }
+  }
+
+  public async isWebmaster (username: string): Promise<boolean | null> {
+    const userDoc: UserDocument | null = await UserModel.findOne({ username })
+      .catch((error: Error) => {
+        console.log(error.message)
+        return null
+      })
+    if (userDoc == null) return null
+    if (userDoc.isMaster === undefined || userDoc.isMaster === null || !userDoc.isMaster) return false
+    return true
   }
 }
 
