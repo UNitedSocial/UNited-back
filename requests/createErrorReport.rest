@@ -1,0 +1,12 @@
+POST http://localhost:3002/reports
+content-type: application/json
+
+{
+  "report": {
+    "reportType": "reportError", 
+    "reportInfo": {
+      "page":"report page",
+      "description": "error description"
+    }
+  }
+}

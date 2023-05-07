@@ -1,0 +1,15 @@
+POST http://localhost:3002/reports
+content-type: application/json
+
+{
+  "report": {
+    "reportType": "reportGroup", 
+    "reportInfo": {
+      "group":{
+        "groupName":"Grupo de karate"
+      },
+      "reason": "reason",
+      "description": "group description"
+    }
+  }
+}
