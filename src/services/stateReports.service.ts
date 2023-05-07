@@ -28,13 +28,15 @@ class StateReports {
       await ReportModel.updateOne({ 'reportInfo.description': description }, { state: 'closed' })
       if (des === 1) {
         response = {
+          answer: 'The report is correct',
           status: ResponseStatus.OK,
           message: 'The report has been processed'
         }
       } else {
         response = {
+          answer: 'The report is not correct',
           status: ResponseStatus.OK,
-          message: 'The report is not correct'
+          message: 'The report has been processed'
         }
       }
 
