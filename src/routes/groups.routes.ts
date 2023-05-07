@@ -6,6 +6,7 @@ import groupsMiddlewares from '../middlewares/groups.middlewares'
 import testControllers from '../controllers/test.controllers'
 import groupsControllers from '../controllers/groups.controllers'
 import requestsControllers from '../controllers/requests.controllers'
+import webmastersControllers from '../controllers/webmasters.controllers'
 const router = express.Router()
 
 // Group routes
@@ -13,7 +14,6 @@ router.post('/', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserEx
 router.get('/', groupsControllers.getGroups) // Route to get info of all groups
 router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of an specific group
 router.put('/:groupname', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group
-router.delete('/:groupname', groupsControllers.deleteGroup) // Route to delete a group
 router.get('/:groupname/members', groupsControllers.getMembers) // Route to get the members of an specific group
 router.get('/:groupname/topics', groupsControllers.getTopics) // Route to get the members of an specific group
 router.put('/:groupname/changeRole', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.changeRole) // Route to change role of a member
@@ -34,6 +34,9 @@ router.put('/:groupname/sections', /* aut0Controllers.getUserData, */ usersMiddl
 router.post('/:groupname/requests', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, requestsControllers.createRequest) // Route to create a request to join a group
 router.get('/:groupname/requests', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.getRequests) // Route to get all join requests of a group
 router.put('/:groupname/requests', /* aut0Controllers.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.answerRequest) // Route to answer a join request in a group
+
+// Webmaster routes
+router.delete('/:groupname', /* aut0Controllers.checkWebmaster, */ webmastersControllers.deleteGroup) // Route to delete a group
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

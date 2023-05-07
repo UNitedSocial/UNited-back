@@ -6,6 +6,7 @@ class GetUsers {
   public async getUsers (index: number, offset: number): Promise<Responses> {
     let response: Responses
     let users: UserDocument[] = []
+
     // Get groups
     try {
       users = await UserModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: index })
