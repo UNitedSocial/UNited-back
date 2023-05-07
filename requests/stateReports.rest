@@ -1,0 +1,2 @@
+POST  http://localhost:3002/reports/user description
+content-type: application/json
