@@ -32,14 +32,14 @@ class UserMiddlewares {
       res.status(400).json({ message: 'Missing user information' })
       console.log('Missing user information')
     }
-    console.log(user)
     // Check if user is webmaster
     const isWebmaster: boolean | null = await userService.isWebmaster(user.username)
-    console.log(isWebmaster)
+    // If error
     if (isWebmaster === null) {
       res.status(500).json({ message: 'Error checking user role' })
       console.log('Error checking user role')
     } else if (isWebmaster) {
+      console.log('User has webmaster role')
       next()
     } else {
       res.status(401).json({ message: 'User doesn\'t have webmaster role' })
