@@ -11,6 +11,7 @@ router.post('/', /* aut0Controllers.getUserData, */ reportControllers.createRepo
 
 // Webmaster routes
 router.get('/', /* aut0Controllers.checkWebmaster, */ webmastersControllers.getReports) // Route to get groups using search engine
+router.post('/state/:description', /* aut0Controllers.checkWebmaster, */ webmastersControllers.stateReports) // Route to assign state and inform user
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import deleteGroupService from '../services/deleteGroup.service'
 import getReportsService from '../services/getReports.service'
+import stateReportsService from '../services/stateReports.service'
 
 class WebmastersController {
   // Delete group
@@ -21,6 +22,15 @@ class WebmastersController {
     const offset = (req.query.o !== undefined) ? Number(req.query.o) : displayOptions.index.offset
     // Get only the info field
     const response = await getReportsService.getReports(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  public async stateReports (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const description = req.params.description
+    const des = (req.query.des !== undefined) ? Number(req.query.des) : displayOptions.des.acept
+    // Get only the info field
+    const response = await stateReportsService.stateReports(description, des)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }

@@ -12,5 +12,9 @@ export const displayOptions = {
   },
   report: {
     anonymous: 'anonymous'
+  },
+  des: {
+    acept: 1
   }
+
 }
