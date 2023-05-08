@@ -26,6 +26,7 @@ class WebmastersController {
     res.status(response.status).send(response.answer)
   }
 
+  // Get Report State
   public async stateReports (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const description = req.params.description
     const des = (req.query.des !== undefined) ? Number(req.query.des) : displayOptions.des.acept

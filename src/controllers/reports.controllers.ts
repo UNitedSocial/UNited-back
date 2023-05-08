@@ -3,7 +3,7 @@ import { displayOptions } from '../config/defaultOptions.config'
 import createReportService from '../services/createReport.service'
 import seeReportsService from '../services/seeReports.service'
 
-class ReportController {
+class ReportsController {
   // Create new report
   public async createReport (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get report data
@@ -28,4 +28,4 @@ class ReportController {
   }
 }
 
-export default new ReportController()
+export default new ReportsController()

@@ -1,4 +1,3 @@
-import mongoose from 'mongoose'
 import { GroupDocument, Requests } from '../models/group.documents'
 import { UserDocument } from '../models/user.documents'
 import { ReportDocument } from '../models/report.document'
@@ -13,8 +12,6 @@ export enum ResponseStatus {
 
 export interface Responses {
   status: ResponseStatus
-  answer?: UserDocument | GroupDocument | UserDocument[] | GroupDocument[] | Requests | Requests[] | ReportDocument | ReportDocument[] | string
+  answer?: UserDocument | UserDocument[] | GroupDocument | GroupDocument[] | Requests | Requests[] | ReportDocument | ReportDocument[] | string
   message?: string
 }
-
-export interface ResponseDocument extends mongoose.Document, Responses {}

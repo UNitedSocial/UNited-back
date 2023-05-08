@@ -171,6 +171,7 @@ class GroupsController {
     res.status(response.status).send(response.answer)
   }
 
+  // Pending to Refactor
   // Get related groups to a group
   public async getRelated2 (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display

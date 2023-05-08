@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { auth } from 'express-oauth2-jwt-bearer'
 
-class Auth0Controller {
+class Auth0Middlewares {
   public async doom (_req: Request, res: Response, _next: NextFunction): Promise<void> {
     res.status(200).json({ message: 'Doomed' })
   }
@@ -37,4 +37,4 @@ class Auth0Controller {
   }
 }
 
-export default new Auth0Controller()
+export default new Auth0Middlewares()

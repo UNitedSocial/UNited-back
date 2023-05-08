@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Router } from 'express'
-// import aut0Controllers from '../controllers/auth0.controllers'
+import auth0Middlewares from '../middlewares/auth0.middlewares'
+import usersMiddlewares from '../middlewares/users.middlewares'
 import testControllers from '../controllers/test.controllers'
 import reportControllers from '../controllers/reports.controllers'
 import webmastersControllers from '../controllers/webmasters.controllers'
+
 const router = express.Router()
 
 // Report routes
-router.post('/', /* aut0Controllers.getUserData, */ reportControllers.createReport) // Route to get groups using search engine
+router.post('/', auth0Middlewares.getUserData, reportControllers.createReport) // Route to create a report
 
 // Webmaster routes
-router.get('/', /* aut0Controllers.checkWebmaster, */ webmastersControllers.getReports) // Route to get groups using search engine
-router.post('/state/:description', /* aut0Controllers.checkWebmaster, */ webmastersControllers.stateReports) // Route to assign state and inform user
+router.get('/', usersMiddlewares.checkWebmasterRole, webmastersControllers.getReports) // Route to get all reports of the system
+router.post('/state/:description', usersMiddlewares.checkWebmasterRole, webmastersControllers.stateReports) // Route to answer a report and inform user
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

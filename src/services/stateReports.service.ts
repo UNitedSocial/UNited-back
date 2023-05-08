@@ -5,26 +5,27 @@ import { Responses, ResponseStatus } from '../types/response.types'
 class StateReports {
   public async stateReports (description: string, des: number): Promise<Responses> {
     let response: Responses
-    let reports: ReportDocument [] | null = null
+    let report: ReportDocument [] | null = null
+
     // Get groups
     try {
-      reports = await ReportModel.findOne({ 'reportInfo.description': description }, { _id: 0, __v: 0 })
+      report = await ReportModel.findOne({ 'reportInfo.description': description }, { _id: 0, __v: 0 })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding reports'
+        message: 'Error finding report'
       }
     }
 
     // Check if there are resports
-    if (reports === null) {
+    if (report === null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
         message: 'The Report doesn\'t exist'
       }
       return response
     } else {
-    // edit the state of the report
+      // Edit the state of the report
       await ReportModel.updateOne({ 'reportInfo.description': description }, { state: 'closed' })
       if (des === 1) {
         response = {

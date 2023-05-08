@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
-
 import createRequestServices from '../services/createRequest.service'
 import getRequestsServices from '../services/getRequests.service'
 import answerRequestServices from '../services/answerRequest.service'
 
-class RequestController {
+class RequestsController {
   // Create a request
   public async createRequest (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get group and user data
@@ -38,4 +37,4 @@ class RequestController {
   }
 }
 
-export default new RequestController()
+export default new RequestsController()
