@@ -10,6 +10,7 @@ const router = express.Router()
 router.post('/', auth0Middlewares.getUserData, usersControllers.createUser) // Route for create an user
 router.get('/', usersControllers.getUsers) // Route to get info of all users
 router.get('/:username', usersControllers.seeUser) // Route to get info of an specific user
+router.delete('/:username', usersControllers.deleteUser) // Route to get info of an specific user
 router.get('/:username/reports', reportsControllers.seeReports) // Route to get reports of an specicific user
 
 // Test route
