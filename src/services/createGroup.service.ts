@@ -99,7 +99,7 @@ class CreateGroup {
   public validateGroup (info: any): validation {
     let message = ''
     let valid = true
-    if (info.name === undefined || info.description === undefined) {
+    if (typeof info.name !== 'string' || typeof info.description !== 'string') {
       message += 'Missing group description or group name'
       valid = false
       return {
@@ -113,6 +113,23 @@ class CreateGroup {
     }
     if (info.description.length > 400) {
       message += 'Group description must be less than 400 characters long\n'
+      valid = false
+    }
+    if (typeof info.contact !== 'object') {
+      message += 'Missing contact information\n; contact must have email, phone and social networks\n'
+      valid = false
+    } else {
+      if (typeof info.contact.mail !== 'string' || typeof info.contact.cellphone !== 'string' || typeof info.contact.socialNetworks !== 'object') {
+        message += 'Missing email, phone or social networks\n'
+        valid = false
+      }
+    }
+    if (typeof info.isRecognized !== 'boolean') {
+      message += 'Missing isRecognized\n'
+      valid = false
+    }
+    if (!Array.isArray(info.topics)) {
+      message += 'Missing topics, if there are no topics, send empty array []\n'
       valid = false
     }
     return {
