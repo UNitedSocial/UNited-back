@@ -9,7 +9,6 @@ class USerService {
         console.log(err)
         return false
       })
-
     if (user != null) {
       return true
     } else {

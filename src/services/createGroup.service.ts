@@ -6,16 +6,22 @@ import { UserDocument, UserGroup } from '../models/user.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 import GroupService from './groups.service'
 
+interface validation {
+  valid: boolean
+  message: string
+}
+
 class CreateGroup {
   public async createGroup (group: GroupDocument, username: string): Promise<Responses> {
     let response: Responses
     let userDoc: UserDocument | null = null
 
     // // Check if all info is provided
-    if (group === undefined || group.info === undefined) {
+    const validate = this.validateGroup(group.info)
+    if (group === undefined || group.info === undefined || !validate.valid) {
       response = {
         status: ResponseStatus.BAD_REQUEST,
-        message: 'Missing group info'
+        message: validate.message
       }
       return response
     }
@@ -88,6 +94,31 @@ class CreateGroup {
     }
 
     return response
+  }
+
+  public validateGroup (info: any): validation {
+    let message = ''
+    let valid = true
+    if (info.name === undefined || info.description === undefined) {
+      message += 'Missing group description or group name'
+      valid = false
+      return {
+        valid,
+        message
+      }
+    }
+    if (info.name.length < 5 || info.name.length > 30) {
+      message += 'Group name must be at least 5 characters long and less than 30\n'
+      valid = false
+    }
+    if (info.description.length > 400) {
+      message += 'Group description must be less than 400 characters long\n'
+      valid = false
+    }
+    return {
+      valid,
+      message
+    }
   }
 }
 
