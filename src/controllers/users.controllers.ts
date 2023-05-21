@@ -3,6 +3,7 @@ import { displayOptions } from '../config/defaultOptions.config'
 import createUserService from '../services/createUser.service'
 import getUsersService from '../services/getUsers.service'
 import seeUserService from '../services/seeUser.service'
+import deleteUserService from '../services/deleteUser.service'
 
 class UserController {
   // Create new user
@@ -32,6 +33,15 @@ class UserController {
     const username = req.params.username
     // Call service
     const response = await seeUserService.seeUser(username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  public async deleteUser (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username
+    const username = req.params.username
+    // Call service
+    const response = await deleteUserService.deleteUser(username)
     console.log(response.message)
     res.status(response.status).send(response.answer)
   }
