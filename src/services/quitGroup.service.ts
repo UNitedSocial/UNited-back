@@ -10,7 +10,6 @@ class QuitGroup {
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null
-
     // Get group data
     try {
       groupDoc = await GroupModel.findOne({ 'info.name': groupname })
@@ -27,7 +26,7 @@ class QuitGroup {
     if (groupDoc == null || userDoc == null) {
       response = {
         status: ResponseStatus.NOT_FOUND,
-        message: 'Group doesn\'t exist'
+        message: 'Group or User doesn\'t exist'
       }
       return response
     }

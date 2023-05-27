@@ -43,6 +43,7 @@ class EditGroup {
     }
 
     response = {
+      answer: groupDoc,
       status: ResponseStatus.OK,
       message: 'Group updated succesfully'
     }

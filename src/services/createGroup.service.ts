@@ -83,6 +83,7 @@ class CreateGroup {
     }
 
     response = {
+      answer: newGroup,
       status: ResponseStatus.CREATED,
       message: 'Group created successfully'
     }
