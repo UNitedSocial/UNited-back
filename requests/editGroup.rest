@@ -1,11 +1,14 @@
-PUT http://localhost:3002/groups/Grupo de lanzamiento de bala
+PUT http://localhost:3002/groups/perrosUN
 content-type: application/json
 
 {
+    "user":{
+        "username":"Designer03"
+    },
   "group":{
       "info":{
-          "name":"Grupo de lanzamiento de bala",
-          "description": "Edited description 6",
+          "name":"perrosUN",
+          "description": "Edited description",
           "contact":{
               "mail":"UNitedGroup1@group.com",
               "page":"UNitedGroup1Page.com",
@@ -18,7 +21,7 @@ content-type: application/json
                   "youtube":"youtube.com/UNitedGroup1"
               }
           },
-          "numberOfMembers": 5,
+          "numberOfMembers": 1,
           "topics":[
               "futbol",
               "cocina",

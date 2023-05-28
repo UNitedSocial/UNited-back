@@ -13,7 +13,7 @@ const router = express.Router()
 router.post('/', /* auth0Middlewares.getUserData, */ usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Route for create a group
 router.get('/', groupsControllers.getGroups) // Route to get info of all groups
 router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of an specific group
-router.put('/:groupname', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group
+router.put('/:groupname', /* auth0Middlewares.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group
 router.get('/:groupname/members', groupsControllers.getMembers) // Route to get the members of an specific group
 router.get('/:groupname/topics', groupsControllers.getTopics) // Route to get the topics of an specific group
 router.put('/:groupname/changeRole', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.changeRole) // Route to change role of a member
@@ -30,9 +30,9 @@ router.delete('/:groupname/sections', auth0Middlewares.getUserData, usersMiddlew
 router.put('/:groupname/sections', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editSection) // Route to edit a section of a group page
 
 // Requests routes
-router.post('/:groupname/requests', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, requestsControllers.createRequest) // Route to create a request to join a group
+router.post('/:groupname/requests'/*, auth0Middlewares.getUserData */, usersMiddlewares.checkUserExist, requestsControllers.createRequest) // Route to create a request to join a group
 router.get('/:groupname/requests', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.getRequests) // Route to get all join requests of a group
-router.put('/:groupname/requests', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.answerRequest) // Route to answer a join request in a group
+router.put('/:groupname/requests', /* auth0Middlewares.getUserData, */ usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.answerRequest) // Route to answer a join request in a group
 
 // Webmaster routes
 router.delete('/:groupname', usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.deleteGroup) // Route to delete a group
