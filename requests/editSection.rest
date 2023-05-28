@@ -1,4 +1,4 @@
-PUT http://localhost:3002/groups/los%20efraines/sections
+PUT http://localhost:3002/groups/Grupo de ajedrez Italiano/sections
 content-type: application/json
 
 {
