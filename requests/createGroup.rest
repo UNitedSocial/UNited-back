@@ -2,9 +2,12 @@ POST http://localhost:3002/groups
 content-type: application/json
 
 {
+   "user": {
+    "username" : "Designer02"
+   },
   "group":{
       "info":{
-          "name":"Grupo de lanzamiento de bala",
+          "name":"Grupo de ajedrez Alemán",
           "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
           "contact":{
               "mail":"UNitedGroup1@group.com",

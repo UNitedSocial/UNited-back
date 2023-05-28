@@ -10,7 +10,7 @@ import webmastersControllers from '../controllers/webmasters.controllers'
 const router = express.Router()
 
 // Group routes
-router.post('/', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Route for create a group
+router.post('/', /* auth0Middlewares.getUserData, */ usersMiddlewares.checkUserExist, groupsControllers.createGroup) // Route for create a group
 router.get('/', groupsControllers.getGroups) // Route to get info of all groups
 router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of an specific group
 router.put('/:groupname', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group

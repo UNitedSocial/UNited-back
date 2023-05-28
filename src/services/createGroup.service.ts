@@ -67,7 +67,7 @@ class CreateGroup {
     const userGroup: UserGroup = {
       groupId: new mongoose.Types.ObjectId(group?._id),
       groupName: group.info.name,
-      role: 'member' as Role,
+      role: Role.editor,
       date: new Date(now())
     }
     userDoc?.groups.push(userGroup)

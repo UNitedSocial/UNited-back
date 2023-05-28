@@ -5,7 +5,7 @@ content-type: application/json
   "group":{
       "info":{
           "name":"Grupo de lanzamiento de bala",
-          "description": "Edited description",
+          "description": "Edited description 6",
           "contact":{
               "mail":"UNitedGroup1@group.com",
               "page":"UNitedGroup1Page.com",
