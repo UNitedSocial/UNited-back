@@ -59,6 +59,7 @@ class CreateGroup {
     const newGroup: GroupDocument = new GroupModel(group)
     newGroup.info.numberOfMembers = 1
     newGroup.info.numberOfPublications = 0
+    newGroup.info.creationDate = new Date(now())
     const member: Member = {
       userId: new mongoose.Types.ObjectId(userDoc?._id),
       username: userDoc?.username,
@@ -72,7 +73,7 @@ class CreateGroup {
     const userGroup: UserGroup = {
       groupId: new mongoose.Types.ObjectId(group?._id),
       groupName: group.info.name,
-      role: 'member' as Role,
+      role: Role.editor,
       date: new Date(now())
     }
     userDoc?.groups.push(userGroup)
@@ -89,6 +90,7 @@ class CreateGroup {
     }
 
     response = {
+      answer: newGroup,
       status: ResponseStatus.CREATED,
       message: 'Group created successfully'
     }

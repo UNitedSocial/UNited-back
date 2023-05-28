@@ -40,6 +40,8 @@ class GroupMiddlewares {
     } else if (role === 'not belongs') {
       res.status(400).json({ message: 'User doesn\'t belong to group' })
       console.log('User doesn\'t belong to group')
+    } else if (role === null) {
+      res.status(404).json({ message: 'Group not found' })
     } else {
       res.status(500).json({ message: 'error' })
       console.log('error')

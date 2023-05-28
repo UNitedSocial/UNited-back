@@ -18,7 +18,6 @@ router.get('/:groupname/members', groupsControllers.getMembers) // Route to get 
 router.get('/:groupname/topics', groupsControllers.getTopics) // Route to get the topics of an specific group
 router.put('/:groupname/changeRole', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.changeRole) // Route to change role of a member
 router.put('/:groupname/quitGroup', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsControllers.quitGroup) // Route to quit a group
-router.get('/:groupname/:username', groupsControllers.userState) // Route for get state of a user in a group
 
 // Related, new and popular groups routes
 router.get('/:groupname/related', groupsControllers.getRelated) // Route to get groups related to an specific group
@@ -37,6 +36,7 @@ router.put('/:groupname/requests', auth0Middlewares.getUserData, usersMiddleware
 
 // Webmaster routes
 router.delete('/:groupname', usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.deleteGroup) // Route to delete a group
+router.get('/:groupname/:username', groupsControllers.userState) // Route for get state of a user in a group
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

@@ -1,10 +1,7 @@
-PUT http://localhost:3002/groups/los efraines/requests
+PUT http://localhost:3002/groups/Grupo de pensamiento filosófico/requests
 content-type: application/json
 
 {
-  "user":{
-    "username" : "Santigod"
-  },
-  "username":"El Efra",
+  "username":"Designer00",
   "answer": "approved"
 }

@@ -1,6 +1,63 @@
-PUT  http://localhost:3002/users/quitGroup
+PUT  http://localhost:3002/groups/grupo de tutorias de calculo/quitGroup
 content-type: application/json
 
 {
-  "name": "los efraines"
+  "user": {
+    "name": "Santiago Alvarez",
+    "username": "Santigod",
+    "email": "salvarezri@unal.edu.co",
+    "groups": [
+      {
+        "groupId": "6446e76b63d93359c59add9f",
+        "groupName": "los efraines",
+        "date": "2023-04-24T20:32:43.578Z",
+        "role": "member",
+        "_id": "6446e76b63d93359c59adda5"
+      },
+      {
+        "groupId": "6446ebd563d93359c59ade7f",
+        "groupName": "grupo de tutorias de calculo",
+        "date": "2023-04-24T20:51:33.425Z",
+        "role": "member",
+        "_id": "6446ebd563d93359c59ade85"
+      },
+      {
+        "groupId": "646800abb9f3fe51097735c2",
+        "groupName": "Grupo de pensamiento filosófico",
+        "date": "2023-05-19T23:05:15.672Z",
+        "role": "member",
+        "_id": "646800abb9f3fe51097735c3"
+      },
+      {
+        "groupId": "646a8c22283503b26f423762",
+        "groupName": "Los carlos",
+        "date": "2023-05-21T21:24:50.838Z",
+        "role": "member",
+        "_id": "646a8c22283503b26f423763"
+      },
+      {
+        "groupId": "646a9d0b8fefc41fa790b096",
+        "groupName": "Los ninjas",
+        "date": "2023-05-21T22:36:59.347Z",
+        "role": "member",
+        "_id": "646a9d0b8fefc41fa790b097"
+      },
+      {
+        "groupId": "646aa0dcfc990191781a4697",
+        "groupName": "Los karatecas",
+        "date": "2023-05-21T22:53:16.174Z",
+        "role": "member",
+        "_id": "646aa0dcfc990191781a4698"
+      },
+      {
+        "groupId": "646aa1d5040f084812b3ac14",
+        "groupName": "Los karatecas2",
+        "date": "2023-05-21T22:57:25.803Z",
+        "role": "member",
+        "_id": "646aa1d5040f084812b3ac15"
+      }
+    ],
+    "requests": [],
+    "isMaster": false
+  }
 }

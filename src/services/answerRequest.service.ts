@@ -10,6 +10,16 @@ class AnswerRequest {
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null
+    console.log(groupname, username, answer)
+
+    // Check if answer is valid
+    if (answer !== 'approved' && answer !== 'rejected') {
+      response = {
+        status: ResponseStatus.BAD_REQUEST,
+        message: 'Answer is not valid'
+      }
+      return response
+    }
 
     // Get group and user data
     try {
@@ -32,9 +42,9 @@ class AnswerRequest {
       return response
     }
 
-    // Get request in user and group
-    const requestUser = userDoc?.requests.find(request => request?.groupName === groupname)
-    const requestGroup = groupDoc?.requests.find(request => request.username === username)
+    // Get only pending request in user and group
+    const requestUser = userDoc?.requests.find(request => request?.groupName === groupname && request.state === RequestState.pending)
+    const requestGroup = groupDoc?.requests.find(request => request.username === username && request.state === RequestState.pending)
 
     // Check if request exists
     if (requestUser == null || requestGroup == null) {
@@ -45,24 +55,17 @@ class AnswerRequest {
       return response
     }
 
-    // Check if answer is valid
-    if (answer !== 'approved' && answer !== 'rejected') {
-      response = {
-        status: ResponseStatus.BAD_REQUEST,
-        message: 'Answer is not valid'
-      }
-      return response
-    }
-
     // Delete request from user and group
-    userDoc.requests = userDoc.requests.filter(request => request?.groupName !== groupname)
-    groupDoc.requests = groupDoc.requests.filter(request => request?.username !== username)
+    userDoc.requests = userDoc.requests.filter(request => request?.groupName !== groupname || request.state !== RequestState.pending)
+    groupDoc.requests = groupDoc.requests.filter(request => request?.username !== username || request.state !== RequestState.pending)
 
     // Check value of answer
     if (answer === 'rejected') {
       // Delete request from user and group
       requestGroup.state = RequestState.rejected
       groupDoc.requests.push(requestGroup)
+      requestUser.state = RequestState.rejected
+      userDoc.requests.push(requestUser)
     } else {
       // Add member to group
       groupDoc.members.push({
@@ -81,6 +84,8 @@ class AnswerRequest {
       })
       requestGroup.state = RequestState.approved
       groupDoc.requests.push(requestGroup)
+      requestUser.state = RequestState.approved
+      userDoc.requests.push(requestUser)
     }
 
     // Save changes

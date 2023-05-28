@@ -1,11 +1,90 @@
-POST http://localhost:3002/groups/los%20efraines/sections
+POST http://localhost:3002/groups/Grupo de ajedrez Italiano/sections
 content-type: application/json
 
 {
   "section":{
+    "type": "list",
+    "content": {
+      "style": "ordered",
+      "elements": [
+        {
+          "position": 1,
+          "line": "Sunt phjklhroident occaecat qui consectetur."
+        },
+        {
+          "position": 2,
+          "line": "Suntqwer proident occaecat qui consectetur."
+        },
+        {
+          "position": 3,
+          "line": "Sunt prasdfoident occaecat qui consectetur."
+        },
+        {
+          "position": 4,
+          "line": "Suntuiopzxcbvd proident occaecat qui consectetur."
+        }
+      ]
+    }
+  }
+}
+
+
+/*
+    "type": "paragraphs",
+    "content": {
+      "paragraph": "new Section Ullamco officia tempor nisi ipsum magna aliquip pariatur. Id nisi ad ad elit ullamco exercitation. Velit quis ipsum adipisicing est esse nulla eu cupidatat elit mollit. Fugiat laborum esse nulla quis cillum quis. Quis nostrud excepteur pariatur et do consectetur aute adipisicing adipisicing adipisicing irure exercitation nisi."
+    }
+
     "type": "title",
     "content": {
       "title": "new Section"
     }
-  }
-}
+
+    "type": "subtitle",
+    "content": {
+      "subtitle": "new Section"
+    }
+
+    "type": "carousel",
+    "content": {
+      "images": [
+        {
+          "img":"https://d7lju56vlbdri.cloudfront.net/var/ezwebin_site/storage/images/_aliases/seo/noticias/solar-orbiter-toma-imagenes-del-sol-como-nunca-antes/9437612-1-esl-MX/Solar-Orbiter-toma-imagenes-del-Sol-como-nunca-antes.jpg",
+          "description":"Veniaasdasdm excepteur laborum aliqua sit aute exercitation."
+        },
+        {
+          "img":"https://www.iebschool.com/blog/wp-content/uploads/2022/11/image-51.png",
+          "description":"Veniam asdasdexcepteur laborum aliqua sit aute exercitation."
+        },
+        {
+          "img":"https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fes%2Fimages%2Ffeelings%2Fheart&psig=AOvVaw31ghlGH3oo-jLndZpvrhoN&ust=1685347010824000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCu7oDFl_8CFQAAAAAdAAAAABAS",
+          "description":"Veniamasdasd excepteur laborum aliqua sit aute exercitation."
+        }
+      ]
+    }
+
+
+    "type": "list",
+    "content": {
+      "style": "ordered",
+      "elements": [
+        {
+          "position": 1,
+          "line": "Sunt phjklhroident occaecat qui consectetur."
+        },
+        {
+          "position": 2,
+          "line": "Suntqwer proident occaecat qui consectetur."
+        },
+        {
+          "position": 3,
+          "line": "Sunt prasdfoident occaecat qui consectetur."
+        },
+        {
+          "position": 4,
+          "line": "Suntuiopzxcbvd proident occaecat qui consectetur."
+        }
+      ]
+    }
+
+*/

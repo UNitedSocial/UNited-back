@@ -1,10 +1,10 @@
-PUT http://localhost:3002/groups/los efraines
+PUT http://localhost:3002/groups/perrosUN
 content-type: application/json
 
 {
   "group":{
       "info":{
-          "name":"Grupo de lanzamiento de bala",
+          "name":"perrosUN",
           "description": "Edited description",
           "contact":{
               "mail":"UNitedGroup1@group.com",
@@ -18,7 +18,7 @@ content-type: application/json
                   "youtube":"youtube.com/UNitedGroup1"
               }
           },
-          "numberOfMembers": 5,
+          "numberOfMembers": 1,
           "topics":[
               "futbol",
               "cocina",

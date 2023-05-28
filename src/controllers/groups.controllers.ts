@@ -59,7 +59,7 @@ class GroupsController {
     // Call service
     const response = await editGroupService.editGroup(groupname, group)
     console.log(response.message)
-    res.status(response.status).send(response.answer)
+    res.status(response.status).send({ answer: response.answer, message: response.message })
   }
 
   // Get members of an specific group

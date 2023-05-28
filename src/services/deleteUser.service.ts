@@ -4,30 +4,30 @@ import UserModel from '../models/User.model'
 import { UserDocument } from '../models/user.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 import requestsServices from '../services/requests.service'
-class DeleteGroup {
-  public async deleteGroup (groupname: string): Promise<Responses> {
+class DeleteUser {
+  public async deleteUser (username: string): Promise<Responses> {
     let response: Responses
-    let group: GroupDocument | null = null
-    let user: UserDocument [] = []
+    let group: GroupDocument [] = []
+    let user: UserDocument | null = null
 
     // Get group
     try {
-      group = await GroupModel.findOne({ 'info.name': groupname }, { _id: 0, __v: 0 })
+      user = await UserModel.findOne({ username }, { _id: 0, __v: 0 })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding group'
+        message: 'Error finding user'
       }
       return response
     }
 
     // Get group
     try {
-      user = await UserModel.find({ 'groups.groupName': groupname }, { _id: 0, __v: 0 })
+      group = await GroupModel.find({ 'members.username': username }, { _id: 0, __v: 0 })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error finding user'
+        message: 'Error finding group'
       }
       return response
     }
@@ -40,24 +40,32 @@ class DeleteGroup {
       return response
     }
 
-    // Delete the group from the user
+    // Delete the user from the group
     try {
-      for (let i = 0; i < user.length; i++) {
-        if (!requestsServices.userIsInGroup(user[i], group)) {
+      for (let i = 0; i < group.length; i++) {
+        if (!requestsServices.userIsInGroup(user, group[i])) {
           response = {
             status: ResponseStatus.BAD_REQUEST,
             message: 'User isn\'t in the group'
           }
           return response
         }
-        user[i]?.groups.forEach((group) => {
-          if (group.groupName === groupname) {
-            user[i]?.groups.splice(user[i]?.groups.indexOf(group), 1)
+        group[i].members.forEach((member) => {
+          if (member.username === username) {
+            console.log(group[i]?.members.indexOf(member))
+            group[i]?.members.splice(group[i]?.members.indexOf(member), 1)
           }
         })
 
-        const usergroups = user[i].groups
-        await UserModel.updateOne({ 'groups.groupName': groupname }, { groups: usergroups })
+        const usergroups = group[i].members
+        const nuevoValor = group[i].info.numberOfMembers - 1
+        await GroupModel.updateOne(
+          { 'members.username': username },
+          {
+            members: usergroups,
+            'info.numberOfMembers': nuevoValor
+          }
+        )
       }
     } catch {
       response = {
@@ -66,24 +74,24 @@ class DeleteGroup {
       }
       return response
     }
-    // Delete the group
+    // Delete the USER
     try {
-      await GroupModel.deleteOne({ 'info.name': groupname })
+      await UserModel.deleteOne({ username })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
-        message: 'Error deleting group'
+        message: 'Error deleting user'
       }
       return response
     }
 
     response = {
       status: ResponseStatus.OK,
-      message: 'Group deleted successfully'
+      message: 'User deleted successfully'
     }
 
     return response
   }
 }
 
-export default new DeleteGroup()
+export default new DeleteUser()
