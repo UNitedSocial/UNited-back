@@ -46,6 +46,14 @@ class UserMiddlewares {
       console.log('User doesn\'t have webmaster role')
     }
   }
+
+  public async clearUserData (req: Request, _res: Response, next: NextFunction): Promise<void> {
+    // Get user
+    req.body.user = {
+      username: 'Anonymous'
+    }
+    next()
+  }
 }
 
 export default new UserMiddlewares()
