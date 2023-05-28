@@ -2,7 +2,10 @@ PUT http://localhost:3002/groups/los%20efraines/sections
 content-type: application/json
 
 {
-  "position": 5,
+  "user":{
+    "username": "Designer00"
+  },
+  "position": 1,
   "section":{
     "content":{
       "title": "Edited Title"
