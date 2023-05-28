@@ -12,7 +12,7 @@ class RequestsController {
     // Call service
     const response = await createRequestServices.createRequest(groupname, user.username)
     console.log(response.message)
-    res.status(response.status).send(response.answer)
+    res.status(response.status).send({ answer: response.answer, message: response.message })
   }
 
   // Get requests of an specific group
@@ -33,7 +33,7 @@ class RequestsController {
     // Call service
     const response = await answerRequestServices.answerRequest(groupname, username, answer)
     console.log(response.message)
-    res.status(response.status).send(response.answer)
+    res.status(response.status).send({ answer: response.answer, message: response.message })
   }
 }
 

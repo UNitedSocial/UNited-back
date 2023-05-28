@@ -1,8 +1,8 @@
-PUT http://localhost:3002/groups/los%20efraines/sections
+PUT http://localhost:3002/groups/Grupo de ajedrez Italiano/sections
 content-type: application/json
 
 {
-  "position": 5,
+  "position": 1,
   "section":{
     "content":{
       "title": "Edited Title"

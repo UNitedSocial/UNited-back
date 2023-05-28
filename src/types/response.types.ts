@@ -12,6 +12,6 @@ export enum ResponseStatus {
 
 export interface Responses {
   status: ResponseStatus
-  answer?: UserDocument | UserDocument[] | GroupDocument | GroupDocument[] | Requests | Requests[] | ReportDocument | ReportDocument[] | string
+  answer?: UserDocument | UserDocument[] | GroupDocument | GroupDocument[] | Requests | Requests[] | ReportDocument | ReportDocument[] | string | any
   message?: string
 }

@@ -23,6 +23,7 @@ export class GroupService {
         if (group != null) {
           return group.members
         } else {
+          console.log('Group not found')
           return null
         }
       })
