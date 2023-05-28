@@ -2,7 +2,4 @@ POST http://localhost:3002/groups/Grupo de pensamiento filosófico/requests
 content-type: application/json
 
 {
-  "user":{
-    "username":"Designer00"
-  }
 }

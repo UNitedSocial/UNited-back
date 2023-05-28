@@ -2,9 +2,6 @@ PUT http://localhost:3002/groups/perrosUN
 content-type: application/json
 
 {
-    "user":{
-        "username":"Designer03"
-    },
   "group":{
       "info":{
           "name":"perrosUN",
