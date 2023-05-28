@@ -1,7 +1,10 @@
-POST http://localhost:3002/groups/los%20efraines/sections
+POST http://localhost:3002/groups/Grupo de ajedrez Italiano/sections
 content-type: application/json
 
 {
+  "user":{
+      "username": "Designer00"
+    },
   "section":{
     "type": "title",
     "content": {
