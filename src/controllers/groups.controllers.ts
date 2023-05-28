@@ -27,7 +27,7 @@ class GroupsController {
     // Call service
     const response = await createGroupService.createGroup(group, user.username)
     console.log(response.message)
-    res.status(response.status).send({ message: response.message })
+    res.status(response.status).send({ message: response.message, answer: response.answer })
   }
 
   // Get all groups
