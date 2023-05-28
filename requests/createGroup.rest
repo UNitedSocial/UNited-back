@@ -1,4 +1,4 @@
-POST http://localhost:3002/groups
+POST http://localhost:3002/groups/
 content-type: application/json
 
 {
@@ -20,8 +20,8 @@ content-type: application/json
           },
           "numberOfMembers": 5,
           "topics":[
-              "futbol",
-              "cocina",
+              "Carros",
+              "Humanidades",
               "Carreras"
           ],
           "classification":"Académico",
@@ -36,5 +36,8 @@ content-type: application/json
           "creationDate": "2084-04-03",
           "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg"
       }
+  },
+  "user":{
+    "username": "Santigod"
   }
 }
