@@ -9,7 +9,7 @@ class GetReports {
 
     // Get groups
     try {
-      reports = await ReportModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: index })
+      reports = await ReportModel.find({}, { __v: 0 }, { skip: offset, limit: index })
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,

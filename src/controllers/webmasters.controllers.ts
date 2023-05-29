@@ -3,6 +3,7 @@ import { displayOptions } from '../config/defaultOptions.config'
 import deleteGroupService from '../services/deleteGroup.service'
 import getReportsService from '../services/getReports.service'
 import stateReportsService from '../services/stateReports.service'
+import deleteReportService from '../services/deleteReport.service'
 
 class WebmastersController {
   // Delete group
@@ -34,6 +35,15 @@ class WebmastersController {
     const response = await stateReportsService.stateReports(description, des)
     console.log(response.message)
     res.status(response.status).send(response.answer)
+  }
+
+  public async deleteReports (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const reportID = (req.query.report !== undefined) ? req.query.report as string : 'none'
+    // Get only the info field
+    const response = await deleteReportService.deleteReport(reportID)
+    console.log(response.message)
+    res.status(response.status).send({ deleted: response.answer })
   }
 }
 

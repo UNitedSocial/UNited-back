@@ -15,6 +15,7 @@ router.post('/anonymous', usersMiddlewares.clearUserData, reportControllers.crea
 // Webmaster routes
 router.get('/', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.getReports) // Route to get all reports of the system
 router.put('/state/:description', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.stateReports) // Route to answer a report and inform user
+router.delete('/', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.deleteReports) // Route to delete report
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)
