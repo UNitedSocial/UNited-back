@@ -11,10 +11,9 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the built Next.js app from the host machine to the container
-COPY .next ./.next
+COPY . .
 
-# Expose the port that your Next.js app will run on
-EXPOSE 3002
+CMD ["npm", "start"]
 
 # Start the Next.js app
 CMD ["npm", "start"]
