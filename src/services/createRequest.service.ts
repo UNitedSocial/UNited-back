@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import { UserDocument } from '../models/user.documents'
@@ -8,6 +9,7 @@ import requestsService from './requests.service'
 
 class CreateRequest {
   public async createRequest (groupname: string, username: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null
@@ -47,19 +49,23 @@ class CreateRequest {
     userDoc.requests.push(requestUser)
     groupDoc.requests.push(requestGroup)
     try {
+      await session.startTransaction()
       await userDoc.save()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving user or group'
       }
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.CREATED,
       message: 'Request created succesfully'
     }
+    await session.endSession()
 
     return response
   }

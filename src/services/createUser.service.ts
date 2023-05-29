@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import UserModel from '../models/User.model'
 import { UserDocument } from '../models/user.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
@@ -5,6 +6,7 @@ import userService from '../services/user.service'
 
 class CreateUser {
   public async createUser (user: UserDocument): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
 
     // Check if all info is provided
@@ -46,12 +48,15 @@ class CreateUser {
     // Create user and save it
     const newUser: UserDocument = new UserModel(user)
     try {
+      await session.startTransaction()
       await newUser.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error creating user'
       }
+      await session.abortTransaction()
     }
 
     response = {
@@ -59,6 +64,7 @@ class CreateUser {
       message: 'User created succesfully',
       answer: { isMaster: false }
     }
+    await session.endSession()
 
     return response
   }

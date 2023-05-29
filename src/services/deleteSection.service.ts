@@ -1,9 +1,11 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 
 class DeleteSection {
   public async deleteSection (groupname: string, position: number): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
     if (position === 0) {
@@ -58,18 +60,22 @@ class DeleteSection {
 
     // Save changes
     try {
+      await session.startTransaction()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group'
       }
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.CREATED,
       message: 'Section deleted successfully'
     }
+    await session.endSession()
 
     return response
   }

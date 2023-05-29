@@ -1,10 +1,11 @@
-
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 
 class EditGroup {
   public async editGroup (groupname: string, group: GroupDocument): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
 
@@ -33,12 +34,15 @@ class EditGroup {
 
     // Save changes
     try {
+      await session.startTransaction()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group'
       }
+      await session.abortTransaction()
       return response
     }
 
@@ -47,6 +51,7 @@ class EditGroup {
       status: ResponseStatus.OK,
       message: 'Group updated succesfully'
     }
+    await session.endSession()
 
     return response
   }

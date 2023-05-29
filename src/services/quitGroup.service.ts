@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import UserModel from '../models/User.model'
@@ -7,6 +8,7 @@ import requestsServices from '../services/requests.service'
 
 class QuitGroup {
   public async quitGroup (groupname: string, username: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null
@@ -58,19 +60,23 @@ class QuitGroup {
 
     // Save changes
     try {
+      await session.startTransaction()
       await groupDoc.save()
       await userDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group or user'
       }
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.OK,
       message: 'Quit group successfully'
     }
+    await session.endSession()
 
     return response
   }

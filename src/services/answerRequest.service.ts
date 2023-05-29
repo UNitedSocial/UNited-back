@@ -7,6 +7,7 @@ import { Responses, ResponseStatus } from '../types/response.types'
 
 class AnswerRequest {
   public async answerRequest (groupname: string, username: string, answer: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
     let userDoc: UserDocument | null
@@ -90,19 +91,23 @@ class AnswerRequest {
 
     // Save changes
     try {
+      await session.startTransaction()
       await userDoc.save()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving user or group'
       }
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.OK,
       message: 'Request answered succesfully'
     }
+    await session.endSession()
 
     return response
   }

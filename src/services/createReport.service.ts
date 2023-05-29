@@ -1,4 +1,4 @@
-import { now } from 'mongoose'
+import mongoose, { now } from 'mongoose'
 import UserModel from '../models/User.model'
 import GroupModel from '../models/Group.model'
 import ReportModel from '../models/Report.model'
@@ -9,6 +9,7 @@ import { Responses, ResponseStatus } from '../types/response.types'
 
 class CreateReport {
   public async createReport (username: string, report: ReportDocument): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let userDoc: UserDocument | null = null
 
@@ -102,13 +103,15 @@ class CreateReport {
 
     // Save the report
     try {
+      await session.startTransaction()
       await newReport.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.BAD_REQUEST,
         message: 'Error saving report'
       }
-      return response
+      await session.abortTransaction()
     }
 
     response = {

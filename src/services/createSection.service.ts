@@ -1,9 +1,11 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument, groupSections, SectionTypes } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 
 class CreateSection {
   public async createSection (groupname: string, section: groupSections): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
 
@@ -51,18 +53,22 @@ class CreateSection {
 
     // Save changes
     try {
+      await session.startTransaction()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group'
       }
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.CREATED,
       message: 'Section created successfully'
     }
+    await session.endSession()
 
     return response
   }

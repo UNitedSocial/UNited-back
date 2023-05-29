@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import UserModel from '../models/User.model'
@@ -6,6 +7,7 @@ import { Responses, ResponseStatus } from '../types/response.types'
 import requestsServices from '../services/requests.service'
 class DeleteGroup {
   public async deleteGroup (groupname: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let group: GroupDocument | null = null
     let user: UserDocument [] = []
@@ -68,12 +70,15 @@ class DeleteGroup {
     }
     // Delete the group
     try {
+      await session.startTransaction()
       await GroupModel.deleteOne({ 'info.name': groupname })
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error deleting group'
       }
+      await session.abortTransaction()
       return response
     }
 
@@ -81,6 +86,7 @@ class DeleteGroup {
       status: ResponseStatus.OK,
       message: 'Group deleted successfully'
     }
+    await session.endSession()
 
     return response
   }
