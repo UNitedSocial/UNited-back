@@ -7,7 +7,7 @@ exports.helloRoutes = void 0;
 /* eslint-disable @typescript-eslint/no-misused-promises */
 const express_1 = __importDefault(require("express"));
 const users_middlewares_1 = __importDefault(require("../middlewares/users.middlewares"));
-const groups_Middlewares_1 = __importDefault(require("../middlewares/groups.Middlewares"));
+const groups_Middlewares_1 = __importDefault(require("../middlewares/groups.middlewares"));
 const reports_controllers_1 = __importDefault(require("../controllers/reports.controllers"));
 const router = express_1.default.Router();
 // Test Route

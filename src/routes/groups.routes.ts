@@ -2,7 +2,7 @@
 import express, { Router } from 'express'
 import auth0Middlewares from '../middlewares/auth0.middlewares'
 import usersMiddlewares from '../middlewares/users.middlewares'
-import groupsMiddlewares from '../middlewares/groups.Middlewares'
+import groupsMiddlewares from '../middlewares/groups.middlewares'
 import testControllers from '../controllers/test.controllers'
 import groupsControllers from '../controllers/groups.controllers'
 import requestsControllers from '../controllers/requests.controllers'
