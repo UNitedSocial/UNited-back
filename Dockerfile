@@ -1,5 +1,4 @@
-# Use the official Node.js 14 (LTS) as the base image
-FROM node:14
+FROM node:19.8.1
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,7 +12,5 @@ RUN npm install
 # Copy the built Next.js app from the host machine to the container
 COPY . .
 
-CMD ["npm", "start"]
-
-# Start the Next.js app
+# Build the app
 CMD ["npm", "start"]
