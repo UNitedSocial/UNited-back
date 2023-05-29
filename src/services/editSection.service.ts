@@ -1,9 +1,11 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument, groupSections } from '../models/group.documents'
 import { Responses, ResponseStatus } from '../types/response.types'
 
 class EditSection {
   public async editSection (groupname: string, position: number, section: groupSections): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let groupDoc: GroupDocument | null
 
@@ -45,12 +47,15 @@ class EditSection {
 
     // Save changes
     try {
+      await session.startTransaction()
       await groupDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error saving group'
       }
+      await session.abortTransaction()
       return response
     }
 
@@ -58,6 +63,7 @@ class EditSection {
       status: ResponseStatus.OK,
       message: 'Section updated successfully'
     }
+    await session.endSession()
 
     return response
   }

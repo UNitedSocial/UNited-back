@@ -13,6 +13,7 @@ interface validation {
 
 class CreateGroup {
   public async createGroup (group: GroupDocument, username: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let userDoc: UserDocument | null = null
 
@@ -80,13 +81,16 @@ class CreateGroup {
 
     // Save Group and user data
     try {
+      await session.startTransaction()
       await newGroup.save()
       await userDoc.save()
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error creating group'
       }
+      await session.abortTransaction()
     }
 
     response = {
@@ -94,6 +98,7 @@ class CreateGroup {
       status: ResponseStatus.CREATED,
       message: 'Group created successfully'
     }
+    await session.endSession()
 
     return response
   }

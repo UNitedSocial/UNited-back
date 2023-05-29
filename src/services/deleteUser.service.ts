@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import GroupModel from '../models/Group.model'
 import { GroupDocument } from '../models/group.documents'
 import UserModel from '../models/User.model'
@@ -6,6 +7,7 @@ import { Responses, ResponseStatus } from '../types/response.types'
 import requestsServices from '../services/requests.service'
 class DeleteUser {
   public async deleteUser (username: string): Promise<Responses> {
+    const session = await mongoose.startSession()
     let response: Responses
     let group: GroupDocument [] = []
     let user: UserDocument | null = null
@@ -76,19 +78,22 @@ class DeleteUser {
     }
     // Delete the USER
     try {
+      await session.startTransaction()
       await UserModel.deleteOne({ username })
+      await session.commitTransaction()
     } catch {
       response = {
         status: ResponseStatus.INTERNAL_SERVER_ERROR,
         message: 'Error deleting user'
       }
-      return response
+      await session.abortTransaction()
     }
 
     response = {
       status: ResponseStatus.OK,
       message: 'User deleted successfully'
     }
+    await session.endSession()
 
     return response
   }
