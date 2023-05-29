@@ -91,6 +91,7 @@ class CreateGroup {
         message: 'Error creating group'
       }
       await session.abortTransaction()
+      return response
     }
 
     response = {
