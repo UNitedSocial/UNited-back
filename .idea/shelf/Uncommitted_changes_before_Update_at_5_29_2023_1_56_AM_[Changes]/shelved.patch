@@ -1,0 +1,96 @@
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1685340667644)
++++ b/.idea/vcs.xml	(date 1685340667644)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1685340667640)
++++ b/.idea/modules.xml	(date 1685340667640)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/UNited-back.iml" filepath="$PROJECT_DIR$/.idea/UNited-back.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: requests/userStateGroup.rest
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los efraines\r\ncontent-type: application/json\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/requests/userStateGroup.rest b/requests/userStateGroup.rest
+--- a/requests/userStateGroup.rest	(revision 8dfc046844428639110e1f59b8d001e5ff9098d9)
++++ b/requests/userStateGroup.rest	(date 1685340667660)
+@@ -1,2 +1,2 @@
+-GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los efraines
++GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los%20efraines
+ content-type: application/json
+Index: .idea/UNited-back.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/UNited-back.iml b/.idea/UNited-back.iml
+new file mode 100644
+--- /dev/null	(date 1685340667654)
++++ b/.idea/UNited-back.iml	(date 1685340667654)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/temp" />
++      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
++      <excludeFolder url="file://$MODULE_DIR$/tmp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+new file mode 100644
+--- /dev/null	(date 1685340667649)
++++ b/.idea/dataSources.xml	(date 1685340667649)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="UNitedTest@cluster0.hjbvmba.mongodb.net" uuid="94bce9ae-9d91-46c0-86f1-be77a4358f73">
++      <driver-ref>mongo</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
++      <jdbc-url>mongodb+srv://cluster0.hjbvmba.mongodb.net/UNitedTest?retryWrites=true&amp;w=majority</jdbc-url>
++      <working-dir>$ProjectFileDir$</working-dir>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file

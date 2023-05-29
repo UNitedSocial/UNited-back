@@ -1,0 +1,154 @@
+POST http://localhost:3002/groups/los%20efraines/requests
+content-type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-05-13T124553.401.json
+
+###
+
+GET http://localhost:3002/groups/0/popular
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/groups/los%20efraines/requests
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/groups/los%20efraines/requests
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/groups/los%20efraines/requests
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los efraines
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los efraines
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:3002/users/userStateGroup?username=betty&groupname=los efraines
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+PUT http://localhost:3002/users/quitGroup
+content-type: application/json
+Content-Length: 60
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name":"salv11",
+  "username":"carrilloacerojuanpablo"
+}
+
+<> 2023-04-23T221540.404.json
+
+###
+
+GET http://localhost:3002/groups/seeGroup/salv13/related?n=5&a=0
+content-type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-21T130112.200.json
+
+###
+
+POST http://localhost:3002/api/request
+content-type: application/json
+Content-Length: 23
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "groupName": "i1"
+}
+
+<> 2023-04-21T125416.404.html
+
+###
+
+GET http://localhost:3002/users/quitGroup
+content-type: application/json
+Content-Length: 20
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "query": "h6",
+}
+
+<> 2023-04-21T125353.400.html
+
+###
+
+GET http://localhost:3002/api/members
+Content-Length: 24
+Content-Type: */*; charset=UTF-8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+      "name": "a1"
+}
+
+<> 2023-04-21T125346.404.html
+
+###
+
+GET http://localhost:3002/Users/userStateGroup
+content-type: application/json
+Content-Length: 53
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username":"salvarezri",
+  "groupName":"group1"
+}
+
+<> 2023-04-21T125331.200.json
+
+###
+

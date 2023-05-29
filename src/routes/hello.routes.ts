@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Router } from 'express'
 import usersMiddlewares from '../middlewares/users.middlewares'
-import groupsMiddlewares from '../middlewares/groups.middlewares'
+import groupsMiddlewares from '../middlewares/groups.Middlewares'
 import reportsControllers from '../controllers/reports.controllers'
 const router = express.Router()
 
