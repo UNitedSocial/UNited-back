@@ -91,8 +91,9 @@ class SearchGroups {
     // Check if there are groups
     if (groups.length === 0) {
       response = {
-        status: ResponseStatus.NOT_FOUND,
-        message: 'There are no groups to show'
+        answer: groups,
+        status: ResponseStatus.OK,
+        message: 'There are no groups with that search'
       }
     } else {
       response = {
