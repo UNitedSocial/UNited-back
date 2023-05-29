@@ -14,6 +14,7 @@ router.post('/', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, 
 router.get('/', groupsControllers.getGroups) // Route to get info of all groups
 router.get('/:groupname', groupsControllers.seeGroup) // Route to get info of an specific group
 router.put('/:groupname', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.editGroup) // Route to edit info of an specific group
+router.delete('/:groupname', usersMiddlewares.checkUserExist, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, webmastersControllers.deleteGroup) // Route to delete a group
 router.get('/:groupname/members', groupsControllers.getMembers) // Route to get the members of an specific group
 router.get('/:groupname/topics', groupsControllers.getTopics) // Route to get the topics of an specific group
 router.put('/:groupname/changeRole', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, groupsControllers.changeRole) // Route to change role of a member
@@ -35,7 +36,6 @@ router.get('/:groupname/requests', auth0Middlewares.getUserData, usersMiddleware
 router.put('/:groupname/requests', auth0Middlewares.getUserData, usersMiddlewares.checkUserExist, groupsMiddlewares.checkGroupRole, requestsControllers.answerRequest) // Route to answer a join request in a group
 
 // Webmaster routes
-router.delete('/:groupname', usersMiddlewares.checkUserExist, usersMiddlewares.checkWebmasterRole, webmastersControllers.deleteGroup) // Route to delete a group
 router.get('/:groupname/:username', groupsControllers.userState) // Route for get state of a user in a group
 
 // Test route
