@@ -6,7 +6,13 @@ class DeleteSection {
   public async deleteSection (groupname: string, position: number): Promise<Responses> {
     let response: Responses
     let groupDoc: GroupDocument | null
-
+    if (position === 0) {
+      response = {
+        status: ResponseStatus.BAD_REQUEST,
+        message: 'Invalid position or missing position'
+      }
+      return response
+    }
     // Get group data
     try {
       groupDoc = await GroupModel.findOne({ 'info.name': groupname })
