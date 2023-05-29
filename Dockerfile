@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm ci --production
+RUN npm install
 
 # Copy the built Next.js app from the host machine to the container
 COPY .next ./.next
