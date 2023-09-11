@@ -1,0 +1,2 @@
+DELETE  http://localhost:3002/reports?report=6455f40a47b9530fb853d46b
+content-type: application/json

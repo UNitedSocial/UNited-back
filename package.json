@@ -8,6 +8,7 @@
     "tsc": "tsc",
     "lint": "ts-standard",
     "start": "node build/index.js",
+    "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

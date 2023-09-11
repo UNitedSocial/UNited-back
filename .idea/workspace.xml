@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="44f1e267-8b4d-47ba-a982-c2111a9fac30" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/UNited-back.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requests/userStateGroup.rest" beforeDir="false" afterPath="$PROJECT_DIR$/requests/userStateGroup.rest" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="bea7fa04e4d43faf130f3c54f4662d7f3d1d54a8" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HttpClientSelectedEnvironments">
+    <file url="file://$USER_HOME$/AppData/Local/Temp/whats-new.http.http" environment="test" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="2NFABqVN44kfnvEAeZJlbxml6FM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;JSON-Groovy.json.groovy&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;JSON-Groovy.json.groovy&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\JuanP\\WebstormProjects\\UNited-back\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
+    ]
+  }
+}</component>
+  <component name="RunDashboard">
+    <option name="excludedTypes">
+      <set>
+        <option value="HttpClient.HttpRequestRunConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="44f1e267-8b4d-47ba-a982-c2111a9fac30" name="Changes" comment="" />
+      <created>1679249323333</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679249323333</updated>
+      <workItem from="1679249324428" duration="1340000" />
+      <workItem from="1679411298487" duration="2427000" />
+      <workItem from="1679415112044" duration="6605000" />
+      <workItem from="1679511541160" duration="155000" />
+      <workItem from="1679612187394" duration="2526000" />
+      <workItem from="1679667330132" duration="40000" />
+      <workItem from="1679682466598" duration="2459000" />
+      <workItem from="1679691653834" duration="2523000" />
+      <workItem from="1679772487269" duration="3839000" />
+      <workItem from="1680010159888" duration="481000" />
+      <workItem from="1680709165748" duration="1382000" />
+      <workItem from="1681006675493" duration="2219000" />
+      <workItem from="1681086019157" duration="5911000" />
+      <workItem from="1681232343516" duration="24000" />
+      <workItem from="1681232426375" duration="27000" />
+      <workItem from="1681860699320" duration="599000" />
+      <workItem from="1681996982360" duration="5559000" />
+      <workItem from="1682097848533" duration="7101000" />
+      <workItem from="1682195019559" duration="12959000" />
+      <workItem from="1682463604700" duration="1190000" />
+      <workItem from="1682647813046" duration="1106000" />
+      <workItem from="1682693557774" duration="638000" />
+      <workItem from="1682954094879" duration="2018000" />
+      <workItem from="1682995106124" duration="599000" />
+      <workItem from="1683169816465" duration="595000" />
+      <workItem from="1683171249948" duration="22000" />
+      <workItem from="1683171297142" duration="593000" />
+      <workItem from="1683214849192" duration="3381000" />
+      <workItem from="1683242518457" duration="2012000" />
+      <workItem from="1683399060199" duration="2396000" />
+      <workItem from="1683511917310" duration="640000" />
+      <workItem from="1683672524760" duration="732000" />
+      <workItem from="1683731383141" duration="4922000" />
+      <workItem from="1683925995498" duration="4380000" />
+      <workItem from="1684002211433" duration="5065000" />
+      <workItem from="1684116592281" duration="13000" />
+      <workItem from="1684185863888" duration="2045000" />
+      <workItem from="1684528456551" duration="3323000" />
+      <workItem from="1684601639314" duration="2992000" />
+      <workItem from="1684854816785" duration="10000" />
+      <workItem from="1685217964149" duration="23349000" />
+      <workItem from="1685370193424" duration="2081000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/develop" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="develop" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

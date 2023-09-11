@@ -12,6 +12,7 @@ export enum Classification {
   cultural = 'Cultural',
   leisure = 'Ocio',
   other = 'Otro',
+  deportivo = 'Deportivo'
 }
 
 export interface SocialNetworks {

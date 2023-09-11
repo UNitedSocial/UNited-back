@@ -1,0 +1,11 @@
+POST http://localhost:3002/reports
+content-type: application/json
+
+{
+  "report": {
+    "reportType": "feedback", 
+    "reportInfo": {
+      "description": "feedback description"
+    }
+  }
+}

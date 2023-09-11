@@ -1,0 +1,222 @@
+[
+  {
+    "group": {
+      "name": "salv18",
+      "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+      "contact": {
+        "mail": "UNitedGroup1@group.com",
+        "page": "UNitedGroup1Page.com",
+        "cellphone": "3564978256",
+        "socialNetworks": {
+          "facebook": "facebook.com/UNitedGroup1",
+          "instagram": "instagram.com/UNitedGroup1",
+          "linkedin": "linkedin.com/UNitedGroup1",
+          "twitter": "twitter.com/UNitedGroup1",
+          "youtube": "youtube.com/UNitedGroup1",
+          "_id": "64420516a836e0ddf33a56b1"
+        },
+        "_id": "64420516a836e0ddf33a56b0"
+      },
+      "numberOfMembers": 1,
+      "topics": [
+        "futbol",
+        "cocina",
+        "Carreras"
+      ],
+      "clasification": "Otro",
+      "isRecognized": true,
+      "recognizedInfo": {
+        "type": "Semillero",
+        "faculty": "Ingeniería",
+        "department": "departamento de ingeniería eléctrica y electrónica",
+        "mainProfessor": "Augusto Martinez",
+        "_id": "64420516a836e0ddf33a56b2"
+      },
+      "fundationDate": "2010-04-03T00:00:00.000Z",
+      "creationDate": "2018-04-03T00:00:00.000Z",
+      "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg",
+      "_id": "64420516a836e0ddf33a56af"
+    },
+    "topics": [
+      "cocina",
+      "Carreras",
+      "futbol"
+    ],
+    "count": 3
+  },
+  {
+    "group": {
+      "name": "salv12",
+      "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+      "contact": {
+        "mail": "UNitedGroup1@group.com",
+        "page": "UNitedGroup1Page.com",
+        "cellphone": "3564978256",
+        "socialNetworks": {
+          "facebook": "facebook.com/UNitedGroup1",
+          "instagram": "instagram.com/UNitedGroup1",
+          "linkedin": "linkedin.com/UNitedGroup1",
+          "twitter": "twitter.com/UNitedGroup1",
+          "youtube": "youtube.com/UNitedGroup1",
+          "_id": "6441c8a0af1e51064add400b"
+        },
+        "_id": "6441c8a0af1e51064add400a"
+      },
+      "numberOfMembers": 1,
+      "topics": [
+        "cocina",
+        "política",
+        "pensamiento crítico"
+      ],
+      "clasification": "Otro",
+      "isRecognized": true,
+      "recognizedInfo": {
+        "type": "Semillero",
+        "faculty": "Ingeniería",
+        "department": "departamento de ingeniería eléctrica y electrónica",
+        "mainProfessor": "Augusto Martinez",
+        "_id": "6441c8a0af1e51064add400c"
+      },
+      "fundationDate": "2010-04-03T00:00:00.000Z",
+      "creationDate": "2018-04-03T00:00:00.000Z",
+      "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg",
+      "_id": "6441c8a0af1e51064add4009"
+    },
+    "topics": [
+      "cocina",
+      "política"
+    ],
+    "count": 2
+  },
+  {
+    "group": {
+      "name": "salv14",
+      "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+      "contact": {
+        "mail": "UNitedGroup1@group.com",
+        "page": "UNitedGroup1Page.com",
+        "cellphone": "3564978256",
+        "socialNetworks": {
+          "facebook": "facebook.com/UNitedGroup1",
+          "instagram": "instagram.com/UNitedGroup1",
+          "linkedin": "linkedin.com/UNitedGroup1",
+          "twitter": "twitter.com/UNitedGroup1",
+          "youtube": "youtube.com/UNitedGroup1",
+          "_id": "6441c8c1af1e51064add4032"
+        },
+        "_id": "6441c8c1af1e51064add4031"
+      },
+      "numberOfMembers": 1,
+      "topics": [
+        "cocina",
+        "política",
+        "pensamiento crítico",
+        "ciencia"
+      ],
+      "clasification": "Otro",
+      "isRecognized": true,
+      "recognizedInfo": {
+        "type": "Semillero",
+        "faculty": "Ingeniería",
+        "department": "departamento de ingeniería eléctrica y electrónica",
+        "mainProfessor": "Augusto Martinez",
+        "_id": "6441c8c1af1e51064add4033"
+      },
+      "fundationDate": "2010-04-03T00:00:00.000Z",
+      "creationDate": "2018-04-03T00:00:00.000Z",
+      "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg",
+      "_id": "6441c8c1af1e51064add4030"
+    },
+    "topics": [
+      "cocina",
+      "política"
+    ],
+    "count": 2
+  },
+  {
+    "group": {
+      "name": "salv17",
+      "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+      "contact": {
+        "mail": "UNitedGroup1@group.com",
+        "page": "UNitedGroup1Page.com",
+        "cellphone": "3564978256",
+        "socialNetworks": {
+          "facebook": "facebook.com/UNitedGroup1",
+          "instagram": "instagram.com/UNitedGroup1",
+          "linkedin": "linkedin.com/UNitedGroup1",
+          "twitter": "twitter.com/UNitedGroup1",
+          "youtube": "youtube.com/UNitedGroup1",
+          "_id": "644204eca836e0ddf33a567b"
+        },
+        "_id": "644204eca836e0ddf33a567a"
+      },
+      "numberOfMembers": 1,
+      "topics": [
+        "futbol",
+        "cocina",
+        "carreras"
+      ],
+      "clasification": "Otro",
+      "isRecognized": true,
+      "recognizedInfo": {
+        "type": "Semillero",
+        "faculty": "Ingeniería",
+        "department": "departamento de ingeniería eléctrica y electrónica",
+        "mainProfessor": "Augusto Martinez",
+        "_id": "644204eca836e0ddf33a567c"
+      },
+      "fundationDate": "2010-04-03T00:00:00.000Z",
+      "creationDate": "2018-04-03T00:00:00.000Z",
+      "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg",
+      "_id": "644204eca836e0ddf33a5679"
+    },
+    "topics": [
+      "cocina",
+      "futbol"
+    ],
+    "count": 2
+  },
+  {
+    "group": {
+      "name": "salv16",
+      "description": "Ut elit aliqua ut irure cillum irure culpa. Aute elit irure velit sit cupidatat veniam amet qui incididunt dolore consequat cillum Lorem. Cupidatat fugiat occaecat esse fugiat velit consectetur minim veniam aute deserunt cupidatat adipisicing cupidatat.",
+      "contact": {
+        "mail": "UNitedGroup1@group.com",
+        "page": "UNitedGroup1Page.com",
+        "cellphone": "3564978256",
+        "socialNetworks": {
+          "facebook": "facebook.com/UNitedGroup1",
+          "instagram": "instagram.com/UNitedGroup1",
+          "linkedin": "linkedin.com/UNitedGroup1",
+          "twitter": "twitter.com/UNitedGroup1",
+          "youtube": "youtube.com/UNitedGroup1",
+          "_id": "644200c78154f092ace74aa1"
+        },
+        "_id": "644200c78154f092ace74aa0"
+      },
+      "numberOfMembers": 1,
+      "topics": [
+        "drugs",
+        "cocina"
+      ],
+      "clasification": "Otro",
+      "isRecognized": true,
+      "recognizedInfo": {
+        "type": "Semillero",
+        "faculty": "Ingeniería",
+        "department": "departamento de ingeniería eléctrica y electrónica",
+        "mainProfessor": "Augusto Martinez",
+        "_id": "644200c78154f092ace74aa2"
+      },
+      "fundationDate": "2010-04-03T00:00:00.000Z",
+      "creationDate": "2018-04-03T00:00:00.000Z",
+      "referenceImg": "https://www.conexionverde.com/storage/2012/11/grupos-estudiantiles-gpg.jpg",
+      "_id": "644200c78154f092ace74a9f"
+    },
+    "topics": [
+      "cocina"
+    ],
+    "count": 1
+  }
+]

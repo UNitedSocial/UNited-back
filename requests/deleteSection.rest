@@ -1,0 +1,8 @@
+DELETE http://localhost:3002/groups/KartsUN/sections?n=4
+content-type: application/json
+
+{
+  "user":{
+    "username":"jcarrilloa"
+  }
+}

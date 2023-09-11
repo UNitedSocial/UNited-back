@@ -1,2 +1,5 @@
-POST http://localhost:3002/seeGroup/salv14/requests
+POST http://localhost:3002/groups/Grupo de pensamiento filosófico/requests
 content-type: application/json
+
+{
+}

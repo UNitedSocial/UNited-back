@@ -1,0 +1,77 @@
+Index: .idea/UNited-back.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/UNited-back.iml b/.idea/UNited-back.iml
+new file mode 100644
+--- /dev/null	(date 1682647856552)
++++ b/.idea/UNited-back.iml	(date 1682647856552)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/temp" />
++      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
++      <excludeFolder url="file://$MODULE_DIR$/tmp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1682647856541)
++++ b/.idea/vcs.xml	(date 1682647856541)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: requests/quitGroup.rest
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>PUT  http://localhost:3002/users/quitGroup\r\ncontent-type: application/json\r\n\r\n{\r\n  \"name\": \"salv11\",\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/requests/quitGroup.rest b/requests/quitGroup.rest
+--- a/requests/quitGroup.rest	(revision f1c5f5b8b0eba3350d7f8fcdccd28cfe3fd92a9e)
++++ b/requests/quitGroup.rest	(date 1682647870275)
+@@ -2,5 +2,5 @@
+ content-type: application/json
+ 
+ {
+-  "name": "salv11",
++  "name": "salv11"
+ }
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1682647856547)
++++ b/.idea/modules.xml	(date 1682647856547)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/UNited-back.iml" filepath="$PROJECT_DIR$/.idea/UNited-back.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file

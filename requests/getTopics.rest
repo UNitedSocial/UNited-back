@@ -1,0 +1,2 @@
+GET http://localhost:3002/groups/los%20efraines/topics
+content-type: application/json

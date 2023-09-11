@@ -1,0 +1,15 @@
+POST http://localhost:3002/reports
+content-type: application/json
+
+{
+  "report": {
+    "reportType": "reportUser", 
+    "reportInfo": {
+      "user":{
+        "username":"Santigod"
+      },
+      "reason": "reason",
+      "description": "user description"
+    }
+  }
+}

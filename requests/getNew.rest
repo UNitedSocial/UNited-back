@@ -1,2 +1,2 @@
-GET http://localhost:3002/groups/new?ind=0
+GET http://localhost:3002/groups/0/new
 content-type: application/json

@@ -1,7 +1,7 @@
 import GroupModel from '../models/Group.model'
 import { Member } from '../models/group.documents'
 
-class GroupService {
+export class GroupService {
   public async groupExists (groupName: string): Promise<boolean> {
     // check if group exist
     const group = await GroupModel.findOne({ 'info.name': groupName })
@@ -9,7 +9,6 @@ class GroupService {
         console.log(err)
         return false
       })
-    console.log(group)
     if (group != null) {
       return true
     } else {
@@ -24,6 +23,7 @@ class GroupService {
         if (group != null) {
           return group.members
         } else {
+          console.log('Group not found')
           return null
         }
       })

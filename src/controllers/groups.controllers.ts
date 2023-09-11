@@ -1,182 +1,194 @@
-import mongoose, { now } from 'mongoose'
 import { NextFunction, Request, Response } from 'express'
 import { displayOptions } from '../config/defaultOptions.config'
 import GroupModel from '../models/Group.model'
-import UserModel from '../models/User.model'
-import { Group, GroupDocument, GroupInfo, MemberState, Role } from '../models/group.documents'
-import { UserDocument, UserGroup } from '../models/user.documents'
-import relatedService from '../services/related.service'
-import groupsService from '../services/groups.service'
+
+import createGroupService from '../services/createGroup.service'
+import getGroupsService from '../services/getGroups.service'
+import seeGroupService from '../services/seeGroup.service'
+import editGroupService from '../services/editGroup.service'
+import getMembersService from '../services/getMembers.service'
+import getTopicsService from '../services/getTopics.service'
+import changeRoleServices from '../services/changeRole.service'
+import quitGroupService from '../services/quitGroup.service'
+import userStateService from '../services/userState.service'
+import getRelatedService from '../services/getRelated.service'
+import getRelated2Service from '../services/getRelated2.service'
+import getNewService from '../services/getNew.service'
+import getPopularService from '../services/getPopular.service'
+import createSectionService from '../services/createSection.service'
+import deleteSectionService from '../services/deleteSection.service'
+import editSectionService from '../services/editSection.service'
 
 class GroupsController {
-  // Get all groups info
-  public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    // Get params or use default values for groups display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
-    // Get groups
-    await GroupModel.find({}, { _id: 0, __v: 0 }, { skip: offset, limit: n })
-      .then((groups: GroupDocument[]) => {
-        // Check if there are groups to show
-        if (groups.length === 0) {
-          res.status(404).send({ err: 'There are no groups to show' })
-          return
-        }
-        console.log('Groups found successfully')
-        res.status(200).json(groups)
-      })
-      // If error, send error and stop
-      .catch((err): void => {
-        res.status(500).send(err)
-        console.log('Error getting groups', err.message)
-      })
-  }
-
-  // TODO: refactor this function (split in smaller functions)[use services folder]
   // Create new group
   public async createGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
     const { group, user } = req.body
-    const username = user?.nickname
-    // Get only the info field
-    const info: GroupInfo = group.info
+    // Call service
+    const response = await createGroupService.createGroup(group, user.username)
+    console.log(response.message)
+    res.status(response.status).send({ message: response.message, answer: response.answer })
+  }
 
-    // Check if group name is already taken
-    const exist = await groupsService.groupExists(info.name)
-    if (exist) {
-      res.status(400).send({ err: 'Group name already taken' })
-      return
-    }
-    // get user by username
-    const userModel = await UserModel.findOne({ username }) as UserDocument
-    // create user info to save on group
-    info.numberOfMembers = 1
-    info.numberOfPublications = 0
-    const members = [
-      {
-        userId: new mongoose.Types.ObjectId(userModel?._id),
-        username: userModel?.username,
-        name: userModel?.name,
-        role: 'editor' as Role,
-        state: 'active' as MemberState
-      }
-    ]
-    // create group object
-    const groupInfo: Group = {
-      info,
-      members,
-      requests: [],
-      page: []
-    }
-    // save group
-    const newGroup: GroupDocument = new GroupModel(groupInfo)
-    await newGroup.save()
-    // save group info on user
-      .then((savedGrop: GroupDocument): void => {
-        // create user group info with saved group info
-        const grupParams: UserGroup = {
-          groupId: new mongoose.Types.ObjectId(savedGrop?._id),
-          groupName: savedGrop.info.name,
-          role: 'member' as Role,
-          date: new Date(now())
-        }
-        // add to user groups
-        userModel.groups?.push(grupParams)
-        // save user
-        userModel.save().catch((err): void => {
-          console.log('Error saving user', err.message)
-        })
-        res.status(201).send({ message: 'Group created succesfully' })
-        console.log('Group "' + savedGrop.info.name + '" saved and user "' + userModel.username + '" updated')
-      })
-      // if error, send error and stop
-      .catch((err): void => {
-        res.status(500).json({ err })
-        console.log('Error saving group', err.message)
-      })
+  // Get all groups
+  public async getGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.o !== undefined) ? Number(req.query.o) : displayOptions.index.offset
+    // Get only the info field
+    const response = await getGroupsService.getGroups(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
   // Get info of an specific group
-  public async groupInfo (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async seeGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname
     const groupname = req.params.groupname
-    await GroupModel.find({ 'info.name': groupname }, 'info page', { __v: 0 })
-      .then((group: GroupDocument[]) => {
-        if (group.length === 0) {
-          res.status(404).send({ err: 'Group not found' })
-          return
-        }
-        res.status(200)
-        res.send(group)
-      })
-      .catch((err): void => {
-        res.status(500).send({ err })
-        console.log('Error finding group', err.message)
-      })
+    // Call service
+    const response = await seeGroupService.seeGroup(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Edit info of an specific group
+  public async editGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname and group data
+    const groupname = req.params.groupname
+    const group = req.body.group
+    // Call service
+    const response = await editGroupService.editGroup(groupname, group)
+    console.log(response.message)
+    res.status(response.status).send({ answer: response.answer, message: response.message })
   }
 
   // Get members of an specific group
-  public async members (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async getMembers (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname
     const groupname = req.params.groupname
-    await GroupModel.find({ 'info.name': groupname }, 'members', { _id: 0 })
-      .then((group: GroupDocument[]) => {
-        if (group.length === 0) {
-          res.status(404).send({ err: 'Group not found' })
-          return
-        }
-        res.status(200)
-        res.send(group)
-      })
-      .catch((err): void => {
-        res.status(500).send({ err })
-        console.log('Error finding group', err.message)
-      })
+    // Call service
+    const response = await getMembersService.getMembers(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
-  // Function for getting new groups
-  public async new (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const ind = req.query.ind
-
-    if (typeof ind === 'string') {
-      const ind2: number = parseInt(ind)
-      await GroupModel.find().sort([['info.creationDate', -1]]).limit(ind2)
-        .then((group: GroupDocument[]) => {
-          if (group.length === 0) {
-            res.status(404).send({ err: 'Group not found' })
-            return
-          }
-          res.status(200)
-          res.send(group)
-        })
-        .catch((err): void => {
-          res.status(500).send({ err })
-          console.log('Error finding group', err.message)
-        })
-    } else {
-      res.status(400).send({ err: 'Invalid ind parameter' })
-    }
+  // Get topics members of an specific group
+  public async getTopics (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get groupname
+    const groupname = req.params.groupname
+    // Call service
+    const response = await getTopicsService.getTopics(groupname)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
-  // Function for getting most popular groups
-  public async popular (_req: Request, res: Response, _next: NextFunction): Promise<void> {
-    await GroupModel.find().sort([['info.numberOfMembers', -1]]).limit(5)
-      .then((group: GroupDocument[]) => {
-        if (group.length === 0) {
-          res.status(404).send({ err: 'Group not found' })
-          return
-        }
-        res.status(200)
-        res.send(group)
-      })
-      .catch((err): void => {
-        res.status(500).send({ err })
-        console.log('Error finding group', err.message)
-      })
+  // Change role of a user in a group
+  public async changeRole (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const { username, role } = req.body
+    // Call service
+    const response = await changeRoleServices.changeRole(groupname, username, role)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Quit a group
+  public async quitGroup (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username
+    const groupname = req.params.groupname
+    const { user } = req.body
+    // Call service
+    const response = await quitGroupService.quitGroup(groupname, user.username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get user state in group
+  public async userState (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get username and groupname
+    const groupname = req.params.groupname
+    const username = req.params.username
+    // Call service
+    const response = await userStateService.userState(groupname, username)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get most recent created groups
+  public async getNew (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.params.page !== undefined) ? Number(req.params.page) : displayOptions.index.offset
+    // Call service
+    const response = await getNewService.getNew(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Get most popular groups
+  public async getPopular (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.params.page !== undefined) ? Number(req.params.page) : displayOptions.index.offset
+    // Call service
+    const response = await getPopularService.getPopular(index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Create a section
+  public async createSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const section = req.body.section
+    // Call service
+    const response = await createSectionService.createSection(groupname, section)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Delete a section
+  public async deleteSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const position = (req.query.n !== undefined) ? Number(req.query.n) : 0
+    // Call service
+    const response = await deleteSectionService.deleteSection(groupname, position)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Edit a section
+  public async editSection (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get group and user data
+    const groupname = req.params.groupname
+    const position = Number(req.body.position)
+    const section = req.body.section
+    // Call service
+    const response = await editSectionService.editSection(groupname, position, section)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
+  }
+
+  // Pending to Refactor
+  // Get related groups to a group
+  public async getRelated2 (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
+    const index = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.params.page !== undefined) ? Number(req.params.page) : displayOptions.index.offset
+    const groupname = req.params.groupname
+    // Call service
+    const response = await getRelated2Service.getRelated(groupname, index, offset)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 
   // Function for getting related groups
-  public async related (req: Request, res: Response, _next: NextFunction): Promise<void> {
+  public async getRelated (req: Request, res: Response, _next: NextFunction): Promise<void> {
     // Get params or use default values for groups display
-    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.related.n
-    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.related.offset
+    const n = (req.query.n !== undefined) ? Number(req.query.n) : displayOptions.index.n
+    const offset = (req.query.a !== undefined) ? Number(req.query.a) : displayOptions.index.offset
     const groupname = req.params.groupname
     // Get group topics
     const group = await GroupModel.findOne({ 'info.name': groupname }, 'info.topics', { _id: 0, __v: 0 })
@@ -187,7 +199,7 @@ class GroupsController {
     }
 
     // Get related groups
-    const related = await relatedService.getBestRelatedGroups(topics, groupname, n, offset).catch((err): void => {
+    const related = await getRelatedService.getRelated(topics, groupname, n, offset).catch((err): void => {
       console.log('Error getting related groups', err.message)
       res.status(500).send({ err })
     })

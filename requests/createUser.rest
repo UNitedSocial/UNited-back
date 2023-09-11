@@ -1,2 +1,10 @@
-POST http://localhost:3002/users/createUser
+POST http://localhost:3002/users/
 content-type: application/json
+
+{
+  "user":{
+    "username":"El carlitos",
+    "name": "Paula Velosa",
+    "email": "paula02@gmail.com"
+  }
+}

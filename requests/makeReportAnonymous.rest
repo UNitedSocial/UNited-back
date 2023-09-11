@@ -1,0 +1,52 @@
+POST http://localhost:3002/reports/anonymous 
+content-type: application/json
+
+{
+  "report":{
+    "reportType": "feedback", 
+    "reportInfo": {
+      "description": "pass"
+    }, 
+    "userType": "registered"
+  }
+}
+
+
+/*
+REPORT TYPES:
+
+--- report reasons:
+
+'spam',
+'unauthorizedSales',
+'violence',
+'hateSpeech',
+'falseInformation',
+'harassment',
+'identityTheft',
+'nudity'
+
+--- reportUser
+
+"reportInfo": {
+  user: {
+    username: string
+  }
+  reason: ReportReasons
+  description: string
+}
+
+--- reportGroup
+"reportInfo": {
+  group: {
+    groupName: string
+  }
+  reason: ReportReasons
+  description: string
+}
+
+--- feedback
+"reportInfo": {
+  description: string
+}
+*/

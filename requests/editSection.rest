@@ -1,0 +1,11 @@
+PUT http://localhost:3002/groups/Grupo de ajedrez Italiano/sections
+content-type: application/json
+
+{
+  "position": 1,
+  "section":{
+    "content":{
+      "title": "Edited Title"
+    }
+  }
+}

@@ -1,83 +1,20 @@
 import { NextFunction, Request, Response } from 'express'
-import GroupModel from '../models/Group.model'
-import { GroupDocument } from '../models/group.documents'
+import { displayOptions } from '../config/defaultOptions.config'
+import searchGroupsService from '../services/searchGroups.service'
 
 class SearchController {
-  // Get groups info based in a query
-  public async getQuery (req: Request, res: Response, _next: NextFunction): Promise<void> {
-    let valor = req.body.valor
-
+  // Search groups
+  public async searchGroups (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    // Get params or use default values for groups display
     const query = req.params.query
-    const reg = new RegExp('^' + query + '', 'i') // Convert Query to RegExp
-
-    // Order groups
-    let order = req.body.ord
-    switch (order) {
-      case 'date':
-        order = 'info.creationDate'
-        break
-      case 'members':
-        order = 'info.numberOfMembers'
-        break
-      case 'publications':
-        order = 'info.numberOfPublications'
-        break
-      default:
-        order = 'info.name'
-        break
-    }
-
-    let dec = req.body.dec
-    switch (dec) {
-      case 'topics':
-        dec = 'info.topics'
-        break
-      case 'classification':
-        dec = 'info.clasification'
-        break
-      case 'members':
-        dec = 'info.numberOfMembers'
-        break
-      case 'date':
-        dec = 'info.creationDate'
-        break
-      case 'recognized':
-        dec = 'info.isRecognized'
-        break
-      default:
-        dec = 'info.name'
-        valor = { $exists: true }
-        break
-    } // Get Groups
-    if (dec === 'info.numberOfMembers') {
-      await GroupModel.find({ $and: [{ 'info.name': { $regex: reg } }, { [dec]: { $eq: valor } }] }, { _id: 0, __v: 0 }).sort([[order, 1]])
-        .then((group: GroupDocument[]) => {
-          if (group.length === 0) {
-            res.status(404).send({ err: 'Group not found' })
-            return
-          }
-          res.status(200)
-          res.send(group)
-        })
-        .catch((err): void => {
-          res.status(500).send({ err })
-          console.log('Error finding group', err.message)
-        })
-    } else {
-      await GroupModel.find({ $and: [{ 'info.name': { $regex: reg } }, { [dec]: valor }] }, { _id: 0, __v: 0 }).sort([[order, 1]])
-        .then((group: GroupDocument[]) => {
-          if (group.length === 0) {
-            res.status(404).send({ err: 'Group not found' })
-            return
-          }
-          res.status(200)
-          res.send(group)
-        })
-        .catch((err): void => {
-          res.status(500).send({ err })
-          console.log('Error finding group', err.message)
-        })
-    }
+    const order = (req.query.ord !== undefined) ? req.query.ord as string : displayOptions.search.ord
+    const descending = (req.query.des !== undefined) ? req.query.des as string : displayOptions.search.des
+    const filter = (req.query.fil !== undefined) ? req.query.fil as string : displayOptions.search.fil
+    const value = (req.query.val !== undefined) ? req.query.val as string : displayOptions.search.val
+    // Call service
+    const response = await searchGroupsService.searchGroups(query, order, descending, filter, value)
+    console.log(response.message)
+    res.status(response.status).send(response.answer)
   }
 }
 

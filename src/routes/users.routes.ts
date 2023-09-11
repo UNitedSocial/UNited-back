@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Router } from 'express'
+import auth0Middlewares from '../middlewares/auth0.middlewares'
 import testControllers from '../controllers/test.controllers'
-import auth0Controllers from '../controllers/auth0.controllers'
 import usersControllers from '../controllers/users.controllers'
+import reportsControllers from '../controllers/reports.controllers'
 const router = express.Router()
 
 // Users routes
-router.get('/', usersControllers.getUsers)// Route to get info of all users
-router.get('/seeUser/:username', usersControllers.userInfo) // Route for get info of a user
-router.post('/createUser', auth0Controllers.getUserData, usersControllers.createUser) // Rout for create a user
-
-router.put('/quitGroup', auth0Controllers.getUserData, usersControllers.quitGroup) // Route for quit a group
-router.get('/userStateGroup', usersControllers.userStateGroup) // Rout for get state of a user in a group
+router.post('/', auth0Middlewares.getUserData, usersControllers.createUser) // Route for create an user
+router.get('/', usersControllers.getUsers) // Route to get info of all users
+router.get('/:username', usersControllers.seeUser) // Route to get info of an specific user
+router.delete('/:username', usersControllers.deleteUser) // Route to get info of an specific user
+router.get('/:username/reports', reportsControllers.seeReports) // Route to get reports of an specicific user
 
 // Test route
 router.get('/test/doomie', testControllers.doomie)

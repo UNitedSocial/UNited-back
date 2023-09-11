@@ -1,0 +1,2 @@
+DELETE  http://localhost:3002/groups/Ajedrez
+content-type: application/json

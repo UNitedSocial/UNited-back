@@ -1,7 +1,7 @@
-PUT http://localhost:3002/seeGroup/salv14/requests
+PUT http://localhost:3002/groups/Grupo de pensamiento filosófico/requests
 content-type: application/json
 
 {
-  "username":"carrilloacerojuanpablo",
-  "answer": "approve"
+  "username":"Designer00",
+  "answer": "approved"
 }

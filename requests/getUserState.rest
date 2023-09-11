@@ -1,0 +1,2 @@
+GET http://localhost:3002/groups/los efraines/username
+content-type: application/json

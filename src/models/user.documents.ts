@@ -16,12 +16,15 @@ export interface RequestUser {
   approvedRejectedOn?: Date
 }
 
-export interface User {
+export interface basicUser {
   name: string
   username: string
   email: string
   groups: UserGroup[]
   requests: RequestUser[]
+}
+export interface User extends basicUser {
+  isMaster?: boolean
 }
 
 export interface UserDocument extends mongoose.Document, User {}
